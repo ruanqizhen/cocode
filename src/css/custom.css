@@ -1,0 +1,222 @@
+/**
+ * Docusaurus Custom Premium Styling for 《人机同频：与 AI 并肩的编程修行路》
+ * Designed with a cyber-minimalist geek theme, vibrant gradient elements, and glassmorphic headers.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  /* Colors - Cyber Tech Theme */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Outfit', 'Inter', sans-serif;
+  --ifm-font-family-monospace: 'Fira Code', 'JetBrains Mono', monospace;
+
+  /* Premium Light Mode Colors */
+  --ifm-color-primary: #5b21b6; /* Royal Indigo */
+  --ifm-color-primary-dark: #4c1d95;
+  --ifm-color-primary-darker: #431407;
+  --ifm-color-primary-darkest: #1e1b4b;
+  --ifm-color-primary-light: #7c3aed;
+  --ifm-color-primary-lighter: #8b5cf6;
+  --ifm-color-primary-lightest: #a78bfa;
+
+  /* Base styling */
+  --ifm-background-color: #f8fafc;
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.75);
+  --ifm-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  --ifm-card-background-color: #ffffff;
+  --ifm-code-font-size: 90%;
+  --ifm-heading-color: #0f172a;
+  --ifm-text-color: #334155;
+
+  --cyber-glow-cyan: #06b6d4;
+  --cyber-glow-purple: #8b5cf6;
+  --border-radius-premium: 12px;
+}
+
+/* Premium Cyber-Dark Mode */
+html[data-theme='dark'] {
+  --ifm-color-primary: #06b6d4; /* Cyber Cyan */
+  --ifm-color-primary-dark: #0891b2;
+  --ifm-color-primary-darker: #0e7490;
+  --ifm-color-primary-darkest: #155e75;
+  --ifm-color-primary-light: #22d3ee;
+  --ifm-color-primary-lighter: #67e8f9;
+  --ifm-color-primary-lightest: #cffafe;
+
+  --ifm-background-color: #090d16; /* Pure Cyber Space Dark */
+  --ifm-navbar-background-color: rgba(9, 13, 22, 0.8);
+  --ifm-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --ifm-card-background-color: #111827;
+  --ifm-heading-color: #f8fafc;
+  --ifm-text-color: #cbd5e1;
+
+  --cyber-glow-cyan: #06b6d4;
+  --cyber-glow-purple: #a78bfa;
+}
+
+/* Glassmorphism Header */
+.navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[data-theme='light'] .navbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.navbar__brand {
+  font-weight: 800;
+  font-family: var(--ifm-heading-font-family);
+  background: linear-gradient(135deg, var(--cyber-glow-purple), var(--cyber-glow-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sidebar Styling - Premium Touch */
+.theme-doc-sidebar-menu {
+  padding: 1.5rem 1rem !important;
+}
+
+.menu__link {
+  font-weight: 500;
+  border-radius: var(--border-radius-premium) !important;
+  transition: all 0.25s ease;
+  padding: 0.5rem 0.8rem !important;
+  margin-bottom: 0.15rem;
+}
+
+.menu__link:hover {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+  transform: translateX(3px);
+}
+
+.menu__link--active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15)) !important;
+  border-left: 3px solid var(--cyber-glow-cyan) !important;
+  color: var(--ifm-color-primary) !important;
+  font-weight: 600;
+}
+
+/* Typography, Headings, and Titles */
+.markdown > h1,
+.main-wrapper h1 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 800;
+  font-size: 2.5rem;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(to right, var(--ifm-heading-color) 60%, var(--cyber-glow-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-theme='dark'] .markdown > h1 {
+  background: linear-gradient(to right, #ffffff, var(--cyber-glow-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.markdown > h2 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 1.65rem;
+  border-bottom: none;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.markdown > h2::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 22px;
+  background: linear-gradient(to bottom, var(--cyber-glow-purple), var(--cyber-glow-cyan));
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.markdown > h3 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* Quote/Reflection Blocks */
+.markdown blockquote {
+  border-left: 4px solid var(--cyber-glow-purple);
+  background-color: rgba(139, 92, 246, 0.04);
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 var(--border-radius-premium) var(--border-radius-premium) 0;
+  font-style: italic;
+  color: var(--ifm-text-color);
+  margin: 1.5rem 0;
+  line-height: 1.7;
+}
+
+html[data-theme='dark'] .markdown blockquote {
+  background-color: rgba(167, 139, 250, 0.05);
+}
+
+/* Enhanced Codeblocks and Syntax highlighting */
+pre {
+  border-radius: var(--border-radius-premium) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  padding: 1.25rem !important;
+}
+
+code {
+  font-family: var(--ifm-font-family-monospace) !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.4);
+}
+
+/* Transitions */
+a {
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Admonitions styling */
+.admonition {
+  border-radius: var(--border-radius-premium) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  border-left-width: 6px !important;
+}
+
+.admonition-info {
+  border-left-color: var(--cyber-glow-cyan) !important;
+  background-color: rgba(6, 182, 212, 0.05) !important;
+}
+
+.admonition-tip {
+  border-left-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.05) !important;
+}
+
+.admonition-warning {
+  border-left-color: #f59e0b !important;
+  background-color: rgba(245, 158, 11, 0.05) !important;
+}
