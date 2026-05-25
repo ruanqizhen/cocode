@@ -5,8 +5,6 @@ import { useColorMode } from '@docusaurus/theme-common';
 
 export default function DocPaginatorWrapper(props) {
 	const { colorMode } = useColorMode();
-
-		repo='ruanqizhen/cocode'
 	return (
 		<>
 			<DocPaginator {...props} />
