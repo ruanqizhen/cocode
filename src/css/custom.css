@@ -112,8 +112,8 @@ html[data-theme='light'] .navbar {
 .main-wrapper h1 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 800;
-  font-size: 2.5rem;
-  margin-bottom: 1.8rem;
+  font-size: 2.1rem;
+  margin-bottom: 1.6rem;
   letter-spacing: -0.025em;
   background: linear-gradient(to right, var(--ifm-heading-color) 60%, var(--cyber-glow-cyan));
   -webkit-background-clip: text;
@@ -129,10 +129,10 @@ html[data-theme='dark'] .markdown>h1 {
 .markdown>h2 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 700;
-  font-size: 1.65rem;
+  font-size: 1.45rem;
   border-bottom: none;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.9rem;
   display: flex;
   align-items: center;
 }
@@ -141,7 +141,7 @@ html[data-theme='dark'] .markdown>h1 {
   content: '';
   display: inline-block;
   width: 5px;
-  height: 22px;
+  height: 19px;
   background: linear-gradient(to bottom, var(--cyber-glow-purple), var(--cyber-glow-cyan));
   margin-right: 10px;
   border-radius: 4px;
@@ -150,8 +150,15 @@ html[data-theme='dark'] .markdown>h1 {
 .markdown>h3 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 600;
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
+  font-size: 1.18rem;
+  margin-top: 1.4rem;
+}
+
+.markdown>h4 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-top: 1.2rem;
 }
 
 /* Quote/Reflection Blocks */
