@@ -75,6 +75,10 @@ html[data-theme='light'] .navbar {
   -webkit-text-fill-color: transparent;
 }
 
+.navbar__title {
+  font-size: 1.8rem;
+}
+
 /* Sidebar Styling - Premium Touch */
 .theme-doc-sidebar-menu {
   padding: 1.5rem 1rem !important;
