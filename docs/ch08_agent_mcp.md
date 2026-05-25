@@ -1,8 +1,8 @@
 ---
-title: 第八章 Agent Skills 与扩展协议（MCP）
+title: Agent Skills 与扩展协议（MCP）
 ---
 
-# 第八章 Agent Skills 与扩展协议（MCP）
+# Agent Skills 与扩展协议（MCP）
 
 > **“当 Agent 掌握了主动操控工具和打破沙盒连接现实的能力，它就不再只是个助手，而是一个真正的赛博数智人。”**
 

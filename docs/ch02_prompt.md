@@ -1,8 +1,8 @@
 ---
-title: 第二章 提示词工程的工程化落地
+title: 提示词工程（Prompt Engineering）的工程化落地
 ---
 
-# 第二章 提示词工程（Prompt Engineering）的工程化落地
+# 提示词工程（Prompt Engineering）的工程化落地
 
 > **“垃圾输入，垃圾输出（Garbage in, Garbage out）。好的提示词是把你的工程理性，翻译成 AI 能够精确执行的电信号。”**
 

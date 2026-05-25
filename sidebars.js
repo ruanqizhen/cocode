@@ -10,7 +10,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🧭 第一篇 筑基篇：重塑认知与挑选“赛博配剑”',
+      label: '🧭 筑基篇：重塑认知与挑选“赛博配剑”',
       collapsed: false,
       items: [
         'ch01_mindset',
@@ -20,7 +20,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🛠️ 第二篇 方法篇：人机同频的黄金工作流',
+      label: '🛠️ 方法篇：人机同频的黄金工作流',
       collapsed: false,
       items: [
         'ch04_planning',
@@ -30,7 +30,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🚀 第三篇 进阶篇：项目级配置与 Agent 自动化',
+      label: '🚀 进阶篇：项目级配置与 Agent 自动化',
       collapsed: false,
       items: [
         'ch07_instructions',
@@ -39,7 +39,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🏗️ 第四篇 实战篇：软件全生命周期的智能化演进',
+      label: '🏗️ 实战篇：软件全生命周期的智能化演进',
       collapsed: false,
       items: [
         'ch09_refactoring',
@@ -49,7 +49,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '☯️ 第五篇 心智篇：匠人精神的坚守与自我成长',
+      label: '☯️ 心智篇：匠人精神的坚守与自我成长',
       collapsed: false,
       items: [
         'ch12_critical_thinking',

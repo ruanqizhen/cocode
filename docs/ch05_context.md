@@ -1,8 +1,8 @@
 ---
-title: 第五章 上下文工程（Context Engineering）：喂饱你的 AI
+title: 上下文工程（Context Engineering）：喂饱你的 AI
 ---
 
-# 第五章 上下文工程（Context Engineering）：喂饱你的 AI
+# 上下文工程（Context Engineering）：喂饱你的 AI
 
 > **“大模型没有记忆，你提供给它的上下文，就是它灵魂的全部容器。”**
 
