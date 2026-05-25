@@ -7,7 +7,7 @@ import katex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '与 AI 并肩修行',
+  title: '重构程序员',
   tagline: '在沸腾的算力中，守住编码的初心。从大模型心法、提示词工程到 Agent 自动化与项目级重构的硬核人机协作指南。',
   url: 'https://cocode.qizhen.xyz',
   baseUrl: '/',
@@ -65,9 +65,9 @@ const config = {
       },
       navbar: {
         hideOnScroll: true,
-        title: '与 AI 并肩修行',
+        title: '重构程序员',
         logo: {
-          alt: '与 AI 并肩修行',
+          alt: '重构程序员',
           src: 'img/logo.png',
           href: '/'
         },
@@ -79,10 +79,10 @@ const config = {
       zoomSelector: '.markdown img',
       metadata: [
         { name: 'keywords', content: '人机同频, AI 编程, Cursor, Windsurf, Claude Code, Aider, Copilot, 提示词工程, 上下文工程, Agent 自动化, MCP 协议, 软件重构, 编程修行' },
-        { name: 'description', content: '《人机同频：与 AI 并肩的编程修行路》是一本关于大模型时代下“人机协同”编程的硬核修行指南。涵盖提示词工程、上下文管理、Agent 自动化及软件生命周期智能化升级等。' },
+        { name: 'description', content: '《重构程序员》是一本关于大模型时代下“人机协同”编程的硬核修行指南。涵盖提示词工程、上下文管理、Agent 自动化及软件生命周期智能化升级等。' },
         { name: 'author', content: 'Qizhen Ruan 阮奇桢' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'og:title', content: '人机同频：与 AI 并肩的编程修行路 - 你的 AI 时代编程修行宝典' },
+        { name: 'og:title', content: '《重构程序员》 - 你的 AI 时代编程修行宝典' },
         { name: 'og:description', content: '大模型时代下的硬核编程修行指南，教你如何用严谨的领域建模与优雅的架构设计框定 AI，真正实现“人机同频”的工程共振。' },
       ],
     }

@@ -1,5 +1,5 @@
 /**
- * Docusaurus Custom Premium Styling for 《人机同频：与 AI 并肩的编程修行路》
+ * Docusaurus Custom Premium Styling for 《重构程序员》
  * Designed with a cyber-minimalist geek theme, vibrant gradient elements, and glassmorphic headers.
  */
 
@@ -12,7 +12,8 @@
   --ifm-font-family-monospace: 'Fira Code', 'JetBrains Mono', monospace;
 
   /* Premium Light Mode Colors */
-  --ifm-color-primary: #5b21b6; /* Royal Indigo */
+  --ifm-color-primary: #5b21b6;
+  /* Royal Indigo */
   --ifm-color-primary-dark: #4c1d95;
   --ifm-color-primary-darker: #431407;
   --ifm-color-primary-darkest: #1e1b4b;
@@ -36,7 +37,8 @@
 
 /* Premium Cyber-Dark Mode */
 html[data-theme='dark'] {
-  --ifm-color-primary: #06b6d4; /* Cyber Cyan */
+  --ifm-color-primary: #06b6d4;
+  /* Cyber Cyan */
   --ifm-color-primary-dark: #0891b2;
   --ifm-color-primary-darker: #0e7490;
   --ifm-color-primary-darkest: #155e75;
@@ -44,7 +46,8 @@ html[data-theme='dark'] {
   --ifm-color-primary-lighter: #67e8f9;
   --ifm-color-primary-lightest: #cffafe;
 
-  --ifm-background-color: #090d16; /* Pure Cyber Space Dark */
+  --ifm-background-color: #090d16;
+  /* Pure Cyber Space Dark */
   --ifm-navbar-background-color: rgba(9, 13, 22, 0.8);
   --ifm-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   --ifm-card-background-color: #111827;
@@ -105,7 +108,7 @@ html[data-theme='light'] .navbar {
 }
 
 /* Typography, Headings, and Titles */
-.markdown > h1,
+.markdown>h1,
 .main-wrapper h1 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 800;
@@ -117,13 +120,13 @@ html[data-theme='light'] .navbar {
   -webkit-text-fill-color: transparent;
 }
 
-html[data-theme='dark'] .markdown > h1 {
+html[data-theme='dark'] .markdown>h1 {
   background: linear-gradient(to right, #ffffff, var(--cyber-glow-cyan));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.markdown > h2 {
+.markdown>h2 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 700;
   font-size: 1.65rem;
@@ -134,7 +137,7 @@ html[data-theme='dark'] .markdown > h1 {
   align-items: center;
 }
 
-.markdown > h2::before {
+.markdown>h2::before {
   content: '';
   display: inline-block;
   width: 5px;
@@ -144,7 +147,7 @@ html[data-theme='dark'] .markdown > h1 {
   border-radius: 4px;
 }
 
-.markdown > h3 {
+.markdown>h3 {
   font-family: var(--ifm-heading-font-family);
   font-weight: 600;
   font-size: 1.25rem;

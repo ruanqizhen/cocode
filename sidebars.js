@@ -10,19 +10,12 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🧭 筑基篇：重塑认知与挑选“赛博配剑”',
+      label: 'AI 编程基础',
       collapsed: false,
       items: [
         'mindset',
         'prompt',
         'tools',
-      ],
-    },
-    {
-      type: 'category',
-      label: '🛠️ 方法篇：人机同频的黄金工作流',
-      collapsed: false,
-      items: [
         'planning',
         'context',
         'iteration',
@@ -30,28 +23,14 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🚀 进阶篇：项目级配置与 Agent 自动化',
+      label: '项目级配置与 Agent 自动化',
       collapsed: false,
       items: [
         'instructions',
         'agent_mcp',
-      ],
-    },
-    {
-      type: 'category',
-      label: '🏗️ 实战篇：软件全生命周期的智能化演进',
-      collapsed: false,
-      items: [
         'refactoring',
         'debugging',
         'quality_docs',
-      ],
-    },
-    {
-      type: 'category',
-      label: '☯️ 心智篇：匠人精神的坚守与自我成长',
-      collapsed: false,
-      items: [
         'critical_thinking',
         'growth',
       ],
