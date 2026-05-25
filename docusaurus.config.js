@@ -7,7 +7,7 @@ import katex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '人机同频：与 AI 并肩的编程修行路',
+  title: '与 AI 并肩修行',
   tagline: '在沸腾的算力中，守住编码的初心。从大模型心法、提示词工程到 Agent 自动化与项目级重构的硬核人机协作指南。',
   url: 'https://cocode.qizhen.xyz',
   baseUrl: '/',
@@ -65,9 +65,9 @@ const config = {
       },
       navbar: {
         hideOnScroll: true,
-        title: '人机同频：与 AI 并肩的编程修行路',
+        title: '与 AI 并肩修行',
         logo: {
-          alt: '人机同频',
+          alt: '与 AI 并肩修行',
           src: 'img/logo.png',
           href: '/'
         },
