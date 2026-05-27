@@ -8,7 +8,7 @@ title: Agent Skills 与扩展协议（MCP）
 
 ---
 
-## 8.1 自定义技能树：利用 SKILL.md 创建可复用的自动化工作流
+## 自定义技能树：利用 SKILL.md 创建可复用的自动化工作流
 
 在长期开发一个复杂项目时，你会发现有些重复的动作大模型总是需要你教一遍才能做对。例如：“清理 Docker 缓存 -> 重置 Supabase 本地数据库 -> 生成最新 Prisma 客户端 -> 运行种子（Seed）数据填充”。
 
@@ -36,7 +36,7 @@ title: Agent Skills 与扩展协议（MCP）
 
 ---
 
-## 8.2 钩子机制（Hooks）：在 Agent 动作前后的自动脚本注入
+## 钩子机制（Hooks）：在 Agent 动作前后的自动脚本注入
 
 真正的工程管理离不开自动化的流程拦截与卡点。通过配置 Agent 钩子（Hooks），我们可以在 Agent 开始干活前和干完活后自动执行脚本，进行安全扫描与质量保护。
 
@@ -50,7 +50,7 @@ title: Agent Skills 与扩展协议（MCP）
 
 ---
 
-## 8.3 破墙而出的 MCP（Model Context Protocol）：统一大模型与外部数据工具的连接枢纽
+## 破墙而出的 MCP（Model Context Protocol）：统一大模型与外部数据工具的连接枢纽
 
 2024 年底，Anthropic 提出了划时代的 **Model Context Protocol（模型上下文协议，简称 MCP）**。这成为了大模型时代的 USB 协议。
 
