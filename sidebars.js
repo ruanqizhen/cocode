@@ -11,6 +11,7 @@ const sidebars = {
     'background',
     'nocode',
     'nocode_iteration',
+    'github_pages',
     'mindset',
     'prompt',
     'tools',
