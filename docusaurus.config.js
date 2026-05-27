@@ -19,6 +19,10 @@ const config = {
     defaultLocale: 'zh-cn',
     locales: ['zh-cn'],
   },
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   presets: [
     [
       'classic',

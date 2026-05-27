@@ -9,6 +9,7 @@ const sidebars = {
       id: 'README',
     },
     'background',
+    'nocode',
     'mindset',
     'prompt',
     'tools',
