@@ -10,6 +10,7 @@ const sidebars = {
     },
     'background',
     'nocode',
+    'nocode_iteration',
     'mindset',
     'prompt',
     'tools',
