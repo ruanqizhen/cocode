@@ -17,6 +17,7 @@ const sidebars = {
     'tools',
     'planning',
     'context',
+    'make_ebook',
     'iteration',
     'instructions',
     'agent_mcp',
