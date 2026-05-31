@@ -102,11 +102,10 @@ curl https://api.openai.com/v1/chat/completions \
     ]
   }'
 ```
-
 ---
 
-### 2. Anthropic Claude (Claude 3.5 Sonnet)
-Claude 3.5 Sonnet 是当前全世界公认**编程智商最高、代码重构能力最强**的模型。它的 API 格式与 OpenAI 略有不同，系统提示词（System Prompt）是作为顶层参数传入，而非放进 `messages` 数组中。
+### 2. Anthropic Claude (Claude 3.5 / 3.7 Sonnet)
+Claude 3.5 Sonnet 以及最新的 Claude 3.7 Sonnet 被广泛认为是当前在**编程逻辑推理、复杂系统重构与测试生成**方面处于全球顶尖水平的旗舰模型。其 API 格式与 OpenAI 略有不同，系统提示词（System Prompt）是作为顶层的独立参数传入，而非放进 `messages` 数组中。
 
 #### 🐍 Python 示例
 安装 SDK：`pip install anthropic`
@@ -117,8 +116,8 @@ from anthropic import Anthropic
 client = Anthropic() # 默认读取 ANTHROPIC_API_KEY
 
 message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
-    max_tokens=1024,
+    model="claude-3-5-sonnet-latest", # 或使用最新的 "claude-3-7-sonnet-latest"
+    max_tokens=2048,
     temperature=0.0,
     system="你是一位严苛的软件安全审计专家。",
     messages=[
@@ -137,8 +136,8 @@ import Anthropic from '@anthropic-ai/sdk';
 const anthropic = new Anthropic();
 
 const message = await anthropic.messages.create({
-  model: 'claude-3-5-sonnet-20241022',
-  max_tokens: 1024,
+  model: 'claude-3-5-sonnet-latest',
+  max_tokens: 2048,
   temperature: 0.0,
   system: '你是一位严苛的软件安全审计专家。',
   messages: [
@@ -156,8 +155,8 @@ curl https://api.anthropic.com/v1/messages \
      --header "anthropic-version: 2023-06-01" \
      --header "content-type: application/json" \
      --data '{
-         "model": "claude-3-5-sonnet-20241022",
-         "max_tokens": 1024,
+         "model": "claude-3-5-sonnet-latest",
+         "max_tokens": 2048,
          "temperature": 0.0,
          "system": "你是一位严苛的软件安全审计专家。",
          "messages": [
@@ -168,11 +167,8 @@ curl https://api.anthropic.com/v1/messages \
 
 ---
 
-### 3. Google Gemini (Gemini 2.0 / 1.5)
-Gemini 最大的杀手锏是**百万级别（1M - 2M）的超长上下文窗口**以及**极其慷慨的免费试用额度**。你可以将整个项目的几十个核心文件甚至上万行代码一次性喂给它，而不需要做复杂的向量检索（RAG）。
-
-> [!TIP]
-> 谷歌于近期统一并推出了全新的下一代 `google-genai` SDK，语法相比老版更加一致、优雅。我们强烈建议直接使用新版 SDK。
+### 3. Google Gemini (Gemini 2.5 / 2.0)
+Gemini 最大的杀手锏是**百万级别至两百万级别（1M - 2M）的超长上下文窗口**，这使得你可以将整个中小型项目的全部源文件打包一次性喂给它。谷歌统一推出了全新的下一代 `google-genai` SDK，语法相比老版更加一致、优雅。
 
 #### 🐍 Python 示例
 安装 SDK：`pip install google-genai`
@@ -185,7 +181,7 @@ from google.genai import types
 client = genai.Client()
 
 response = client.models.generate_content(
-    model='gemini-2.0-flash',
+    model='gemini-2.5-flash', # 也可使用性能更强的 'gemini-2.5-pro'
     contents='如何使用 Docker 快速部署一个 PostgreSQL 数据库？',
     config=types.GenerateContentConfig(
         system_instruction="你是一位经验丰富的云计算运维专家。",
@@ -204,7 +200,7 @@ import { GoogleGenAI } from '@google/genai';
 const ai = new GoogleGenAI(); // 默认读取 GEMINI_API_KEY
 
 const response = await ai.models.generateContent({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
   contents: '如何使用 Docker 快速部署一个 PostgreSQL 数据库？',
   config: {
     systemInstruction: '你是一位经验丰富的云计算运维专家。',
@@ -217,7 +213,7 @@ console.log(response.text);
 
 #### 🐚 cURL 示例
 ```bash
-curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}" \
+curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
     "contents": [{
@@ -235,24 +231,22 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:g
 ---
 
 ### 4. DeepSeek (V3 / R1)
-作为近来风靡全球的现象级开源/闭源模型，DeepSeek 不仅在推理和编程能力上直逼世界第一梯队，更令人振奋的是其**极具颠覆性的低廉价格**。
+作为性价比极其恐怖的现象级大模型，DeepSeek 的编程能力直逼世界第一梯队。其官方 API 在设计上完全兼容 OpenAI 的 SDK 规范，极大地方便了老代码的零成本平滑迁移。
 
-最棒的是，**DeepSeek API 在设计上完全兼容 OpenAI 的 SDK 规范**。如果你已经写好了 OpenAI 的调用代码，只需要将 `base_url` 改为 DeepSeek 的官方端点，并将模型名称替换为 `deepseek-chat` (V3) 或 `deepseek-reasoner` (R1推理模型) 即可，零成本无缝迁移！
-
-#### 🐍 Python 示例（无缝复用 OpenAI SDK）
+#### 🐍 Python 示例（无缝复用 OpenAI SDK 调用 V3 模型）
 安装 SDK：`pip install openai`
 ```python
 import os
 from openai import OpenAI
 
-# 实例化 client 时指定 base_url 并传入 DeepSeek 的 API Key
+# 实例化 client 并指向 DeepSeek 官方端点
 client = OpenAI(
     base_url="https://api.deepseek.com/v1",
     api_key=os.environ.get("DEEPSEEK_API_KEY")
 )
 
 response = client.chat.completions.create(
-    model="deepseek-chat",  # 对应 DeepSeek-V3 模型
+    model="deepseek-chat",  # 对应性能强劲的 DeepSeek-V3 模型
     temperature=0.0,
     messages=[
         {"role": "system", "content": "你是一位极致精简的极客导师，不吐废话。"},
@@ -262,6 +256,37 @@ response = client.chat.completions.create(
 
 print(response.choices[0].message.content)
 ```
+
+#### 🧠 深度推理模型 DeepSeek-R1 的调用
+对于需要严密数学证明、复杂算法推导的任务，可以使用 `deepseek-reasoner` 模型。该模型会返回一个特殊的 `reasoning_content`（思维链内容），在 SDK 返回中可以通过 `response.choices[0].message.reasoning_content` 提取。
+
+---
+
+### 5. 进阶：OpenAI 推理模型 (o1 / o3-mini) 与调用参数变化
+OpenAI 推出的 **o1** 与 **o3-mini** 代表了推理大模型的新流派。
+* **思维链运行**：这些模型在回复前会在后台进行长时间的“自我纠错和多路径推演”，因此在面对高难度的算法编写、复杂逻辑漏洞调试时具有出色的表现。
+* **超参数微调**：由于推理模型需要在后台进行大量的概率搜索，**调用时建议将 `temperature` 设为默认值（如不传该参数）**。强行将其锁定为 `0` 可能会限制其思维分支的正常探索。
+
+---
+
+### 💡 动态获取最新的模型 ID 与 API 官方文档指南
+
+AI 领域瞬息万变，模型更迭极快。为了防止代码中的模型 ID 过时失效，请牢记以下动态获取与官方文档查询通道：
+
+* **官方模型明细页（建议常年收藏）**：
+  * **Anthropic Models**: [docs.anthropic.com/en/docs/about-claude/models](https://docs.anthropic.com/en/docs/about-claude/models)
+  * **Google Gemini Models**: [ai.google.dev/gemini-api/docs/models/gemini](https://ai.google.dev/gemini-api/docs/models/gemini)
+  * **OpenAI Models**: [platform.openai.com/docs/models](https://platform.openai.com/docs/models)
+  * **DeepSeek Models**: [api-docs.deepseek.com](https://api-docs.deepseek.com)
+* **API 动态拉取模型列表命令 (Python 示例)**：
+  ```python
+  # 运行以下命令可以实时从厂商服务器拉取当前所有可用模型 ID 列表：
+  from openai import OpenAI
+  client = OpenAI()
+  model_list = client.models.list()
+  for model in model_list.data:
+      print(model.id)
+  ```
 
 ---
 
