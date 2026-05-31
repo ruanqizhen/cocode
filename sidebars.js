@@ -14,6 +14,7 @@ const sidebars = {
     'github_pages',
     'mindset',
     'prompt',
+    'api',
     'tools',
     'planning',
     'context',
