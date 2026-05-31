@@ -25,8 +25,10 @@ const sidebars = {
     'refactoring',
     'debugging',
     'quality_docs',
+    'security',
     'critical_thinking',
     'growth',
+    'team_collaboration',
     'appendix_a',
     'appendix_b',
     {
