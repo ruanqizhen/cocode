@@ -60,10 +60,21 @@ html[data-theme='dark'] {
 
 /* Glassmorphism Header */
 .navbar {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 996px) {
+  .navbar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+@media (max-width: 995px) {
+  .navbar {
+    background-color: var(--ifm-background-color) !important;
+  }
 }
 
 html[data-theme='light'] .navbar {
