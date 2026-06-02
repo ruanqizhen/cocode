@@ -13,17 +13,25 @@
 
 人类对于“制造会思考的机器”的执念，几乎与现代计算机本身同时诞生。在过去七十年里，人工智能的发展并非一条平滑的上升曲线，而更像是一场不断失败、又不断复活的漫长战争。它大致经历了三个关键的范式阶段：
 
-```test
-                    人工智能演进的三大范式
-                    
-    【符号主义】 (Rule-Based) ─── 1950s - 1980s ─── 试图“手写智慧”（规则爆炸）
-          │
-          ▼
-    【连接主义】 (Deep Learning) ── 2010s ───────── 机器“自己学习”（算力与数据质变）
-          │
-          ▼
-    【Transformer / LLM】 ────── 2017 - 至今 ────── 迈向“通用智能”（现代 AI 的蒸汽机）
+```mermaid
+graph TD
+    %% 节点定义
+    A["<strong>【符号主义】 (Rule-Based)</strong><br>1950s - 1980s<br>试图“手写智慧”<br>（遭遇规则爆炸与组合高墙）"]
+    B["<strong>【连接主义】 (Deep Learning)</strong><br>2010s<br>机器“自己学习”<br>（因算力与海量数据产生质变）"]
+    C["<strong>【Transformer / LLM】</strong><br>2017 - 至今<br>迈向“通用智能”<br>（现代 AI 的蒸汽机 / Scaling Law）"]
 
+    %% 连线关系
+    A -->|范式转移| B
+    B -->|架构突破| C
+
+    %% 样式类定义 (兼容 Light 模式作为 fallback)
+    classDef mred fill:#fff1f0,stroke:#ff4d4f,stroke-width:2px;
+    classDef mblue fill:#e6f7ff,stroke:#1890ff,stroke-width:2px;
+    classDef mgreen fill:#f6ffed,stroke:#52c41a,stroke-width:2px;
+
+    class A mred;
+    class B mblue;
+    class C mgreen;
 ```
 
 ### 符号主义：人类试图“手写智慧”
@@ -109,10 +117,33 @@ function add(a, b) {
 
 回看编程语言的发展史，其核心轨迹无疑是不断向着“降低人类认知门槛”的方向演进：
 
-```
-    【纸带打孔】 ───► 【汇编语言】 ───► 【高级语言 (C/C++)】 ───► 【极简语言 (Python)】 ───► 【自然语言】
-    (物理硬件级)       (符号寄存器)        (构建高维抽象层)          (极度降低语法门槛)        (终极抽象：人机无缝)
+```mermaid
+graph LR
+    A["<strong>【纸带打孔】</strong><br>物理硬件级"] --> B["<strong>【汇编语言】</strong><br>符号寄存器"]
+    B --> C["<strong>【高级语言】</strong><br>C / C++<br>(构建高维抽象层)"]
+    C --> D["<strong>【极简语言】</strong><br>Python<br>(极度降低语法门槛)"]
+    D --> E["<strong>【自然语言】</strong><br>Prompt / Agent<br>(终极抽象：人机无缝)"]
 
+    subgraph "人类编码认知门槛演进轨迹 (持续下放执行权)"
+        A
+        B
+        C
+        D
+        E
+    end
+
+    %% 样式类定义 (兼容 Light 模式作为 fallback)
+    classDef mgray1 fill:#fafafa,stroke:#d9d9d9;
+    classDef mgray2 fill:#f5f5f5,stroke:#bfbfbf;
+    classDef mgray3 fill:#e8e8e8,stroke:#8c8c8c;
+    classDef mgray4 fill:#d9d9d9,stroke:#595959;
+    classDef mblueactive fill:#1890ff,stroke:#0050b3,stroke-width:2px;
+
+    class A mgray1;
+    class B mgray2;
+    class C mgray3;
+    class D mgray4;
+    class E mblueactive;
 ```
 
 从晦涩的汇编语言到让编程门槛大幅降低的 Python，人类一直在构建越来越易用的抽象层。过去，通向“自然语言直接驱动计算机”这一终极目标的最大技术壁垒，在于机器无法准确解析人类语言天然的模糊性。而今天，LLM 的突破基本上已经彻底扫清了这一障碍。
@@ -149,14 +180,29 @@ function add(a, b) {
 
 $$\text{ReLU}(x) = \max(0, x)$$
 
-```
-  ReLU 函数图像 (极其简单的一条折线)
-        │
-        │   / (当 x > 0 时，y = x)
-        │  /
-  ──────┴──────► x
-  (当 x <= 0 时，y = 0)
+```mermaid
+graph LR
+    %% 节点定义
+    In([输入值 x]) --> Cond{x > 0 ?}
+    Cond -- 是 --> Out1["输出 y = x<br>(线性激活)"]
+    Cond -- 否 --> Out2["输出 y = 0<br>(信号截断)"]
+    
+    subgraph "ReLU 数学映射逻辑 [f(x) = max(0, x)]"
+        Cond
+        Out1
+        Out2
+    end
 
+    %% 样式类定义 (兼容 Light 模式作为 fallback)
+    classDef mgray2 fill:#f5f5f5,stroke:#bfbfbf;
+    classDef morange fill:#fff7e6,stroke:#ffa940,stroke-width:2px;
+    classDef mgreen fill:#f6ffed,stroke:#52c41a,stroke-width:1px;
+    classDef mred fill:#fff1f0,stroke:#ff4d4f,stroke-width:1px;
+
+    class In mgray2;
+    class Cond morange;
+    class Out1 mgreen;
+    class Out2 mred;
 ```
 
 这就是大模型的全部秘密：上千亿个简单如折线一般的数学函数，通过错综复杂的权重连接与线性叠加，最终拟合出了一个能够写出高阶代码的复杂网络。这里的每一步都建立在严格的数学运算和矩阵乘法之上，它是一个高度精密的数学拟合结果，与生物学上的“自我意识”毫无干系。
@@ -182,13 +228,27 @@ $$\text{ReLU}(x) = \max(0, x)$$
 
 很多技术乐观主义者会反驳：AI 的到来同样会创造出大量全新岗位。然而，一个残酷的现实被刻意忽略了：那些被技术洪流在短时间内无情淘汰的人，真的能够毫无痛楚地跨越巨大的“技能鸿沟”，摇身一变成为 AI 数据标注师或系统维护专家等新身份吗？
 
-```
-     【感知】 (传感器/Token输入) ──► 【决策】 (模型矩阵运算) ──► 【执行】 (机械臂/代码输出)
-                                     ▲
-                                     │
-                 如果 AI 能够完整驾驭这一链路，
-                 那么它离替代大多数标准化脑力与体力劳动，仅有一步之遥。
+```mermaid
+graph TD
+    %% 核心链路
+    A["<strong>【感知】</strong><br>(环境传感器 / 文本 Token 输入)"] --> B["<strong>【决策】</strong><br>(AI算法 / 模型矩阵运算)"]
+    B --> C["<strong>【执行】</strong><br>(机械控制 / 代码文本输出)"]
 
+    %% 警示区域
+    subgraph "时代风暴的本质"
+        Warning["⚠️ <strong>行业大变局引发的警示：</strong><br>当 AI 能够完美驾驭这一闭环链路时，<br>它离替代大多数标准化脑力与体力劳动，仅有一步之遥。"]
+    end
+    
+    B -. 冲击 .-> Warning
+
+    %% 样式类定义 (兼容 Light 模式作为 fallback)
+    classDef mindigo fill:#f0f5ff,stroke:#2f54eb,stroke-width:2px;
+    classDef myellow fill:#fffbe6,stroke:#ffe58f,stroke-width:2px;
+
+    class A mindigo;
+    class B mindigo;
+    class C mindigo;
+    class Warning myellow;
 ```
 
 目前，AI 离操作工厂里的机械设备、进行外科手术、或者在软件世界里自主调用各种工具，仅仅只有一步之遥。可以预期，

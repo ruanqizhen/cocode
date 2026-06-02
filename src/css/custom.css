@@ -245,3 +245,133 @@ a {
   border-left-color: #f59e0b !important;
   background-color: rgba(245, 158, 11, 0.05) !important;
 }
+
+/* Premium Cyber-Dark Mode Mermaid Diagrams */
+html[data-theme='dark'] .node.mred rect,
+html[data-theme='dark'] .node.mred polygon,
+html[data-theme='dark'] .node.mred path,
+html[data-theme='dark'] .node.mred circle {
+  fill: #2d191e !important;
+  stroke: #f5222d !important;
+}
+
+html[data-theme='dark'] .node.mblue rect,
+html[data-theme='dark'] .node.mblue polygon,
+html[data-theme='dark'] .node.mblue path,
+html[data-theme='dark'] .node.mblue circle {
+  fill: #11213b !important;
+  stroke: #177ddc !important;
+}
+
+html[data-theme='dark'] .node.mgreen rect,
+html[data-theme='dark'] .node.mgreen polygon,
+html[data-theme='dark'] .node.mgreen path,
+html[data-theme='dark'] .node.mgreen circle {
+  fill: #162d1c !important;
+  stroke: #389e0d !important;
+}
+
+html[data-theme='dark'] .node.mgray1 rect,
+html[data-theme='dark'] .node.mgray1 polygon,
+html[data-theme='dark'] .node.mgray1 path,
+html[data-theme='dark'] .node.mgray1 circle {
+  fill: #1c1c24 !important;
+  stroke: #434348 !important;
+}
+
+html[data-theme='dark'] .node.mgray2 rect,
+html[data-theme='dark'] .node.mgray2 polygon,
+html[data-theme='dark'] .node.mgray2 path,
+html[data-theme='dark'] .node.mgray2 circle {
+  fill: #1f1f29 !important;
+  stroke: #59595f !important;
+}
+
+html[data-theme='dark'] .node.mgray3 rect,
+html[data-theme='dark'] .node.mgray3 polygon,
+html[data-theme='dark'] .node.mgray3 path,
+html[data-theme='dark'] .node.mgray3 circle {
+  fill: #262633 !important;
+  stroke: #73737a !important;
+}
+
+html[data-theme='dark'] .node.mgray4 rect,
+html[data-theme='dark'] .node.mgray4 polygon,
+html[data-theme='dark'] .node.mgray4 path,
+html[data-theme='dark'] .node.mgray4 circle {
+  fill: #303042 !important;
+  stroke: #8c8c94 !important;
+}
+
+html[data-theme='dark'] .node.mblueactive rect,
+html[data-theme='dark'] .node.mblueactive polygon,
+html[data-theme='dark'] .node.mblueactive path,
+html[data-theme='dark'] .node.mblueactive circle {
+  fill: #177ddc !important;
+  stroke: #1890ff !important;
+}
+
+html[data-theme='dark'] .node.morange rect,
+html[data-theme='dark'] .node.morange polygon,
+html[data-theme='dark'] .node.morange path,
+html[data-theme='dark'] .node.morange circle {
+  fill: #2d2115 !important;
+  stroke: #d46b08 !important;
+}
+
+html[data-theme='dark'] .node.mindigo rect,
+html[data-theme='dark'] .node.mindigo polygon,
+html[data-theme='dark'] .node.mindigo path,
+html[data-theme='dark'] .node.mindigo circle {
+  fill: #131a38 !important;
+  stroke: #2b4acb !important;
+}
+
+html[data-theme='dark'] .node.myellow rect,
+html[data-theme='dark'] .node.myellow polygon,
+html[data-theme='dark'] .node.myellow path,
+html[data-theme='dark'] .node.myellow circle {
+  fill: #2d2d15 !important;
+  stroke: #ad8b00 !important;
+}
+
+/* Subgraph/Cluster Premium Theme-Aware Styling */
+/* Light Mode */
+html[data-theme='light'] .cluster rect,
+html[data-theme='light'] .cluster polygon,
+html[data-theme='light'] .cluster path,
+html[data-theme='light'] .subgraph rect,
+html[data-theme='light'] .subgraph polygon,
+html[data-theme='light'] .subgraph path {
+  fill: rgba(91, 33, 182, 0.015) !important;
+  stroke: rgba(91, 33, 182, 0.15) !important;
+  stroke-width: 1px !important;
+}
+
+html[data-theme='light'] .cluster .label,
+html[data-theme='light'] .cluster text,
+html[data-theme='light'] .subgraph .label,
+html[data-theme='light'] .subgraph text {
+  fill: #475569 !important;
+  color: #475569 !important;
+}
+
+/* Dark Mode */
+html[data-theme='dark'] .cluster rect,
+html[data-theme='dark'] .cluster polygon,
+html[data-theme='dark'] .cluster path,
+html[data-theme='dark'] .subgraph rect,
+html[data-theme='dark'] .subgraph polygon,
+html[data-theme='dark'] .subgraph path {
+  fill: rgba(6, 182, 212, 0.03) !important;
+  stroke: rgba(6, 182, 212, 0.2) !important;
+  stroke-width: 1px !important;
+}
+
+html[data-theme='dark'] .cluster .label,
+html[data-theme='dark'] .cluster text,
+html[data-theme='dark'] .subgraph .label,
+html[data-theme='dark'] .subgraph text {
+  fill: #94a3b8 !important;
+  color: #94a3b8 !important;
+}
