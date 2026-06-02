@@ -18,6 +18,9 @@ const sidebars = {
         'nocode_iteration',
         'git_basics',
         'github_pages',
+        'mindset',
+        'prompt',
+        'context',
       ],
     },
     {
@@ -27,9 +30,6 @@ const sidebars = {
       items: [
         'api',
         'env_setup',
-        'mindset',
-        'prompt',
-        'context',
         'planning',
         'make_ebook',
         'iteration',
