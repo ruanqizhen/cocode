@@ -58,7 +58,7 @@ html[data-theme='dark'] {
   --cyber-glow-purple: #a78bfa;
 }
 
-/* Glassmorphism Header */
+/* Glassmorphism Header & Navigation Menus */
 .navbar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,12 +73,72 @@ html[data-theme='dark'] {
 
 @media (max-width: 995px) {
   .navbar {
-    background-color: var(--ifm-background-color) !important;
+    background-color: var(--ifm-navbar-background-color) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  /* Disable backdrop-filter and background on parent navbar when mobile sidebar is open,
+     allowing the fixed-positioned child .navbar-sidebar to escape parent containment
+     and blur the global page content backdrop. */
+  .navbar-sidebar--show.navbar {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: transparent !important;
   }
 }
 
 html[data-theme='light'] .navbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Frosted Glass Effect for Mobile Sidebar (Chapter Menu) */
+.navbar-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background-color: var(--ifm-navbar-background-color) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1000 !important;
+}
+
+.navbar-sidebar--show .navbar-sidebar {
+  transform: none !important;
+}
+
+html[data-theme='light'] .navbar-sidebar {
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Eliminate transform on items container to prevent rendering bug with parent's backdrop-filter */
+.navbar-sidebar__items--show-secondary {
+  transform: none !important;
+}
+
+.navbar-sidebar__items--show-secondary > .navbar-sidebar__item:first-child {
+  display: none !important;
+}
+
+.navbar-sidebar__items--show-secondary > .navbar-sidebar__item:last-child {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Frosted Glass Effect for Dropdown Menus */
+.dropdown__menu {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background-color: var(--ifm-navbar-background-color) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme='light'] .dropdown__menu {
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05) !important;
 }
 
 .navbar__brand {
