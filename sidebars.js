@@ -20,7 +20,6 @@ const sidebars = {
         'github_pages',
         'mindset',
         'prompt',
-        'context',
       ],
     },
     {
@@ -29,13 +28,14 @@ const sidebars = {
       collapsed: false,
       items: [
         'api',
+        'tools',
         'env_setup',
         'planning',
         'make_ebook',
         'iteration',
+        'context',
         'multimodal',
         'cost_control',
-        'tools',
         'instructions',
         'agent_mcp',
         'refactoring',
