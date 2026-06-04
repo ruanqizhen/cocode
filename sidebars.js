@@ -29,7 +29,6 @@ const sidebars = {
       items: [
         'api',
         'tools',
-        'env_setup',
         'planning',
         'make_ebook',
         'iteration',
