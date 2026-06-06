@@ -218,6 +218,8 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 * `ARCHITECTURE.md`：项目的系统分层、技术栈选型版本、数据流向设计。（让 AI 知道我们怎么做）。
 * `CONTRIBUTING.md`：日常开发环境配置、Linting 规范、单元测试编写标准。
 
+(关于“Markdown”的更多内容请参考：[附录：Markdown 文档](markdown))
+
 ### 第二步：编写高可执行力的机器规则文件
 
 根据你团队选选用的主流兵器，在根目录下配置对应的规则声明文件。记住，不要写成含糊、带有感性色彩的人类散文，必须是具体的、条件触发的、可验证的操作指令：
