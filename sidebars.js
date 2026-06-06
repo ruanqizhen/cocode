@@ -28,6 +28,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'api',
+        'ai_agent',
         'tools',
         'planning',
         'make_ebook',
@@ -51,6 +52,8 @@ const sidebars = {
       label: '附录',
       collapsed: true,
       items: [
+        'ai_agent_prompt',
+        'ai_agent_code',
         'appendix_a',
         'appendix_b',
       ],

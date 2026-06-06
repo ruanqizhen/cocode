@@ -132,8 +132,49 @@ flowchart TD
 
 ### 自动化代码生成 Master Prompt
 
-在实际开发中，我们可以利用以下结构化的高级提示词（Prompt），驱动大模型一次性生成上述 Windows 系统命令助手的完整生产级单文件源码：
+在实际开发中，我们可以利用以下结构化的高级提示词（Prompt），驱动大模型一次性生成上述 Windows 系统命令助手的完整生产级单文件源码。这篇提示词比较长，因为包含了细节说明。我们把这篇提示词单独放到了[附录](ai_agent_prompt) 中，方便查看。
+
+不要觉得这么长的提示词不要写，其实它也是 AI 帮我们生成的。我们可以把最初的模糊需求提给 AI，让它来生成详细的提示词。然后我们在 AI 生成的提示词的基础上，根据需要进行修改和优化。这个过程可以反反复复进行，直到我们对 AI 生成的提示词感到满意。
+
 
 ### 生成结果
 
-测试一下
+最后我们把优化后的提示词给 AI，让它生成最终的完整源码。这里我们让 AI 生成一个 Python 单文件，包含了上述所有功能。我们也不需要掌握 Python 就可以运行。不过如果对 Python 有兴趣，可以参考这本[《Python 秘籍》](https://py.qizhen.xyz/)。
+
+
+### 如何安装与运行 Python 脚本
+
+如果你对 Python 还不熟悉，可以按照以下步骤在 Windows 系统上运行这个 AI Agent：
+
+#### 1. 安装 Python
+1. 访问 [Python 官方网站](https://www.python.org/downloads/)，下载适用于 Windows 的最新稳定版安装包（例如 3.11 或 3.12）。
+2. 双击打开安装包，在安装界面底部**务必勾选 "Add python.exe to PATH"**（将 Python 添加到系统环境变量），然后点击 "Install Now" 完成安装。
+
+#### 2. 准备代码文件
+把 AI 生成的代码拷贝到文本文件中，另存为 `win_agent.py`。我们在附录中也存放了一份 AI 生成的代码：[AI Agent 完整源码](ai_agent_code)，同样可以复制，并在你的电脑上新建一个名为 `win_agent.py` 的文本文件，将代码粘贴进去保存。
+
+#### 3. 安装依赖库
+打开命令行工具（如 PowerShell 或命令提示符 CMD），运行以下命令安装脚本所需的第三方库：
+```bash
+pip install openai psutil win10toast
+```
+*(注：`win10toast` 用于 Windows 系统通知。如果在安装中遇到网络或兼容性问题，该依赖并非绝对必需，不安装也不影响 Agent 核心功能运行。)*
+
+#### 4. 配置 API Key 并运行
+由于该 Agent 基于大模型运行，你需要准备一个 DeepSeek API Key。
+
+在命令行中输入以下命令配置环境变量并启动脚本：
+
+* **如果使用 PowerShell（推荐）**：
+  ```powershell
+  $env:DEEPSEEK_API_KEY="你的_DEEPSEEK_API_KEY"
+  python win_agent.py
+  ```
+
+* **如果使用传统 CMD 命令提示符**：
+  ```cmd
+  set DEEPSEEK_API_KEY=你的_DEEPSEEK_API_KEY
+  python win_agent.py
+  ```
+
+运行成功后，你就可以在常驻命令行中输入各种自然语言指令（例如“查看 C 盘空间”或“在 1 分钟后提醒我开会”），体验这个具备安全防御网关的本地系统级智能体了。
