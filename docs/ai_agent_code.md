@@ -9,7 +9,7 @@ win_agent.py — Windows AI 系统命令助手
 环境变量:
     DEEPSEEK_API_KEY  （必需）
     DEEPSEEK_BASE_URL （可选，默认 https://api.deepseek.com）
-    DEEPSEEK_MODEL    （可选，默认 deepseek-chat）
+    DEEPSEEK_MODEL    （可选，默认 deepseek-v4-flash）
 """
 
 import os, sys, json, shutil, subprocess, threading, tempfile, time
@@ -60,7 +60,7 @@ if not API_KEY:
     sys.exit(1)
 
 BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
+MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 
 try:
     client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
