@@ -1,4 +1,4 @@
-# 极客利刃与代理母舰：Claude Code 与 Google Antigravity 深度解构
+# Claude Code 与 Google Antigravity
 
 > 兵无常势，水无常形。
 
