@@ -28,7 +28,7 @@ title: 附录 A：一份标准的 AGENTS.md 通用项目模板
 
 ---
 
-## 🚫 2. 质量死守防线 (Critical Constraints)
+## 🚫 2. 质量死守防线（Critical Constraints）
 任何 Agent 在编写代码时，必须死守以下质量红线：
 
 1. **类型安全**：
@@ -40,7 +40,7 @@ title: 附录 A：一份标准的 AGENTS.md 通用项目模板
 
 ---
 
-## 💾 3. 数据库变更与迁移规范 (Database Migrations)
+## 💾 3. 数据库变更与迁移规范（Database Migrations）
 1. **Schema 变更规则**：
    * 禁止直接使用物理客户端工具（如 DBeaver, pgAdmin）修改开发或生产环境的数据表结构。
    * 必须通过修改 `prisma/schema.prisma` 文件来实现 Schema 的改动。
@@ -53,7 +53,7 @@ title: 附录 A：一份标准的 AGENTS.md 通用项目模板
 
 ---
 
-## 📝 4. 日志记录规范 (Logging Conventions)
+## 📝 4. 日志记录规范（Logging Conventions）
 1. **日志分级原则**：
    * `ERROR`：系统逻辑崩溃、第三方接口调用超时、数据库死锁等导致业务无法正常运行的卡点。必须使用全局错误处理器或捕获后抛给 Sentry。
    * `WARN`：非致命性异常，例如：输入校验失败、用户登录密码错误。
@@ -65,7 +65,7 @@ title: 附录 A：一份标准的 AGENTS.md 通用项目模板
 
 ---
 
-## 🏁 5. 落地完成标准 (Definition of Done)
+## 🏁 5. 落地完成标准（Definition of Done）
 你声称任务完成前，必须满足以下卡点要求：
 
 * **代码质量卡点**：运行类型检查 `npm run typecheck` 必须无任何编译 Error。
@@ -75,7 +75,7 @@ title: 附录 A：一份标准的 AGENTS.md 通用项目模板
 
 ---
 
-## 🚨 6. 升级规则 (Escalation Protocol)
+## 🚨 6. 升级规则（Escalation Protocol）
 * **无限循环熔断器**：若你在自我排查 Bug 的过程中，针对同一个编译/运行报错**连续 3 次**修改均以失败告终，表明你已陷入逻辑盲区。
 * **升级动作**：**必须立即停止对代码库的所有写入动作**，在终端输出当前遇到的瓶颈原因、你的 2 个排错假设，并主动向人类抛出求助广播。
 ```

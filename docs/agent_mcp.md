@@ -284,7 +284,7 @@ if __name__ == "__main__":
 > [!CAUTION]
 > **绝对禁止在 MCP 服务中向 `stdout`（标准输出）打印普通调试日志！**
 > 
-> 因为 MCP 客户端与服务端是通过 `stdout` 进行 JSON-RPC 数据传递的。如果你的代码中写了 `console.log("Database connected")` 或 `print("Connecting to DB")`，这些普通日志会直接干扰 JSON-RPC 帧，导致客户端协议解析彻底崩溃！
+> 因为 MCP 客户端与服务端是通过 `stdout` 进行 `JSON-RPC` 数据传递的。如果你的代码中写了 `console.log("Database connected")` 或 `print("Connecting to DB")`，这些普通日志会直接干扰 `JSON-RPC` 帧，导致客户端协议解析彻底崩溃！
 
 ### 🛡️ 调试与测试技巧：
 * **日志输出方向**：所有的调试、警告、错误信息，在 Node.js 中强制使用 `console.error()`，在 Python 中使用 `sys.stderr.write()`，这会将信息输出到 `stderr`（标准错误流），客户端能安全地捕获并输出到 IDE 日志面板中，而不破坏主通道。
@@ -295,9 +295,9 @@ if __name__ == "__main__":
 ## 本章小结
 
 本章向你展示了人机协作从“纸上谈兵”转入“自主操盘”的物理跃迁。我们：
-1. 理解了 MCP 协议底层的 JSON-RPC 2.0 通信流；
+1. 理解了 MCP 协议底层的 `JSON-RPC 2.0` 通信流；
 2. 分别使用 Node.js 和 Python 编写了具有 SQL 安全过滤机制的 SQLite 自定义 MCP 数据库服务；
-3. 学习了如何利用 `stderr` 打印调试日志，避开了破坏 stdio 标准输出通道的协议死穴。
+3. 学习了如何利用 `stderr` 打印调试日志，避开了破坏 `stdio` 标准输出通道的协议死穴。
 
 Agent 拥有了双手，让一切变得全自动。接下来，我们将正式踏入 AI 时代中，针对项目核心逻辑——编码与重构的高价值攻坚战。
 

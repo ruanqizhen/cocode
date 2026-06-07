@@ -166,7 +166,7 @@ const emailRegex = /^([a-zA-Z0-9-\.]+)+@([a-zA-Z0-9-\.]+)+$/;
 
 ### 🔨 判官法槌：ReDoS 正则表达式拒绝服务攻击
 大模型在处理正则表达式时，极易写出带有**恶性嵌套量词**的正则（如 `(a+)+` 或 `([a-zA-Z0-9-\.]+)+`）。
-当恶意用户故意输入一个极长且尾部不合法的邮箱（例如输入包含 50 个 `a` 却在尾部缺少 `@` 的字符串：`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!`），JavaScript 的正则引擎在进行回溯（Backtracking）时，计算步骤会呈**指数级暴增**，导致整个服务器进程直接死锁卡死在 CPU 计算中，瞬间拖垮整个集群！这就是著名的 **ReDoS (Regular Expression Denial of Service)** 攻击。
+当恶意用户故意输入一个极长且尾部不合法的邮箱（例如输入包含 50 个 `a` 却在尾部缺少 `@` 的字符串：`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!`），JavaScript 的正则引擎在进行回溯（Backtracking）时，计算步骤会呈**指数级暴增**，导致整个服务器进程直接死锁卡死在 CPU 计算中，瞬间拖垮整个集群！这就是著名的 **ReDoS（Regular Expression Denial of Service）** 攻击。
 
 ### 🛡️ 拯救方案：强行拦截
 人类裁判否决该正则，并命令 AI 使用原生标准库或者更安全的非回溯正则：
@@ -183,7 +183,7 @@ export function isValidEmail(email: string): boolean {
 
 ---
 
-## 4. 人类裁判的决策分支树 (Decision Tree)
+## 4. 人类裁判的决策分支树（Decision Tree）
 
 在审查 AI 提交的 Diff 代码时，你应当在大脑中运行如下的决策过滤流程：
 

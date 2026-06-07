@@ -55,7 +55,7 @@ graph TD
 
 ---
 
-## 2. 攻坚战 1：狙击诡异的并发异步竞态条件 (Race Condition) Bug
+## 2. 攻坚战 1：狙击诡异的并发异步竞态条件（Race Condition）Bug
 
 ### ⏳ 故事背景
 系统后台频繁抛出 `PrismaClientKnownRequestError: Unique constraint failed on the fields: (orderId)`（订单 ID 唯一性冲突报错）。诡异的是，在本地单线程测试时一切正常，只有线上高并发促销时，系统才会离奇报错崩溃，并导致少数用户钱包余额被扣成负数。
@@ -140,10 +140,10 @@ export async function createOrder(userId: string, totalPrice: number) {
 
 ## 3. 攻坚战 2：诊断 Node.js 内存泄漏（Heap Dump 分析）
 
-系统在连续运行 48 小时后，容器频繁因为 OOM (Out of Memory) 重启。我们抓取了一份堆内存快照（Heap Dump），并把分析出的“疑似对象分配图”喂给 AI 鸭。
+系统在连续运行 48 小时后，容器频繁因为 `OOM`（Out of Memory）重启。我们抓取了一份堆内存快照（`Heap Dump`），并把分析出的“疑似对象分配图”喂给 AI 鸭。
 
 ### 📥 投喂 Heap Dump 诊断数据
-> “小黄鸭，我们的服务频繁 OOM。这是 Chrome DevTools 中堆分配分析图导出的疑似泄漏路径：
+> “小黄鸭，我们的服务频繁 `OOM`。这是 `Chrome DevTools` 中堆分配分析图导出的疑似泄漏路径：
 > `Closure -> context -> pendingRequests (Array) -> 240,000 items`
 > 
 > 对应的请求日志路由代码如下：
@@ -190,9 +190,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 ```mermaid
 graph TD
-    Test["自动化测试网"] --> Unit["1. 单元测试 (Unit Test) <br> AI 100% 自动生成。覆盖函数的纯逻辑分支、空值、边界溢出极值。"]
-    Test --> Integration["2. 集成测试 (Integration) <br> 人类定架构, AI 充实。测试数据库事务回滚、中间件拦截、多接口联动链路。"]
-    Test --> Chaos["3. 混沌/异常测试 (Chaos Test) <br> AI 充实黑客场景。测试 SQL 注入、非法 Payload 攻击与高并发压力。"]
+    Test["自动化测试网"] --> Unit["1. 单元测试（Unit Test） <br> AI 100% 自动生成。覆盖函数的纯逻辑分支、空值、边界溢出极值。"]
+    Test --> Integration["2. 集成测试（Integration） <br> 人类定架构, AI 充实。测试数据库事务回滚、中间件拦截、多接口联动链路。"]
+    Test --> Chaos["3. 混沌/异常测试（Chaos Test） <br> AI 充实黑客场景。测试 SQL 注入、非法 Payload 攻击与高并发压力。"]
 ```
 
 在日常开发中，我们可以给 AI 下达极其强悍的 **“混沌测试 Prompt”**，主动寻找系统的破绽：

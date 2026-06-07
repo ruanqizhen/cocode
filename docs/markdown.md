@@ -107,7 +107,7 @@ strict_constraints: "No external crypto packages allowed"
 当你需要向 AI 警示项目中的“雷区”或“绝对不准触碰的安全底线”时，不要将它们埋在普通的正文段落里。使用 `>` 符号将其转化为高内聚的区块引用：
 
 ```markdown
-> ⚠️ **底层核心架构防线 (Core Boundary)**
+> ⚠️ **底层核心架构防线（Core Boundary）**
 > 
 > 本工程中所有的数据库查询动作，**必须** 走 `src/lib/prismaClient.ts` 导出的单例对象。
 > **绝对禁止** 在任何业务逻辑层或路由层中私自使用 `new PrismaClient()` 重新建立连接，否则会导致高并发下的连接池耗尽死锁！
@@ -116,18 +116,18 @@ strict_constraints: "No external crypto packages allowed"
 
 现代 AI 编程工具的 Harness 模块在动态剪裁 Prompt 时，会赋予 Blockquote 更高的权重，在模型底层的注意力机制（Attention Matrix）里，这种格式往往能够获得更高的评分加权。
 
-### 策略三：结构化你的机器规则（.cursorrules 最佳实践范本）
+### 策略三：结构化你的机器规则（`.cursorrules` 最佳实践范本）
 
 不要将给 AI 的规则写成人性化的散文。以下为你提供一个严格符合 Markdown 上下文工程学的规则模版，你可以直接复制并修改为你项目根目录下的 `.cursorrules` 或 `AGENTS.md`：
 
 ```markdown
-# 行为准则 (AI Agent Behavior Protocol)
+# 行为准则（AI Agent Behavior Protocol）
 
-## 1. 认知语境 (Context)
+## 1. 认知语境（Context）
 - **目标项目**：高并发历史人物对谈论坛（Echo Hall）
 - **开发原则**：坚守强类型契约，追求零运行时错误。
 
-## 2. 动作触发流 (Action Loops)
+## 2. 动作触发流（Action Loops）
 ### 编写代码前：
 1. 必须使用语义搜索确认项目内是否已存在同类的工具函数。
 2. 强制在侧边栏输出 3 行以内的 `Implementation Plan`（执行计划架构），等待人类确认。
@@ -136,7 +136,7 @@ strict_constraints: "No external crypto packages allowed"
 1. 自动调起终端运行 `npm run lint` 进行静态检查。
 2. 若遇到报错，禁止向人类求助，必须自主读取错误日志并至少尝试自主修复 3 次。
 
-## 3. 拒绝答复边界 (Negative Bounds)
+## 3. 拒绝答复边界（Negative Bounds）
 > - 绝对禁止使用 `var` 关键字。
 > - 绝对禁止绕过全局错误拦截器（`errorHandler.ts`）。
 > - 遇到复杂的业务不确定性时，禁止盲猜，立刻停下动作并向人类发出确认澄清。

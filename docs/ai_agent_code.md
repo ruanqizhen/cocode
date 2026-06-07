@@ -509,7 +509,7 @@ def run_agent(user_input: str):
                 print(f"{COLOR_BOLD}[✅ Final] {msg.content}{COLOR_RESET}")
             return
             
-    print(f"{COLOR_RED}{COLOR_BOLD}[❌ Error] 触发异常熔断保护：当前任务耗费的单轮思考循环总计超越最大设定极限次数 ({MAX_LOOPS})，自动切断上下文。{COLOR_RESET}")
+    print(f"{COLOR_RED}{COLOR_BOLD}[❌ Error] 触发异常熔断保护：当前任务耗费的单轮思考循环总计超越最大设定极限次数（{MAX_LOOPS}），自动切断上下文。{COLOR_RESET}")
 
 # ==============================================================================
 # Main Interactive Interface entry
@@ -519,8 +519,8 @@ def main():
     os.system('')
     
     print("=" * 64)
-    print(f"{COLOR_BOLD}Windows AI 纵深防御系统自动化命令助手 (win_agent.py){COLOR_RESET}")
-    print("  - 架构设计：纯原生 Python ReAct 无限闭环引擎 (无第三方高阶 Agent 依赖)")
+    print(f"{COLOR_BOLD}Windows AI 纵深防御系统自动化命令助手（win_agent.py）{COLOR_RESET}")
+    print("  - 架构设计：纯原生 Python ReAct 无限闭环引擎（无第三方高阶 Agent 依赖）")
     print("  - 安全核心：全链路安全策略隔离网关 + 限制物理目录沙箱机制")
     print("  - 键入 'exit' 或 'quit' 即可优雅退出常驻终端交互。")
     print("=" * 64)

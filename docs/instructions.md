@@ -46,7 +46,7 @@ title: 铁律的边界：编写 AI 专属的操作指令
 
 ---
 
-## 3. 实战：一份生产级 `.cursorrules` 配置模板 (Next.js 15 & React 19)
+## 3. 实战：一份生产级 `.cursorrules` 配置模板（Next.js 15 & React 19）
 
 为了让大模型在开发 Next.js 15 & React 19 项目时不写出过时的代码（如使用老旧的 `getServerSideProps` 或在 React Server Components 中无脑使用 `useState`），我们可以在根目录下创建 `.cursorrules` 文件：
 
@@ -85,7 +85,7 @@ title: 铁律的边界：编写 AI 专属的操作指令
 
 我们必须在指令中明确定义它的 **落地完成标准（DoD）** 与 **升级规则（Escalation Rules）**。
 
-### 🏁 退出码 (Exit Code) 卡点交工协议
+### 🏁 退出码（Exit Code）卡点交工协议
 在项目的 `CLAUDE.md` 中，明文写入以下交工协议：
 > “Agent 在声称任务完成前，**必须且只能**在本地终端运行以下命令：
 > `npm run build && npm run test`

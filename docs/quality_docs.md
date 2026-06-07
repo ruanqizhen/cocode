@@ -14,11 +14,11 @@ title: 质量审计、技术文档与技术破局
 
 ## 1. 赛博代码审查（Code Review）自动化
 
-在现代人机结对开发中，我们不再完全依靠人工进行低级语法 review。利用自动化 PR 审查机器人（如 CodeRabbit），我们可以在合并代码前设立第一道防线。
+在现代人机结对开发中，我们不再完全依靠人工进行低级语法 Review。利用自动化 PR 审查机器人（如 CodeRabbit），我们可以在合并代码前设立第一道防线。
 
 ### 🤖 GitHub Action 集成自动 Code Review
 
-每次团队成员发起 Pull Request (PR) 时，自动唤起大模型 API 执行增量代码审查：
+每次团队成员发起 Pull Request（PR）时，自动唤起大模型 API 执行增量代码审查：
 
 ```yaml
 # .github/workflows/ai-review.yml
@@ -70,7 +70,7 @@ jobs:
 # Audit Dimension Checklist
 1. **可靠性 (Reliability)**：检查是否存在可能引发 Null 指针异常、未处理 Promise 拒绝、未释放网络/数据库连接资源等边界问题。
 2. **性能与时空复杂度 (Performance)**：检查是否存在时间复杂度 O(N^2) 以上的循环、静态数组逃逸引发的内存泄漏，以及循环体内执行 IO 调用的情况。
-3. **可维护性 (Maintainability)**：检查函数长度是否超过 80 行、是否存在超过 3 层的 if/for 嵌套嵌套，以及命名语义是否模糊。
+3. **可维护性 (Maintainability)**：检查函数长度是否超过 80 行、是否存在超过 3 层的 if/for 嵌套，以及命名语义是否模糊。
 4. **安全底线 (Security)**：检查是否存在 SQL 拼接注入、XSS 渲染盲区，或者敏感字段明文传输等问题。
 
 # Output Format
@@ -103,11 +103,11 @@ jobs:
 
 作为开发者，我们经常会遇到被紧急抽调去写不熟悉的语言（如：写惯了 Java 的你被拉去写 Go/Rust，或是熟悉 React 的你必须接管一个 Svelte 项目）的状况。
 
-大模型是你的**全能语言翻译器**和**破壁先锋**。我们可以利用 **范式映射对照表（Paradigm Mapping）** 快速攻关：
+大模型是你的**全能语言翻译器**和**破壁先锋**。我们可以利用 **范式映射对照表 (Paradigm Mapping)** 快速攻关：
 
 ### 🗺️ 从 Java Spring Boot 跃迁到 Go Gin 框架的思维对照表
 
-| 开发诉求 | ☕ Java Spring Boot 经典模式 | 🐹 Go Gin & Gorm 对应范式 | AI 破壁伴写指令 (AI Prompt) |
+| 开发诉求 | ☕ Java Spring Boot 经典模式 | 🐹 Go Gin & Gorm 对应范式 | AI 破壁伴写指令（AI Prompt） |
 |---|---|---|---|
 | **路由定义** | 使用 `@RestController` 和 `@GetMapping` 注解 | 使用 `r := gin.Default()` 后调用 `r.GET("/path", handler)` | “我熟悉 Spring 的注解路由。请把这段 Java Controller 翻译为使用 Go Gin 规范的 handler 函数，保持入参绑定与错误响应一致。” |
 | **依赖注入** | 使用 `@Autowired` 容器自动装配 | 显式进行结构体初始化与指针注入 `service := &UserService{db: gormDB}` | “请向我解释 Go 语言中如何不使用 IoC 容器，而是通过结构体构造函数显式进行依赖注入。” |
