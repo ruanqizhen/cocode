@@ -6,7 +6,7 @@
 
 理解并掌握 AI API，不仅能让你看透这些顶尖编程工具的底层逻辑，更能让你将 AI 功能无缝嵌入到自己的程序中，从而创建出专属的 AI 工具。本章将带你由浅入深，从核心概念、高级进阶魔法，再到最新的全球 API 生态布局与实战代码，完成全方位的兵器谱扫盲。
 
----
+
 
 ## AI API 的核心概念模型
 
@@ -30,7 +30,6 @@ API 交互通常采用**对话历史数组**的形式。数组中的每一条消
 * **`max_tokens`**：限制模型单次回复的最大 Token 数量（防范 AI 产生幻觉陷入死循环无限吐字，从而保护你的钱包）。
 * **`stream`（流式传输）**：设为 `true` 后，API 将像打字机一样逐字返回数据（Server-Sent Events），而非等待全部生成完毕才一次性返回。这在构建交互式终端或聊天界面时能极大地改善用户体验。
 
----
 
 ## AI 工具幕后的“两大魔法”
 
@@ -83,7 +82,6 @@ sequenceDiagram
 
 ```
 
----
 
 ## 全球 AI API 提供商
 
@@ -202,7 +200,6 @@ print(message.content[0].text)
 
 ```
 
----
 
 ### Google Gemini (长文本新一代 SDK)
 
@@ -236,7 +233,7 @@ print(response.text)
 
 ### DeepSeek (标准兼容性与思维链提取)
 
-#### 🐍 Python 示例（无缝复用 OpenAI SDK 调用 V3 模型）
+#### 🐍 Python 示例（无缝复用 OpenAI SDK 调用 V4 模型）
 
 ```python
 import os
@@ -249,7 +246,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="deepseek-chat",  
+    model="deepseek-v4-flash",  
     temperature=0.0,
     messages=[
         {"role": "system", "content": "你是一位极致精简的极客导师，不吐废话。"},
@@ -283,7 +280,7 @@ print(response.choices[0].message.content)
 
 ```
 
----
+在笔者写这本书的过程中，DeepSeek 的价格大幅优惠于其它模型，成为了笔者使用的主力模型。本书后续的示例，主要都基于 DeepSeek 模型来构建。
 
 ## 工程落地建议
 
@@ -292,5 +289,4 @@ print(response.choices[0].message.content)
 3. **多模型混合编排策略（Multi-Model Strategy）**：在工程实现中，不要把逻辑全部绑定在单一厂商上。可以用强推理模型（如 Claude Opus 或 OpenAI o3）进行顶层架构设计与任务拆解，而把拆解出来的具体代码编写、日志解析、单测生成等简单任务交给快模型（如 GPT-4.1 Mini 或 Gemini Flash）去执行。
 4. **非实时任务采用 Batch API**：如果你在写一些代码审查、自动化全库文档生成等不需要秒级返回的工具，可以使用厂商提供的 Batch API，这能直接帮你砍掉一半的调用费用。
 
----
 

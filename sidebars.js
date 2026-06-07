@@ -30,6 +30,7 @@ const sidebars = {
         'api',
         'ai_agent',
         'tools',
+        'cc',
         'context',
         'planning',
         'make_ebook',
