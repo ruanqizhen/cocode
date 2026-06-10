@@ -51,6 +51,18 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: '趣味篇：AI 的奇妙行为学',
+      collapsed: false,
+      items: [
+        'bloopers',
+        'sycophancy',
+        'hallucination',
+        'laziness',
+        'jailbreak',
+      ],
+    },
+    {
+      type: 'category',
       label: '附录',
       collapsed: true,
       items: [
