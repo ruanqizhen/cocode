@@ -35,6 +35,7 @@ const sidebars = {
         'planning',
         'make_ebook',
         'iteration',
+        'subagent',
         'multimodal',
         'cost_control',
         'instructions',
