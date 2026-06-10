@@ -74,6 +74,11 @@ const sidebars = {
       ],
     },
     {
+      type: 'doc',
+      label: '注意力是你所需要的一切',
+      id: 'attention',
+    },
+    {
       type: 'link',
       label: 'GitHub 仓库',
       href: 'https://github.com/ruanqizhen/cocode',
