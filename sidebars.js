@@ -46,6 +46,8 @@ const sidebars = {
         'security',
         'critical_thinking',
         'team_collaboration',
+        'harness',
+        'loop',
         'growth',
       ],
     },
