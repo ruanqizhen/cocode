@@ -1,4 +1,4 @@
-# 视觉工程：接入赛博视网膜与多模态视觉闭环
+# 视觉工程
 
 > “以前，AI 只是个盲人，只能在你的代码文本里摸索；而现在，多模态视网膜的接入让它拥有了明亮的眼睛。它不仅能阅读代码，更能看懂你的设计图与 Bug 截图。”
 
@@ -46,39 +46,6 @@
 
 
 ## 设计稿手稿一键还原为 React 前端组件
-
-```mermaid
-graph TD
-    A[手绘设计稿草图 / 像素线框图<br/>(Image Input)] --> B[多模态 AI 视网膜解构]
-    
-    subgraph AI_Engine [多模态视觉解构引擎]
-        B --> B1[几何对齐与网格检测]
-        B --> B2[线框层级与容器识别]
-        B --> B3[文字 OCR 与语义实体提取]
-    end
-
-    B1 --> C[视觉设计系统约束配置]
-    B2 --> C
-    B3 --> C
-
-    subgraph Style_Constraints [视觉设计硬性约束]
-        C --> C1[色彩系统<br/>#3E2723 / #D7CCC8 / #FF9800]
-        C --> C2[设计美学<br/>毛玻璃 Glassmorphism / rounded-3xl]
-        C --> C3[响应式网格布局<br/>移动端单列 / PC端网格]
-    end
-
-    C1 --> D[自动化代码生成器]
-    C2 --> D
-    C3 --> D
-
-    D --> E[工业级 React 前端组件<br/>(Tailwind CSS + Lucide 图标)]
-
-    style A fill:#fee2e2,stroke:#f87171,stroke-width:2px
-    style AI_Engine fill:#f0fdf4,stroke:#4ade80,stroke-width:2px
-    style Style_Constraints fill:#eff6ff,stroke:#60a5fa,stroke-width:2px
-    style E fill:#dcfce7,stroke:#22c55e,stroke-width:3px
-```
-*图：设计稿手稿一键还原 React 前端组件工作流*
 
 为了切身感受到多模态的威力，我们首先模拟一个经典的“需求冷启动”场景：你正在为一家咖啡馆设计一个线上点餐页面。你的设计师（或者你自己）在白纸上用铅笔草草画了一幅布局线框图，包含 Banner 图、今日特推卡片、以及底部的“加入购物车”飘窗按钮。
 
