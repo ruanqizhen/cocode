@@ -38,6 +38,7 @@ const sidebars = {
         'subagent',
         'multimodal',
         'rules',
+        'skills',
         'agent_mcp',
         'refactoring',
         'debugging',
@@ -71,8 +72,6 @@ const sidebars = {
         'markdown',
         'ai_agent_prompt',
         'ai_agent_code',
-        'appendix_a',
-        'appendix_b',
       ],
     },
     {
