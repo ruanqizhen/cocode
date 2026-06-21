@@ -1,4 +1,4 @@
-# 底座框架工程 Harness Engineering
+# 基座工程（Harness Engineering）
 
 > “如果把大模型比作高速运转的 CPU，那么 Harness 就是为其提供内存管理、调度任务和连接外设的操作系统（OS）。”
 
