@@ -39,7 +39,7 @@ const sidebars = {
         'multimodal',
         'rules',
         'skills',
-        'agent_mcp',
+        'mcp',
         'refactoring',
         'debugging',
         'quality_docs',
