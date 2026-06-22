@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from '@docusaurus/Link';
 
 export default function NotFoundContent({ className }) {
-  const [seconds, setSeconds] = useState(2);
+  const [seconds, setSeconds] = useState(4);
 
   useEffect(() => {
     const timer = setInterval(() => {
