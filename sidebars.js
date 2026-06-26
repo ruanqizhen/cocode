@@ -41,6 +41,7 @@ const sidebars = {
         'skills',
         'mcp',
         'refactoring',
+        'testing',
         'debugging',
         'quality_docs',
         'security',
