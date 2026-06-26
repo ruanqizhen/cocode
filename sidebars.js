@@ -73,6 +73,7 @@ const sidebars = {
         'markdown',
         'ai_agent_prompt',
         'ai_agent_code',
+        'nodejs',
       ],
     },
     {

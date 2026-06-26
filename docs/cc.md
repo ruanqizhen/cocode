@@ -36,6 +36,11 @@ Claude Code 摆脱了图形界面的束缚，在终端中衍生出了极高自�
 
 #### 交互式终端模式
 
+
+:::tip 背景知识：Node.js
+Claude Code 是基于 Node.js 开发的，因此需要安装 Node.js 才能运行。如果你还不了解 Node.js，可以先阅读 [Node.js](nodejs)，然后再回来继续阅读下面的内容。
+:::
+
 ```bash
 # 跨平台一键全局安装
 npm install -g @anthropic-ai/claude-code 
