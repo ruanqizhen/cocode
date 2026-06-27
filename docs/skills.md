@@ -4,18 +4,38 @@
 
 在与先进的 AI Agent（如 Claude Code）结对编程时，如果我们把所有的项目背景、规范、构建命令和特定任务的提示词全部塞进全局规则中，很快就会遇到“认知载荷超载”与“上下文稀释”的问题。
 
-为了解决这一痛点，Agent Skills（智能体技能） 应运而生。它正在迅速成为 AI 编程工具的标配。如果说全局规则是常驻大脑的“全局常识”，那么 AI Skills 就是一块块按需插入的“技能芯片”。本文将系统讲解 Skill 的本质、底层运转机制、适用时机以及如何为你的项目定制专属技能。
+为了解决这一痛点，Agent Skills（智能体技能）应运而生。它正在迅速成为 AI 编程工具的标配。如果说全局规则是常驻大脑的“全局常识”，那么 AI Skills 就是一块块按需插入的“技能芯片”。本文将系统讲解 Skill 的本质、底层运转机制、适用时机以及如何为你的项目定制专属技能。
+
+
 
 ## 什么是 AI Skill？
 
-Anthropic 官方的定义非常简洁：“一个 Skill 是一组指令——打包成一个简单的文件夹——它教会 Claude 如何处理特定的任务或工作流。”
+Skills 是 `.claude/skills/` 目录下的一组技能目录（Skill Folder）。每个 Skill 以一个独立文件夹存在，核心入口文件为 `SKILL.md`。它们的价值在于：把本该反复在 `CLAUDE.md` 或对话中重新解释的知识，变成可以按需触发的可复用模块。Anthropic 官方的定义也极为简洁： “一个 Skill 是一组指令——打包成一个简单的文件夹——它教会 Claude 如何处理特定的任务或工作流。”
 
 从技术本质上看，Skill 是一种基于提示词的模块化能力扩展机制（Prompt-based Meta-tool）。它并不是可执行代码（不会运行 Python 或启动 HTTP 服务），而是一个按需加载的指令包。
 
+其基本结构由顶部的 YAML Frontmatter（控制触发方式）和下方的 Markdown 指令主体组成：
+
+```markdown
+---
+name: skill-name        # 技能唯一标识符 (kebab-case)
+description: text       # 语义匹配的关键描述（AI 判断是否加载的重要依据）
+---
+
+# 技能标题
+
+## 核心约束与流程说明...
+```
+
+
+
 ### 两个绝佳的类比
 
-1. 技能芯片 (Skill Chip)：这就像黑客帝国中插在脑后的芯片，AI 平时不需要掌握这项技能，只有在执行特定任务（如“编写 Git Commit”或“数据库迁移”）时，才临时插上这块包含专业知识的芯片。
-2. 食谱与副厨师 (Cookbook vs Sous Chef)：Skill 就像给 AI 递上一本特定菜系的“食谱（Cookbook）”，提供“怎么做某件事”的步骤，AI 依然是亲自动手的人；而子 Agent 则像是直接雇佣了一个“副厨师（Sous Chef）”来帮你完成整道菜。
+1. 技能芯片 (Skill Chip)
+   这就像黑客帝国中插在脑后的芯片。AI 平时不需要掌握这项技能，只有在执行特定任务时才临时加载。
+
+2. 食谱与副厨师 (Cookbook vs Sous Chef)
+   Skill 更像“食谱”，提供步骤与规范；AI 仍然是执行者。而子 Agent 更像一个“独立同事”，负责完成一整段工作。
 
 
 
@@ -23,27 +43,30 @@ Anthropic 官方的定义非常简洁：“一个 Skill 是一组指令——打
 
 ### 渐进式披露（Progressive Disclosure）
 
-AI Skills 能够实现“按需加载”的底层魔法，在于它独特的 YAML 前置元数据（Frontmatter） 声明以及渐进式披露机制。它完美解决了传统全局规则（如 `CLAUDE.md`）持续消耗 Token、稀释模型注意力的问题。
+AI Skills 能够实现“按需加载”，关键在于 Frontmatter（YAML 元数据）与渐进式披露机制的结合。它用于减少全局规则长期占用上下文的问题。
 
-当 AI 工具启动时，它采用的是两阶段加载策略：
+整个过程可以理解为两阶段：
 
-1. 第一阶段：轻量级注册（扫描描述）
-AI 只读取每个技能顶部的 YAML 元数据（`name` 和 `description`）。这部分数据极小，几乎不占用上下文空间。
-2. 第二阶段：动态唤醒（语义匹配）
-当你在对话中输入指令时，AI 会在后台将你的请求与所有已注册技能的 `description` 进行语义匹配计算。一旦判定当前任务需要该技能，AI 才会将 `SKILL.md` 的 Markdown 主体指令完整注入到当前对话上下文中，从而“武装”自己去解决问题。
+### 第一阶段：轻量级注册
+
+AI 只读取每个 Skill 顶部的 YAML 元数据（如 `name` 和 `description`），用于建立索引，不加载正文。
+
+### 第二阶段：按需加载
+
+当用户输入任务时，系统会根据当前请求与所有 Skill 的 `description` 做语义匹配。一旦匹配成功，对应 Skill 的 `SKILL.md` 内容才会被完整加载到上下文中。
 
 
 
-## skill vs 全局规则 vs 子 Agent
+## Skill vs 全局规则 vs 子 Agent
 
-这三者都能扩展 AI 的能力，但加载机制和使用成本有着本质的区别：
+三者都能扩展 AI 能力，但机制完全不同：
 
-| 维度 | 全局规则 (CLAUDE.md) | Agent Skills (技能芯片) | 子 Agent (独立同事) |
-| --- | --- | --- | --- |
-| 本质 | 静态项目宪法 / 全局常识 | 按需加载的指令包（食谱） | 独立的 AI 实例（同事） |
-| 加载机制 | 全局强制加载，每次会话始终存在 | 动态按需加载（相关时才载入） | 派遣时启动并接管任务 |
-| 上下文/Token | 持续占用并消耗，易产生稀释 | 平时消耗极低，激活时载入 | 拥有独立的上下文窗口，成本较高 |
-| 适用场景 | 全局构建命令、核心技术栈约定、团队红线 | 特定垂类任务、工具规范、领域知识、文件转换 | 复杂的多步骤工作流、带验证循环的独立任务 |
+| 维度    | 全局规则 (CLAUDE.md) | AI Skills（技能芯片） | 子 Agent（独立同事） |
+| ----- | ---------------- | --------------- | ------------- |
+| 本质    | 静态项目宪法           | 按需加载的指令包        | 独立执行的 AI 实例   |
+| 加载机制  | 全局始终存在           | 语义匹配后加载         | 任务级启动         |
+| 上下文占用 | 长期占用             | 按需短暂加载          | 独立上下文窗口       |
+| 适用场景  | 全局规范、技术栈约定       | 可复用流程、工具规范      | 多步骤复杂任务       |
 
 
 
@@ -51,97 +74,238 @@ AI 只读取每个技能顶部的 YAML 元数据（`name` 和 `description`）�
 
 ### 决策树指南
 
-根据社区总结的最佳实践，你可以通过以下决策树来判断是否需要使用 Skill：
-
 * 是工具 / 转换 / 模板吗？ 👉 用 Skill
-* 是 AI 不具备的内部领域知识吗？ 👉 用 Skill
-* 会在不同任务间重复使用吗？ 👉 用 Skill
-* 需要多步骤推理和协调多个操作吗？ 👉 *用子 Agent*
-* 是复杂的、带验证循环的工作流吗？ 👉 *用子 Agent*
+* 是可复用流程吗？ 👉 用 Skill
+* 是领域性规则或规范吗？ 👉 用 Skill
+* 需要多步骤推理与执行协调吗？ 👉 用子 Agent
+* 是复杂工作流或带验证循环任务吗？ 👉 用子 Agent
 
-核心建议： 从 Skill 开始。Skill 更简单、更快、更易维护。只有当你明确需要复杂的编排（多步骤、决策点、自我验证）时，才升级到子 Agent。并且，Skill 和子 Agent 是可以完美协同的——子 Agent 像项目经理（负责编排），Skill 像它手边的专用工具箱。
+核心建议：从 Skill 开始。Skill 更轻量、更易维护。只有在需要复杂编排时才升级到子 Agent。两者可以协同使用。
+
+
 
 ### 典型应用场景
 
-* 文件转换：PDF → 文本、DOCX → 文本、Excel 解析。
-* 研发规范：生成符合 Conventional Commits 的 Git 消息、执行数据库迁移审计。
-* 模板生成：生成符合公司规范的文档、邮件、API 接口文档。
-* 可复用的工具函数：常用的实用操作和排错指南。
+* 文件转换：PDF → 文本、DOCX → 解析
+* 研发规范：Git Commit 规范、代码审计流程
+* 模板生成：API 文档、接口说明、邮件模板
+* 标准化流程：排错步骤、部署规范、代码 review checklist
 
 
 
 ## 如何创建与部署 Skill？
 
-在项目中创建 Skill 非常简单，只需遵循规范的目录结构和元数据声明。
-
 ### 1. 目录结构规范
 
-Skill 分为全局可用和当前项目可用两种作用域：
+Skill 分为两种作用域：
 
-* 用户级（全局技能）：`~/.config/claude/skills/` 或 `~/.claude/skills/`（所有项目通用）。
-* 项目级（团队共享）：项目根目录下的 `.claude/skills/`（推荐随 Git 提交）。
+* 用户级（全局技能）：`~/.config/claude/skills/` 或 `~/.claude/skills/`
+* 项目级（推荐）：`.claude/skills/`（随 Git 提交）
 
-每个 Skill 必须是一个独立的文件夹（使用连字符 `kebab-case` 命名），核心是 `SKILL.md` 文件：
+每个 Skill 是一个独立文件夹：
 
 ```text
 your-project/
 ├── .claude/
 │   └── skills/
-│       └── git-commit/          <-- 技能名称目录 
-│           ├── SKILL.md         <-- 核心指令文件 (必须)
-│           ├── examples.md      <-- 使用示例 (可选)
-│           └── scripts/         <-- 辅助脚本 (可选)
-
+│       └── git-commit/
+│           ├── SKILL.md
+│           ├── examples.md
+│           └── scripts/
 ```
 
-### 2. 编写 SKILL.md 模板
 
-`SKILL.md` 必须严格由两部分组成：顶部的 YAML Frontmatter 和底部的 Markdown 指令主体。
+
+### 2. 编写 SKILL.md 模板
 
 ```markdown
 ---
 name: git-commit
-description: Automatically generate structured Conventional Commits messages based on local git diffs. Use when the user asks to write a git commit message or review changes for a commit.
+description: Generate Conventional Commit messages based on git diffs. Use when writing commit messages or reviewing changes for commits.
 ---
 
 # Git Commit 规范生成技能
 
-当你被要求生成 Git Commit 消息或提交代码时，请严格遵守本技能的约束：
+当你被要求生成 Git Commit 消息时，请遵守以下规则：
 
 ## 1. 提交格式
-每次提交必须符合规范，结构如下：
-`<type>(<scope>): <subject>`
+<type>(<scope>): <subject>
 
-- feat: 新增功能
-- fix: 修复 Bug
-- docs: 仅修改文档
+- feat: 新功能
+- fix: 修复问题
+- docs: 文档修改
 
-## 2. 约束条件
-- 标题行不得超过 50 个字符。
-- 使用祈使句（如 "add x" 而非 "added x"）。
+## 2. 约束
+- 标题不超过 50 字符
+- 使用祈使句（add x，而不是 added x）
+```
+
+
+
+### 3. 典型脚手架 Skill 案例
+
+#### 案例一：创建新功能模块
+
+````markdown
+---
+name: new-feature
+description: Create a new feature module under features/ with standard vertical slice architecture
+---
+
+# 创建新功能模块
+
+## 目录结构
 
 ```
+src/features/{module_name}/
+├── router.py
+├── service.py
+├── repository.py
+├── schemas.py
+├── tests/
+```
+
+## 约束
+- 所有模块必须使用统一结构
+- 所有 DB 操作必须进入 repository
+- router 必须在 main.py 注册
+
+## 完成后
+- 运行 typecheck
+- 注册 router
+````
+
+
+
+#### 案例二：数据库迁移 Skill
+
+````markdown
+---
+name: db-migration
+description: Handle Alembic database migrations safely. Use when modifying database schema or models.
+---
+
+# 数据库迁移规则
+
+## ⚠️ 硬性约束
+- 不修改历史 migration 文件
+- 不在 migration 中写业务逻辑
+- 必须支持 downgrade
+
+## 标准流程
+```bash
+alembic revision --autogenerate -m "update schema"
+alembic upgrade head
+alembic downgrade -1
+```
+
+## 完成标准
+- 测试通过
+- 可回滚
+````
 
 
 
 ## 最佳实践与避坑指南
 
-要让 Skills 能够精准被 AI 发现并高效执行，请务必关注以下工程细节：
+### 1. description 是关键入口
 
-1. `description` 是成败的关键：这是 AI 决定何时加载该技能的唯一依据。
-* ❌ 低效描述：`"This is a skill to help write git commits."`（缺乏触发场景）。
-* ✅ 高效描述：包含动作、触发词，并用第三人称书写。`"Converts document files to text. Use when reading document attachments, analyzing files from tickets, or extracting content."`
-* *注：描述请保持在一行内（不要换行），通常控制在 1024 字符以内。*
+description 是 Skill 被匹配的最重要语义依据：
+
+* ❌ 模糊：This is a git skill
+* ✅ 清晰：用于生成符合 Conventional Commit 的提交信息，在用户编写 commit 或 review diff 时触发
 
 
-2. 精细化技能拆分：不要试图创建一个名为 `backend-helper` 的全能型大技能，这会导致严重的上下文稀释。请按功能微观拆分（例如：拆分为 `db-migration`、`api-doc-generator`、`eslint-fixer`）。
-3. 控制文件长度：保持 `SKILL.md` 在 500 行以内。利用“渐进式披露”原则，主文件保持精简，详细内容或长示例放在同级目录的 `references/` 或 `examples.md` 中按需引导加载。
-4. 命名约束：技能文件夹和 YAML 中的 `name` 字段，必须严格使用连字符命名法 (kebab-case)（如 `document-reader`）。
+
+### 2. 精细化拆分 Skill
+
+不要创建“万能 Skill”。例如：
+
+❌ backend-helper
+✅ db-migration / api-doc-generator / log-analyzer
+
+
+
+### 3. 控制复杂度
+
+Skill 应保持轻量，复杂说明可以拆分到：
+
+* examples.md
+* references/
+
+
+
+### 4. 用“参照”替代抽象描述
+
+❌ “按照项目规范创建模块”
+✅ “以 billing 模块为模板复制结构”
+
+
+
+## 防止“脚手架遗忘”
+
+### 三种常见问题
+
+* 文件放错目录
+* 重复造轮子
+* 命名风格漂移
+
+
+
+### 解决方案：用参照替代规则
+
+```markdown
+❌ 抽象规则
+“按规范创建模块”
+
+✓ 参照式约束
+“严格复制 billing 模块结构，不允许改变目录布局”
+```
+
+
+
+## 逆向工程：从已有项目生成规范
+
+```markdown
+请分析代码库并生成 CLAUDE.md 草稿，包括：
+
+1. 目录结构模式
+2. 命名约定
+3. 测试组织方式
+4. import 风格
+5. 潜在禁区
+
+并说明每条规则的依据
+```
+
+
+
+## Skill 与 Hooks 的协作
+
+可以构建三层约束体系：
+
+```mermaid
+graph TD
+A[CLAUDE.md + Skills] --> B[Git Hooks]
+B --> C[CI/CD]
+```
+
+* Skills：提供概率性引导
+* Hooks：提供本地确定性约束
+* CI：提供最终强校验
+
+三者结合才能形成稳定工程系统。
 
 
 
 ## 跨工具支持与总结
 
-Skill 机制最初由 Anthropic 推出，但凭借其优雅的设计，正在迅速成为行业标准。目前，Claude Code、Codex CLI、Cursor、Gemini CLI 等工具均已支持 `SKILL.md` 格式，实现了“一次编写，处处可用”的跨平台移植能力。
+Skill 机制已逐渐成为跨工具标准，被多种 AI 编程工具支持，实现“一次编写，多端使用”。
 
-一句话总结：AI Skills 是一套“按需加载的食谱”。它彻底解决了全局规则“总是占用上下文”的顽疾，让你可以将无数的专业知识和工作流打包沉淀。写好描述（Description），做好功能拆分，是发挥技能芯片最大威力的核心秘诀。
+
+
+### 一句话总结
+
+AI Skills 是一套“按需加载的能力模块系统”。它把工程经验拆解成可复用的技能单元，让 AI 在需要时临时加载，在不需要时保持轻量，从而解决全局规则长期占用上下文的问题。
+
+写好 description，做好拆分，并与 CLAUDE.md、Hooks、子 Agent 协同设计，才是发挥这套系统最大价值的关键。
