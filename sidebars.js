@@ -43,7 +43,7 @@ const sidebars = {
         'refactoring',
         'testing',
         'debugging',
-        'quality_docs',
+        'code_review',
         'security',
         'critical_thinking',
         'team_collaboration',
