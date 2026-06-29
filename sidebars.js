@@ -63,6 +63,7 @@ const sidebars = {
         'hallucination',
         'laziness',
         'jailbreak',
+        'mountain',
       ],
     },
     {
