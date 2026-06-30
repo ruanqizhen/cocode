@@ -44,7 +44,6 @@ const sidebars = {
         'testing',
         'debugging',
         'code_review',
-        'security',
         'critical_thinking',
         'team_collaboration',
         'cost_control',
