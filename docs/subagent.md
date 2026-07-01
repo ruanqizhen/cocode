@@ -61,7 +61,7 @@ graph TD
 
 在多代理架构下，我们可以完美实施模型智力分层策略。不需要所有的事情都让最贵、最慢的顶级推理模型（如 Opus 或大功力推理模型）去干：
 
-```
+```text
 主 Agent (Opus) ➔ 负责统筹、高层决策与复杂 Plan 编排（高成本，低频使用）
  ├── Explore 子 Agent (Haiku / Flash) ➔ 负责全库做只读 grep 盲搜（地板价，高频高压消耗）
  └── Code-Reviewer 子 Agent (Sonnet / Pro) ➔ 负责中等难度的静态审计（中等性价比）

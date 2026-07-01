@@ -1,5 +1,7 @@
 # AI Agent
 
+> “智能不仅在于回答问题，更在于在真实的物理与数字世界中采取行动。”
+
 AI 的应用形态正在从最初的“生成式对话工具（Chatbot）”演进为具备自主执行能力的“智能体（AI Agent）”。
 
 本章将深入剖析 AI Agent 的底层原理、核心架构、进阶路线，并结合一个端到端的 Windows 系统命令助手项目，展示如何从零构建一个具备实用价值且安全的 Agent 系统。
@@ -25,7 +27,7 @@ AI 的应用形态正在从最初的“生成式对话工具（Chatbot）”演�
 
 一个完整的 AI Agent 架构，本质上是以大模型为核心大脑，外接多种工程基础设施的组合体。它由以下四个核心要素构成：
 
-```
+```mermaid
 flowchart TB
     Goal([目标 Goal]) --> Brain
     
@@ -82,7 +84,7 @@ ReAct（Reason-Act-Observe，推理-行动-观察）是所有 Agent 的祖传地
 
 整个系统遵循严格的输入拦截与执行隔离设计：
 
-```
+```mermaid
 flowchart TD
     A([用户输入自然语言]) --> B[Agent 大脑 LLM 核心]
     B -.->|1. 读取| C[预设的 Tools Schema JSON]
