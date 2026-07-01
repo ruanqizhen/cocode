@@ -238,7 +238,7 @@ graph TD
     RedLines -- 否 --> Business{业务上下文一致性检查 <br> 测试用例边界是否足够?}
     
     Business -- 否: 亮黄灯 --> Rewrite[指示修正方向, 要求 AI 补充逻辑与测试]
-    Business -- 是: 亮绿灯 --> Accept[✅ 签署人类姓名, Git Commit 存档放行]
+    Business -- 是: 亮绿灯 --> Accept[签署人类姓名, Git Commit 存档放行]
 ```
 
 ## 不可推卸的因果律
