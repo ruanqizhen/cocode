@@ -53,7 +53,7 @@ Markdown 凭借极其克制的“语法糖”，实现了以下三大 AI 友好�
 
 对于 AI 编程工具而言，代码块的声明格式直接决定了它能否为你做精准的语法高亮与行级 Diff 改写。
 
-```markdown
+````markdown
 ```typescript
 // 必须在反引号后显式指定语言声明（如 typescript, python, json）
 export function greet(name: string): string {
@@ -61,10 +61,10 @@ export function greet(name: string): string {
 }
 ```
 
-```
+````
 
 :::tip 
-千万不要写不带语言后缀的孤立代码块（即单纯的 ``` ）。类似 Claude Code 这样的终端工具，一旦无法识别代码块的 AST 属性，就会放弃局部修改，转而简单粗暴地将几百行的整个文件重新重写一遍，极易引发会话中断。
+千万不要写不带语言后缀的孤立代码块（即单纯的三重反引号）。类似 Claude Code 这样的终端工具，一旦无法识别代码块的 AST 属性，就会放弃局部修改，转而简单粗暴地将几百行的整个文件重新重写一遍，极易引发会话中断。
 :::
 
 ### 表格与关系映射

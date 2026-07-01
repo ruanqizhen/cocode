@@ -230,15 +230,15 @@ AI 引入的安全问题往往不是出于恶意，而是因为它自信地抄�
 
 ```mermaid
 graph TD
-    Diff[审查 AI 提交的代码 Diff] --> Compiles{CI 自动化门禁是否通过? <br> Lint / 测试 / SAST 扫描}
-    Compiles -- 否: 亮红灯 --> Reject[机器驳回: 拦截并交由 AI 自动修复]
-    Compiles -- 是 --> RedLines{人类审查: 是否潜藏红线隐患? <br> 1. IDOR 越权/鉴权漏洞 <br> 2. N+1 等性能黑洞 <br> 3. ReDoS 正则 <br> 4. 幻觉依赖与硬编码}
+    Diff["审查 AI 提交的代码 Diff"] --> Compiles{"CI 自动化门禁是否通过? Lint / 测试 / SAST 扫描"}
+    Compiles -- 否: 亮红灯 --> Reject["机器驳回: 拦截并交由 AI 自动修复"]
+    Compiles -- 是 --> RedLines{"人类审查: 是否潜藏红线隐患? 1. IDOR 越权/鉴权漏洞 2. N+1 等性能黑洞 3. ReDoS 正则 4. 幻觉依赖与硬编码"}
     
-    RedLines -- 是: 亮红灯 --> RejectHuman[人工驳回: 明确指出漏洞原理与红线]
-    RedLines -- 否 --> Business{业务上下文一致性检查 <br> 测试用例边界是否足够?}
+    RedLines -- 是: 亮红灯 --> RejectHuman["人工驳回: 明确指出漏洞原理与红线"]
+    RedLines -- 否 --> Business{"业务上下文一致性检查: 测试用例边界是否足够?"}
     
-    Business -- 否: 亮黄灯 --> Rewrite[指示修正方向, 要求 AI 补充逻辑与测试]
-    Business -- 是: 亮绿灯 --> Accept[签署人类姓名, Git Commit 存档放行]
+    Business -- 否: 亮黄灯 --> Rewrite["指示修正方向, 要求 AI 补充逻辑与测试"]
+    Business -- 是: 亮绿灯 --> Accept["签署人类姓名, Git Commit 存档放行"]
 ```
 
 ## 不可推卸的因果律

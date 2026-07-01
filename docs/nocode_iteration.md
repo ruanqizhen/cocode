@@ -216,7 +216,7 @@ Three.js 使用 CDN importmap 引入。
 而这一切，可能仅仅来自于你和 AI 的几轮自然语言对话。这就是“自然语言编程”最令人上瘾的地方。它让“创造软件”这件事，变得像讲故事一样自然。
 
 
-下面是我的 AI 生成的结果：（结果演示： https://artifacts.meta.ai/share/a/1e9a1aac-d6d4-43bf-99b2-dd7c00fef3d6?utm_source=meta_ai_web_share_copy_link&utm_medium=share&utm_campaign=ecto_share）
+下面是我的 AI 生成的结果：（[结果演示](https://artifacts.meta.ai/share/a/1e9a1aac-d6d4-43bf-99b2-dd7c00fef3d6?utm_source=meta_ai_web_share_copy_link&utm_medium=share&utm_campaign=ecto_share)）
 
 
 ## 修改错误

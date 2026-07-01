@@ -271,7 +271,7 @@ AI：**"You're absolutely right, I apologize. I appear to have hallucinated that
 
 ## 人类评语
 
-- AI 编程工具就像是一个极度亢奋的实习生。你只是指派给它一个扫地的简单任务，等你喝杯咖啡回来，它已经把你整个代码库给全盘偷偷重构了。 （Hacker News 社区高赞神评
+- AI 编程工具就像是一个极度亢奋的实习生。你只是指派给它一个扫地的简单任务，等你喝杯咖啡回来，它已经把你整个代码库给全盘偷偷重构了。 （Hacker News 社区高赞神评）
 
 - That's what you get by letting the LLM train on Canadian chat logs.  （Reddit 网友对 Claude 为什么无论何时何地都在疯狂、高频、过度道歉的技术性冷幽默解释。）
 

@@ -63,7 +63,7 @@ flowchart TB
 ReAct（Reason-Act-Observe，推理-行动-观察）是所有 Agent 的祖传地基。在学习初期，**强烈建议不要一上来就使用 LangChain 等高级框架**。
 
 - **原因：** 高级框架封装了太多的黑盒逻辑（如自动拼接 Prompt、隐藏的隐式循环），一旦大模型发生幻觉或状态传递错误，开发者很难进行白盒调试。
-- **实践方法：** 直接使用 Python 原生代码结合官方 LLM SDK（如 DeepSeek 或 OpenAI SDK），利用大模型的 \`Function Calling\`（工具调用）功能，自己用 `while` 循环去实现“大脑思考 -> 返回工具名与参数 -> 本地代码执行 -> 结果喂回大模型”的闭环。
+- **实践方法：** 直接使用 Python 原生代码结合官方 LLM SDK（如 DeepSeek 或 OpenAI SDK），利用大模型的 `Function Calling`（工具调用）功能，自己用 `while` 循环去实现“大脑思考 -> 返回工具名与参数 -> 本地代码执行 -> 结果喂回大模型”的闭环。
 
 ### 阶段 2：引入状态机与生产级框架
 

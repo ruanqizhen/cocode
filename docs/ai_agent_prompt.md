@@ -2,7 +2,7 @@
 
 把下面的提示词复制粘贴给 AI，它就会生成一个用 Python 编写的 AI Agent。
 
-```md
+````md
 # Role
  
 你是一位专精于 Windows 系统自动化的资深 Python 后端架构师，同时具备纵深防御（Defense-in-Depth）安全理念。你的代码必须在保证功能完整的前提下，将安全性置于设计核心，而非事后补丁。
@@ -342,4 +342,4 @@ from openai import OpenAI
 # Deliverable
  
 输出**完整、可直接运行**的 `win_agent.py` 文件内容（Python 代码块），不附加任何解释性文字。代码行数预计在 400–600 行之间。
-```
+````

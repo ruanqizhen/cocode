@@ -263,7 +263,7 @@ Claude Code 会自动记录协作经验。
 | Claude Code | CLAUDE.md                    |
 | Cursor      | .cursorrules / .cursor/rules |
 | Copilot     | copilot-instructions.md      |
-| Codex       | AGENTS.md                    |
+| Antigravity | AGENTS.md                    |
 | Gemini      | GEMINI.md                    |
 | Aider       | CONVENTIONS.md               |
 
