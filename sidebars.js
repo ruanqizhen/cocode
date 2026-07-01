@@ -49,7 +49,7 @@ const sidebars = {
         'cost_control',
         'harness',
         'loop',
-        'growth',
+
       ],
     },
     {
@@ -63,6 +63,7 @@ const sidebars = {
         'laziness',
         'jailbreak',
         'mountain',
+        'growth',
       ],
     },
     {
