@@ -24,7 +24,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '进阶篇：程序员的 AI 修行',
+      label: '工具与实战篇：个人敏捷开发',
       collapsed: false,
       items: [
         'api',
@@ -35,21 +35,27 @@ const sidebars = {
         'planning',
         'make_ebook',
         'iteration',
-        'subagent',
+        'refactoring',
+        'testing',
+        'debugging',
+      ],
+    },
+    {
+      type: 'category',
+      label: '高阶架构篇：从单兵到自动化系统',
+      collapsed: false,
+      items: [
         'multimodal',
         'rules',
         'skills',
         'mcp',
-        'refactoring',
-        'testing',
-        'debugging',
+        'subagent',
         'code_review',
         'critical_thinking',
         'team_collaboration',
         'cost_control',
         'harness',
         'loop',
-
       ],
     },
     {
