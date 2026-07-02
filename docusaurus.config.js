@@ -17,7 +17,15 @@ const config = {
   projectName: 'cocode', // Usually your repo name.
   i18n: {
     defaultLocale: 'zh-cn',
-    locales: ['zh-cn'],
+    locales: ['zh-cn', 'en'],
+    localeConfigs: {
+      'zh-cn': {
+        label: '简体中文',
+      },
+      en: {
+        label: 'English',
+      },
+    },
   },
   markdown: {
     mermaid: true,
@@ -75,6 +83,12 @@ const config = {
           src: 'img/logo.png',
           href: '/'
         },
+        items: [
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+        ],
       },
       prism: {
         theme: prismThemes.github,

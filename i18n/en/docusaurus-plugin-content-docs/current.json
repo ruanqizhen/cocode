@@ -1,0 +1,43 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.入门篇：零基础上手": {
+    "message": "Part 1: Getting Started from Scratch",
+    "description": "The label for category '入门篇：零基础上手' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.工具与实战篇：个人敏捷开发": {
+    "message": "Part 2: Tools and Practice - Agile Development for Individuals",
+    "description": "The label for category '工具与实战篇：个人敏捷开发' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.高阶架构篇：从单兵到自动化系统": {
+    "message": "Part 3: Advanced Architecture - From Lone Wolf to Automated Systems",
+    "description": "The label for category '高阶架构篇：从单兵到自动化系统' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.趣味篇：AI 的奇妙行为学": {
+    "message": "Part 4: The Fun Side - The Wonderful Ethology of AI",
+    "description": "The label for category '趣味篇：AI 的奇妙行为学' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.附录": {
+    "message": "Appendix",
+    "description": "The label for category '附录' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.link.GitHub 仓库": {
+    "message": "GitHub Repository",
+    "description": "The label for link 'GitHub 仓库' in sidebar 'tutorialSidebar', linking to 'https://github.com/ruanqizhen/cocode'"
+  },
+  "sidebar.tutorialSidebar.link.作者个人主页": {
+    "message": "Author's Homepage",
+    "description": "The label for link '作者个人主页' in sidebar 'tutorialSidebar', linking to 'https://qizhen.xyz'"
+  },
+  "sidebar.tutorialSidebar.doc.前言": {
+    "message": "Preface",
+    "description": "The label for the doc item '前言' in sidebar 'tutorialSidebar', linking to the doc README"
+  },
+  "sidebar.tutorialSidebar.doc.注意力是你所需要的一切": {
+    "message": "Attention Is All You Need",
+    "description": "The label for the doc item '注意力是你所需要的一切' in sidebar 'tutorialSidebar', linking to the doc attention"
+  }
+}
+

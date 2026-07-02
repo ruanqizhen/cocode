@@ -1,0 +1,10 @@
+{
+  "title": {
+    "message": "Refactoring Programmer",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Refactoring Programmer",
+    "description": "The alt text of navbar logo"
+  }
+}
