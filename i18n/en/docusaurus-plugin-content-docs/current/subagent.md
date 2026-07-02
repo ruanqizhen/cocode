@@ -1,178 +1,158 @@
-# Cross-AI Teams (Subagents)
+# Autonomous Orchestration: The Subagent Architecture
 
 > "Talent wins games, but teamwork and intelligence win championships." — Michael Jordan
 
-As the volume of code expands, we will quickly hit a more hidden architectural bottleneck. For example, to refactor a complex business logic spanning 5 modules and involving 20 files, even if we issue an extremely restrained command, the AI programming tool, in order to thoroughly understand the context, will have to frantically call tools to `grep` search and `view` traverse thousands of lines of code across these dozens of files.
+As a repository scales from a localized script into a distributed enterprise architecture, developers executing AI Pair Programming crash into a lethal physics barrier: **The Context Exhaustion Trap**. 
 
-The result is: the context of the main conversation is instantly filled with the "information noise" of these temporarily perused files. In the next second, the model immediately falls into a low-intelligence death spiral of being "lost in the middle," and your Token bill explodes accordingly.
+Consider a scenario where you command the AI to execute a complex, cross-domain refactor spanning 5 microservices and 20 files. Even if you issue a perfectly constrained Prompt, the AI Agent must execute massive exploratory operations to parse the dependency graph. It will execute dozens of `grep` and `view_file` calls across thousands of lines of code.
 
-To fundamentally solve the cognitive limits of "single-soldier intelligence," cutting-edge AI programming agents have undergone a disruptive architectural revolution at the base Harness layer—introducing the Subagent mechanism to break down a single long-distance loop into the concurrent collaboration of multiple sub-loops. This article will guide you to decrypt how to upgrade from "fighting alone" to "legion warfare" and build an efficient multi-agent digital team locally.
+The consequence is mathematically unavoidable: the active context window becomes violently polluted with thousands of tokens of temporary "read-only" noise. Within minutes, the core LLM succumbs to "Lost-in-the-Middle" syndrome. Its instruction-following fidelity craters, its logic execution spirals into hallucination, and your Token burn-rate explodes.
 
+To annihilate the cognitive limitations of a "Single-Node Agent," frontier AI programming IDEs have engineered a devastating paradigm shift at the underlying orchestration layer: **The Autonomous Subagent Architecture**. 
 
+This system dynamically shatters massive, monolithic tasks into highly cohesive, isolated sub-routines executed by temporary, specialized AI instances. This chapter deconstructs the architecture of Subagent Swarms and how to deploy them to execute industrial-scale automation.
 
 ## What is a Subagent?
 
-In a standard Agent topology architecture, a Subagent refers to a completely independent AI instance dynamically and autonomously incubated and dispatched by the main Agent during runtime, based on task complexity, to handle specific closed-loop tasks.
+In modern Agentic topology, a Subagent is a completely isolated, ephemeral AI instance dynamically instantiated by the Primary Agent during runtime to execute a hyper-specific, closed-loop task.
 
-We can understand this collaborative system using an extremely vivid modern enterprise organizational structure:
+The structural architecture of this swarm is analogous to a military command hierarchy:
 
 ```mermaid
 graph TD
-    A[Human Architect / You] -->|Issue high-level strategic goals| B(Main Agent / Project Manager)
-    B -->|Isolated dispatch of specific task 1| C(Explore Subagent / Scout)
-    B -->|Isolated dispatch of specific task 2| D(Reviewer Subagent / Quality Inspector)
-    B -->|Isolated dispatch of specific task 3| E(Refactor Subagent / Commando)
+    A[Human Principal Architect] -->|Injects Macro Objective| B(Primary Orchestrator Agent)
+    B -->|Asynchronous Dispatch: Recon| C(Explore Subagent / The Scout)
+    B -->|Asynchronous Dispatch: Audit| D(Reviewer Subagent / The Auditor)
+    B -->|Asynchronous Dispatch: Mutation| E(Refactor Subagent / The Executor)
     
-    C -->|Read-only search, return refined summary| B
-    D -->|Static audit, return defect report| B
-    E -->|Local rewrite, submit safe Diff| B
+    C -->|Executes Read-Only Grep -> Returns Semantic Summary| B
+    D -->|Executes Static AST Audit -> Returns Vulnerability Payload| B
+    E -->|Executes Isolated Mutation -> Returns verified Git Diff| B
     
-    B -->|Synthesize code changes, present final results| A
-
+    B -->|Synthesizes execution payloads -> Streams final state| A
 ```
 
-The main Agent (Project Manager) sits in the center, responsible for conducting high-level conversations with you, receiving the global Spec, and formulating the Plan on a macro level. When it finds a part of the task that is tedious but has clear boundaries (such as "go peruse the dependencies of 15 configuration files"), it will absolutely not read them itself, but will dispatch a Subagent (a dedicated team member) downwards to work in the sandbox.
+The Primary Agent (The Orchestrator) acts as the centralized command node. It interfaces with the human, processes the Global `PRODUCT.md` specification, and synthesizes the Implementation Matrix. Crucially, when it identifies a tedious, bounded task (e.g., *"Map the internal API routes across these 15 configuration payloads"*), it **does not** pollute its own context window. It dispatches a Subagent to execute the physical traversal in an isolated sandbox.
 
-When each Subagent is born, it possesses an extremely rigorous, highly cohesive defense line:
+When a Subagent is instantiated, it is fortified by four rigid constraints:
 
-* Independent Context Window: Even if it turns the sea upside down outside reading 10,000 lines of code, the massive Token noise it generates is entirely locked within its own temporary window, absolutely not polluting the pure land of the main conversation.
-* Exclusive System Prompt: When dispatching it, the main Agent injects a tailor-made definition of expertise (e.g., "You are now a ruthless static audit expert").
-* Restricted Tool Permissions: You, or the main Agent, can restrict its destructive power. For example, only giving it "Read-only" permissions, depriving it of the qualification to arbitrarily modify local files.
-* Layered Model Matching: The main and sub-agents can use completely different underlying intelligence engines, achieving a perfect microeconomic balance between computing power and billing.
+1. **The Isolated Context Sandbox:** Even if the Subagent parses 50,000 lines of spaghetti code, the resulting Token bloat is permanently trapped inside its ephemeral context window. The Primary Agent's context remains utterly pristine.
+2. **The Specialized Injection Prompt:** The Orchestrator forces a custom cognitive persona onto the Subagent (e.g., *"You are a ruthless Application Security Auditor. Find SQL Injections."*).
+3. **Restricted I/O Boundaries:** You (or the Orchestrator) physically castrate the Subagent's terminal privileges. You can enforce a strict `ReadOnly` execution mode, stripping its ability to mutate the filesystem or execute Bash binaries.
+4. **Economic Model Routing:** The Orchestrator can map different sub-tasks to different intelligence tiers. It leverages lightweight, hyper-fast models for basic Regex searches, and heavy reasoning models for complex architectural audits.
 
+## The Engineering Necessity of Subagents
 
+Scaling from a linear conversational model to an asynchronous Agent Swarm fundamentally shatters the three primary barriers to industrial AI adoption:
 
-## Why Must Subagents Be Enabled in Industrial-Grade Development?
+### 1. Defending the "Purity of Context"
+This is the supreme technical imperative of the Subagent architecture. An LLM's attention mechanism degrades linearly as context volume expands. The Subagent operates as a cryptographic firewall. It parses 20 monolithic source files, executes high-density logic mapping in isolation, and returns only a compressed, 300-word topological summary to the Orchestrator. The Primary Agent maintains maximum cognitive fidelity for the duration of the sprint.
 
-Upgrading from one-way conversations to multi-agent collaboration, the Subagent mechanism, with advantages akin to a dimensionality reduction strike, head-on shatters the three great mountains hindering the engineering implementation of AI:
+### 2. Multi-Threaded Parallel Execution
+Standard LLM interfaces enforce a rigid, synchronous "Request/Response" deadlock. Real-world engineering requires massive concurrency. If you need to verify whether a newly injected Node module collides with internal namespaces across 5 separate frontend apps, the Orchestrator will instantly dispatch 5 parallel Subagents to scan the 5 directory trees concurrently, slashing the execution Time-to-Resolution (TTR) by 80%.
 
-### Defending the "Context Purity" of the Main Conversation to the Death
-
-This is the most core technical motivation for the existence of Subagents. The large model's attention is highly diluted in long texts. The Subagent acts as a perfect "information firewall." It finishes reading 20 related source files outside, completes high-density reasoning and conflict filtering in its own sandbox, and ultimately only returns a refined core summary and conclusion report of a few hundred words to the main Agent. Your main session can maintain an extremely clean, focused peak intelligence state for a long time.
-
-### Breaking Through Single-Threaded Concurrent Acceleration
-
-The default AI sidebar assistant is an extremely rigid single-threaded "Q&A." But in real-world engineering, many exploratory tasks can be perfectly parallelized. For example, if you want to know whether a newly integrated component has naming conflicts with 5 different submodules in the project, the main Agent can instantly dispatch 5 Subagents to concurrently search these 5 directories, directly shortening your wait time to one-fifth of the original.
-
-### Ultimate Token Cost Refinement Arbitrage
-
-Under a multi-agent architecture, we can perfectly implement a strategy of stratifying model intelligence. Not everything needs to be done by the most expensive, slowest top-tier reasoning model (like Opus or heavy-duty reasoning models):
+### 3. Precision Token Arbitrage (Cost Engineering)
+Multi-Agent topologies allow teams to execute ruthless Model Routing to optimize cost efficiency:
 
 ```text
-Main Agent (Opus) ➔ Responsible for coordination, high-level decisions, and complex Plan orchestration (High cost, low frequency use)
- ├── Explore Subagent (Haiku / Flash) ➔ Responsible for full-repository read-only grep blind searches (Floor price, high frequency/high volume consumption)
- └── Code-Reviewer Subagent (Sonnet / Pro) ➔ Responsible for medium-difficulty static audits (Medium cost-performance ratio)
-
+Primary Orchestrator (Opus/GPT-4o) ➔ Complex synthesis, Matrix planning, Human alignment (High Latency, High Cost)
+ ├── The Scout Subagent (Haiku/Flash) ➔ Bruteforce Read-Only AST traversing and regex matching (Low Latency, Micro-Cent Cost)
+ └── The Auditor Subagent (Sonnet/Pro) ➔ Static vulnerability analysis and linting (Balanced Cost-to-Intelligence)
 ```
+By mapping the cognitive payload to the appropriate model tier, engineering teams effortlessly slash their AI infrastructural burn-rate by over 70%.
 
-Through this echelon division of labor, bill costs can be unnoticeably slashed by more than 70% directly.
+## The Built-In Native Swarm
 
+Modern IDE backends (like Claude Code or Antigravity) ship with a natively embedded Subagent mesh. 
+You are not required to architect complex Python orchestration layers; the IDE's core execution loop autonomously invokes these Subagents when it detects the appropriate telemetry triggers:
 
-
-## Built-in Subagents
-
-As the base of modern AI programming tools, Claude Code already has several out-of-the-box, completely imperceptible built-in Subagents densely integrated into the system.
-
-You don't need to write any tedious configuration code; the underlying Harness, like a seasoned labor contractor, will automatically summon them at the right time:
-
-| Built-in Subagent Name | Underlying Default Call Model | Core Functional Permissions | Automatically Triggered Technical Scenarios |
+| Native Subagent Signature | Target Model Tier | I/O Boundary Constraints | Trigger Vector / Autonomy Condition |
 |  |  |  |  |
-| Explore | Haiku / Flash | Absolutely Read-only (Only open to Grep, Glob, Read permissions) | When you ask for fast full-repository semantic searches like "Check where the old Docusaurus API is still being called in the project." |
-| Plan | Inherits Main Model Intelligence | Absolutely Read-only (Focused on Syntax Tree AST and architectural dependency analysis) | When you guide the tool into "Plan Mode" to formulate technical blueprints, cooperating with the SPET methodology learned in the previous chapter. |
-| General-purpose | Sonnet | Full Read/Write (Allowed to Write files and run Bash terminal tests) | When facing comprehensive crucial tasks that require large-area code rewriting across files, accompanied by self-healing troubleshooting. |
-| Claude Code Guide | Lightweight specialized model | Zero Local Permissions (Only possesses the official technical documentation knowledge base) | When you ask the tool directly in the terminal about its own configuration or toolchain usage questions like how to connect to the MCP protocol. |
+| **The Explorer** | Haiku / Flash | **Strict Read-Only** (Glob, Grep, View File) | Triggered by massive semantic search directives (e.g., *"Locate all instances of deprecated v1 API routing in `src/`."*) |
+| **The Planner** | Matches Orchestrator | **Strict Read-Only** (AST Analysis, Dependency mapping) | Engages when the IDE enters "Planning Mode" to synthesize a structural Implementation Matrix prior to code mutation. |
+| **The Generalist** | Sonnet / Pro | **Full Root Access** (Read/Write, Terminal Bash Execution) | Engages during massive cross-file refactoring operations requiring iterative compiler troubleshooting and self-healing loops. |
+| **The Manual/Doc Agent** | Proprietary Specialized | **Zero Host Access** (RAG querying against CLI documentation) | Triggered when the user asks the IDE internal configuration questions (e.g., *"How do I mount an MCP server?"*) |
 
-When you are using a terminal AI tool, if you see the console constantly flashing prompts like `[Dispatching Subagent...]`, please do not panic; this is exactly the tool's nervous system doing high-purity context isolation optimization for you.
+When operating a terminal-based AI environment, if you observe the `[Dispatching Subagent...]` output streaming in the console, **do not abort.** This is the system autonomously isolating the context payload to protect your core execution thread.
 
+## Engineering Custom Subagents
 
+As your repository matures, generic native agents will fail to adhere to your bespoke "Enterprise Architectural Red Lines." This is when you must transition to engineering declarative, custom Subagent configurations.
 
-## Custom Subagents
+### Approach 1: CLI Initialization
 
-When digital products enter the scale maintenance phase, built-in auto-agents often cannot meet your unique "enterprise-grade specifications" or "web novel update disciplines." This is the golden time for us to personally mold our exclusive Subagent team through declarative documents.
-
-### Approach 1: Dynamic Construction Using the Terminal GUI
-
-In tool terminals that support the Subagent ecosystem, directly type the core edict:
-
+In supported terminal environments, execute the bootstrap command:
 ```bash
 /agents
-
 ```
+This triggers an interactive wizard, allowing you to define the Agent's nomenclature, target model tier, and strict tool I/O permissions.
 
-In the task console that pops up, directly check `Create New Agent`, and follow the wizard to define its name, model, and the most critical tool permission fences.
+### Approach 2: Declarative Markdown Infrastructure (Production Grade)
 
-### Approach 2: Project-Level Markdown Configuration File Declaration (Recommended, Assets Can Be Precipitated)
+For persistent, enterprise environments, execute infrastructure-as-code (IaC). Provision an `.agents/` or `.claude/agents/` directory in the repository root. Every `.md` file mapped in this directory is instantly compiled into a highly specialized, dispatchable Agent node.
 
-Under your project's root directory, create the `.claude/agents/` folder. All Markdown files written under this folder will be automatically recognized as independent digital mercenaries with highly cohesive expertise.
-
-#### 📐 Template 1: Building a Fully Automated Code Quality Inspector (`code-reviewer.md`)
-
-Create `.claude/agents/code-reviewer.md` and input the following declaration:
+#### 📐 Template 1: The Autonomous Security Auditor (`code-reviewer.md`)
 
 ```markdown
-
 ---
 name: code-reviewer
-description: Specifically targets Git Diffs submitted in the project for security vulnerability, performance red line, and specification audits
-tools: Read, Glob, Grep  # 🔴 Extremely important: Only give read-only tools, deprive it of Write and Bash permissions to prevent AI overstepping boundaries
-model: sonnet            # Choose the highly cost-effective mid-range workhorse model
+description: Autonomously audits Git Diffs for structural security vulnerabilities, performance red lines, and architectural protocol violations.
+tools: Read, Glob, Grep  # 🔴 LETHAL CONSTRAINT: Strict Read-Only. Bash and Write access are permanently revoked to prevent unauthorized mutations.
+model: sonnet            # Optimal model for logic density vs speed.
 ---
 
+# 🛡️ Core Identity
+You are the ruthless Principal Security Architect of this engineering team.
 
-# You are the ruthless text quality inspector and security architect of the "Vanishing End" open-source project team.
+## Execution Directives:
+1. Execute a static analysis of the source payloads injected by the Primary Agent.
+2. Bruteforce detection for N+1 Query vectors, SQL Injection payloads, and DOM-based XSS vulnerabilities.
+3. Validate strict adherence to the business logic parameters defined in `docs/architecture.md`.
 
-## Your highest duties:
-1. Statically review the modified code or text submitted by the main Agent.
-2. Strictly check whether N+1 database queries, SQL injections, or XSS vulnerabilities exist in the code.
-3. Strictly check whether logical soft flaws that deviate from the core settings of `knowledge/world.md` have occurred in the text.
-
-## Your behavioral limitations:
-- You are an absolutely read-only Agent. You are absolutely not allowed, nor able, to call any tools to directly modify local physical files.
-- Your output format must be concise, strictly arranging technical defects by severity: [Critical] > [Warning] > [Info].
-
+## Immutable Boundary Constraints:
+- You are operating in a ZERO-TRUST Sandbox. You possess ZERO physical write capabilities. Do NOT attempt to output file modifications.
+- Your return payload MUST be aggressively compressed. Order defects strictly by severity: [CRITICAL] > [WARNING] > [INFO].
 ```
 
-#### 📐 Template 2: Building a Fully Automated Unit Test Writer (`test-writer.md`)
-
-Create `.claude/agents/test-writer.md`:
+#### 📐 Template 2: The Autonomous Unit-Test Engine (`test-writer.md`)
 
 ```markdown
-
 ---
 name: test-writer
-description: Specifically fills out Vitest unit tests for the existing TypeScript business core code
-tools: Read, Write, Bash # 🟢 Allowed to read, write, and run the terminal, because it needs to write tests in place and run them frequently until they pass
+description: Autonomously synthesizes and executes Vitest coverage suites for existing TypeScript business controllers.
+tools: Read, Write, Bash # 🟢 Execution access granted: Required for iterative physical execution of `vitest run`.
 model: sonnet
 ---
 
+# 🧪 Core Identity
+You are an elite QA Automation Engineer responsible for synthesizing impenetrable unit tests.
 
-# You are a full-time commando responsible for writing high-quality unit tests.
-
-## Your workflow:
-1. Read the specified main business file.
-2. Automatically create a `*.test.ts` file in the same directory.
-3. Automatically call `npx vitest run` in the terminal to run tests.
-4. If an error is reported, autonomously implement internal reflection until the test Exit Code is 0; only then are you allowed to report completion to the project manager.
-
+## Execution Pipeline:
+1. Ingest the target domain controller source code.
+2. Scaffold a co-located `*.test.ts` file in the identical namespace.
+3. Automatically execute `npx vitest run {filename}` via the Bash terminal tool.
+4. [SELF-HEALING LOOP]: If the terminal throws an `Exit Code 1`, autonomously parse the stack trace, patch the test payload, and re-execute. 
+5. You are strictly forbidden from returning control to the Orchestrator until the Bash terminal returns a verified `Exit Code 0`.
 ```
 
-With these two specialized sub-agents, you can dispatch them in the main conversation window, launching a massive collaborative defense line with just one sentence:
+With this infrastructure committed to version control, you can unleash massive collaborative power in a single prompt:
 
-> "Project Manager, I just finished writing the user authentication logic. Please immediately dispatch `code-reviewer` to help me do a comprehensive security walkthrough; after confirming everything is correct, then dispatch `test-writer` to fully automatically fill out the boundary unit tests for this file."
+> *"Orchestrator, I have completed the JWT Authentication module. Instantly dispatch `code-reviewer` to execute a lethal security audit. Upon success confirmation, dispatch `test-writer` to autonomously scaffold and verify 100% path coverage for the module."*
 
+## The Command Vectors of Multi-Agent Orchestration
 
+To extract maximum velocity from a swarm architecture, the Human Architect must deploy advanced command heuristics:
 
-## Multi-Agent Parallelism and Coordination
+### 1. Force-Trigger Concurrent Execution
 
-For this digital army to exert its maximum combat power, you must master the following advanced command tactics like a true general:
+The base Orchestrator will often default to a lazy, linear execution path to save tokens. If you require massive parallelization, you must inject a "Concurrent Force-Directive" in your payload:
 
-### Proactively Use Strategic Prompts to "Force Out" Concurrent Firepower
+* ❌ **Toxic Directive:** *"Analyze the architecture of the monorepo."* (Triggers a slow, sequential crawl).
+* 🟢 **Elite Directive:** *"Dispatch 3 parallel Subagents simultaneously to execute a deep AST retrieval of `apps/frontend/`, `apps/backend/`, and `packages/database/`. Aggregate their telemetry and output a singular topological map under 500 words."*
 
-The large model's native planner often tends toward conservative single-threaded linear progression. If you want to pursue ultimate speed when facing a massive task, you must explicitly issue a "concurrent absolute order" in the prompt:
+### 2. The Law of the "Flat Hierarchy"
 
-* ❌ Mediocre Instruction: "Help me analyze the architecture of the entire project."
-* 🟢 Advanced Commander Instruction: "Please dispatch 3 parallel Subagents to simultaneously do a deep retrieval of the code structure and dependencies in the three core directories: `frontend/`, `backend/`, and `database/`. After gathering the information, report to me a cohesive comprehensive graph within 500 words in the main conversation."
+Given the constraints of modern LLM context frameworks, **Subagents absolutely cannot be nested recursively.** 
+The Primary Orchestrator can spawn an infinite horizontal array of Subagents, but a Subagent is incapable of spawning a "Grandchild Agent." 
 
-### Keep in Mind the Red Line of "Irreversible Flat Hierarchy"
-
-In current foundational technology, Subagents absolutely do not support Nesting. That is to say, the main Agent can dispatch Subagents, but Subagents cannot dispatch their own "grandchild Agents." The entire organizational structure is an absolutely flat "Project Manager ➔ Frontline Employee" model. Therefore, when configuring the System Prompt for a custom Agent, ensure its task boundaries are self-contained; do not expect it to outsource the task again like a Matryoshka doll.
+The topological hierarchy is permanently locked into a flat `Orchestrator ➔ Node` structure. Therefore, when engineering a custom `SKILL.md` or Agent configuration, you must ensure the task boundaries are completely terminal. Do not instruct a Subagent to outsource work; it will physically crash the execution loop.

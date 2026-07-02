@@ -1,117 +1,119 @@
-# Prompts for Generating AI Agent
+# Engineering Prompts for AI Agents
 
-Copy and paste the prompt below to AI, and it will generate an AI Agent written in Python.
+To instantiate the Autonomous Agent engineered in the previous section, inject the following payload into your target LLM. It will synthesize a mathematically secure, production-ready Python Agent.
 
 ````md
-# Role
+# Architectural Role
  
-You are a senior Python backend architect specializing in Windows system automation, while also possessing a "Defense-in-Depth" security mindset. Your code must, under the premise of ensuring complete functionality, place security at the core of the design, rather than as an afterthought patch.
- 
----
- 
-# Task
- 
-Write a **fully runnable** single-file Python script named `win_agent.py`.
- 
-This script translates the user's natural language commands into secure, auditable Windows system operations via the **Function Calling** feature of the DeepSeek API (OpenAI SDK compatible format).
- 
-**DO NOT USE** any high-level Agent frameworks like LangChain, LlamaIndex, AutoGen, etc.
+You are an elite Principal Python Architect specializing in Windows System Automation and "Defense-in-Depth" security perimeters. When generating code, you must prioritize deterministic security as the core architectural layer, not as a retroactive patch, while ensuring flawless execution of the requested capabilities.
  
 ---
  
-# Architecture & Core Loop
+# Terminal Objective
  
-Implement a pure Python **ReAct (Reason → Act → Observe)** closed loop. The complete flow is as follows:
+Engineer a **fully executable**, single-file Python daemon named `win_agent.py`.
  
-```
-User Input
+This script acts as a translation layer between natural language user intents and auditable, secure Windows OS API calls utilizing the **Function Calling** capabilities of the DeepSeek API (OpenAI SDK compatible format).
+ 
+**LETHAL CONSTRAINT:** You are strictly forbidden from importing high-level Agentic frameworks (e.g., LangChain, LlamaIndex, AutoGen). This must be native Python.
+ 
+---
+ 
+# Architecture & Cognitive Loop
+ 
+Implement a native Python **ReAct (Reason → Act → Observe)** closed loop. The exact execution pipeline is mapped below:
+ 
+```text
+User Intent Injection
     │
     ▼
 ┌─────────────────────────────────────────────────────┐
-│  LOOP (Max MAX_LOOPS = 10 times)                    │
+│  COGNITIVE LOOP (Hard Limit MAX_LOOPS = 10)         │
 │                                                     │
-│  1. Build messages list, attach tools schema        │
-│  2. Call DeepSeek API (stream=False)                │
-│  3. Check response:                                 │
-│     ├─ Has tool_calls → Enter "Security Gateway"    │
-│     │     ├─ Pass → Execute tool function           │
-│     │     ├─ Reject → Return rejection reason to model│
-│     │     └─ Needs confirm → Console asks [Y/N]     │
-│     │  Append tool result with role="tool" to messages│
-│     │  Proceed to next iteration                    │
-│     └─ No tool_calls → Print final reply, exit loop │
+│  1. Construct `messages` array, inject `tools` schema│
+│  2. Dispatch LLM API Request (stream=False)         │
+│  3. Evaluate Response Vector:                       │
+│     ├─ Contains `tool_calls` → Route to Security Gateway│
+│     │     ├─ Pass → Dispatch physical tool function │
+│     │     ├─ Reject → Inject rejection vector back to LLM│
+│     │     └─ Requires Confirm → Block on CLI `[Y/N]`│
+│     │  Append execution payload (role="tool") to `messages`│
+│     │  Trigger next loop iteration                  │
+│     └─ No `tool_calls` → Output final payload, break loop│
 └─────────────────────────────────────────────────────┘
 ```
  
-**Multi-turn Session**: The main program is a `while True` interactive loop, where each user input serves as the starting point for a new round of dialogue; typing `exit` or `quit` safely exits. The `messages` list for each round of dialogue is independent and is not preserved across rounds (to avoid infinite Token inflation).
+**Persistent Session:** The primary daemon runs within a `while True` interactive loop. Each discrete user input acts as the initialization of a fresh dialogue trajectory; typing `exit` or `quit` safely unmounts the daemon. The `messages` array for each query must be independently scoped and flushed between queries to prevent catastrophic Token inflation.
  
 ---
  
-# Security Architecture
+# The Security Perimeter
  
-## Principle 1: Principle of Least Privilege Tool Design
+## Axiom 1: Principle of Least Privilege
  
-**Absolutely prohibited** to design arbitrary command execution interfaces like `run_shell(cmd: str)`.  
-All tools must be single-responsibility functions with **explicit parameter semantics**. Each parameter has clear type and value range constraints.
+You are **strictly forbidden** from architecting any arbitrary shell execution interfaces (e.g., `run_shell(cmd: str)`). 
+All functional tools must be atomic, single-responsibility functions with **explicit parameter typing**. Every parameter must possess rigid type enforcement and boundary validation.
  
-## Principle 2: Security Gateway
+## Axiom 2: The Unified Security Gateway
  
-Implement a unified security gateway in the tool dispatcher, performing validation **prior to function execution**:
+Engineer a centralized security perimeter within the tool dispatcher. This gateway must intercept and validate the payload **prior to physical execution**:
  
 ```python
 def security_gateway(func_name: str, args: dict) -> tuple[bool, str]:
     """
     Returns (is_allowed: bool, reason: str)
-    - is_allowed=True: Allowed to execute
-    - is_allowed=False: Refused to execute, reason is the cause of refusal (will be returned to the model as a tool result)
+    - is_allowed=True: Payload verified. Proceed to execution.
+    - is_allowed=False: Payload blocked. `reason` string is injected back into the LLM context.
     """
 ```
  
-Gateway rules:
-- `open_app`: Whitelist validation, `app_name` must be in the `ALLOWED_APPS` set.
-- `kill_process`: Blacklist validation, `process_name` (case-insensitive) must not be in the `PROTECTED_PROCESSES` set.
-- `clean_downloads_folder`: `days` parameter must be within the `[1, 365]` range.
-- `set_reminder`: `minutes` parameter must be within the `[1, 1440]` range.
-## Principle 3: Human-in-the-Loop (Secondary confirmation for dangerous operations)
+Gateway Routing Rules:
+- `open_app`: Whitelist verification. `app_name` MUST exist within the `ALLOWED_APPS` set.
+- `kill_process`: Blacklist verification. `process_name` (case-insensitive) MUST NOT exist within the `PROTECTED_PROCESSES` set.
+- `clean_downloads_folder`: The `days` parameter MUST fall within the closed interval `[1, 365]`.
+- `set_reminder`: The `minutes` parameter MUST fall within the closed interval `[1, 1440]`.
+
+## Axiom 3: Human-in-the-Loop (Secondary Physical Confirmation)
  
-The following operations prompt a console confirmation **inside the tool function**, not at the gateway layer:
-- `clean_downloads_folder`: After printing the list of files to be moved, prompt `Confirm moving the above N files? [Y/N]: `
-- `kill_process`: After printing the target process PID and full path, prompt `Confirm terminating process {name} (PID: {pid})? [Y/N]: `
-When the user inputs N or anything other than Y, immediately return the string `"Operation cancelled by user"` (the tool returns normally, without throwing an exception).
+The following vectors require an explicit console authorization **within the tool implementation layer**, not at the gateway:
+- `clean_downloads_folder`: Print the file mutation list. Prompt: `Confirm migrating the above N files? [Y/N]: `
+- `kill_process`: Print the PID and absolute execution path. Prompt: `Confirm terminating process {name} (PID: {pid})? [Y/N]: `
+
+If the user inputs `N` or any non-`Y` character, immediately return the string: `"Operation cancelled by user."` (This must execute as a graceful return, not an exception).
  
-## Principle 4: Circuit Breaker
+## Axiom 4: The Circuit Breaker
  
 ```python
 MAX_LOOPS = 10
 ```
  
-Terminate the loop after exceeding this limit, print a warning to the user, and do not continue to consume Tokens.
+If the loop count breaches this threshold, trigger an immediate termination. Output a terminal warning and cease all Token consumption.
  
-## Principle 5: Environment Variable Management
+## Axiom 5: Secret Management
  
 ```python
-API_KEY  = os.environ["DEEPSEEK_API_KEY"]    # KeyError if missing, terminate immediately and prompt
+API_KEY  = os.environ["DEEPSEEK_API_KEY"]    # Trigger KeyError if missing, execute graceful exit.
 BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 MODEL    = os.environ.get("DEEPSEEK_MODEL",   "deepseek-chat")
 ```
  
 ---
  
-# Tool Specifications
+# The Tooling Schema
  
-Implement the following **6 tool functions**, and provide a complete JSON Schema for each function (including `name`, `description`, `parameters`; the `description` must include the usage scenario, parameter meanings, and return value format instructions).
+Implement the following **6 atomic functional tools**. You must synthesize a precise JSON Schema for each tool (mapping `name`, `description`, `parameters`). The `description` vector MUST explicitly define the usage scenario, parameter mechanics, and expected return schema.
  
 ---
  
 ### Tool 1: `get_system_stats() -> dict`
  
-**Function**: Get a snapshot of system resources.
+**Objective:** Capture a real-time OS telemetry snapshot.
  
-**Implementation Points**:
-- Use `psutil.cpu_percent(interval=1)` to get the 1-second average CPU usage.
-- Use `psutil.virtual_memory()` to get memory information.
-- Use `psutil.disk_usage('C:\\')` to get C drive disk information.
-**Return Format** (JSON string, same below):
+**Implementation Directives:**
+- Leverage `psutil.cpu_percent(interval=1)` for the 1-second moving average CPU load.
+- Leverage `psutil.virtual_memory()` for RAM metrics.
+- Leverage `psutil.disk_usage('C:\\')` for boot-drive storage capacity.
+**Expected Schema** (JSON string):
 ```json
 {
   "cpu_percent": 23.5,
@@ -124,24 +126,24 @@ Implement the following **6 tool functions**, and provide a complete JSON Schema
  
 ### Tool 2: `open_app(app_name: str) -> str`
  
-**Function**: Launch a Windows application within the whitelist.
+**Objective:** Instantiate a Windows application restricted to the strict whitelist.
  
-**Whitelist Constants** (defined at module level):
+**Module-Level Whitelist Constant:**
 ```python
 ALLOWED_APPS = {"notepad", "calc", "mspaint", "explorer", "taskmgr"}
 ```
  
-**Implementation Points**:
-- Use `subprocess.Popen([app_name], shell=False)` to start (`shell=False` is a security requirement).
-- Upon success, return `"Started {app_name}, PID: {proc.pid}"`.
-- Whitelist validation is completed at the security gateway layer; no need to repeat within the tool.
+**Implementation Directives:**
+- Execute via `subprocess.Popen([app_name], shell=False)`. (`shell=False` is a non-negotiable security vector).
+- Success return payload: `"Started {app_name}, PID: {proc.pid}"`.
+- Rely exclusively on the Security Gateway for whitelist validation; do not duplicate logic in the tool.
 ---
  
 ### Tool 3: `list_directory_files(path: str, extension: str = "") -> dict`
  
-**Function**: List files in a specified directory. More universal than the original `list_desktop_pdfs()`, supporting filtering by extension.
+**Objective:** Execute a flat file enumeration against a specified root directory. Supports optional extension filtering.
  
-**Path Whitelist** (Security gateway validation, also requires secondary verification inside the tool):
+**Path Whitelist Constraints:**
 ```python
 ALLOWED_SCAN_DIRS = {
     "desktop":   Path.home() / "Desktop",
@@ -151,13 +153,13 @@ ALLOWED_SCAN_DIRS = {
 }
 ```
  
-The `path` parameter only accepts the above keys (strings, like `"desktop"`), and the tool internally maps it to the real path, **never accepting any arbitrary absolute path passed by the user**.
+The `path` argument MUST map strictly to these keys. The tool resolves this to the absolute OS path. **Under no circumstances may the tool accept arbitrary absolute paths injected by the LLM.**
  
-**Implementation Points**:
-- When `extension` is empty, list all files; when non-empty, filter (case-insensitive, automatically complete the `.` prefix).
-- Use `os.scandir()` instead of `os.walk()` (scan only one level, not recursive).
-- For each file, return `name`, `size_kb` (keep 2 decimal places), `modified` (ISO format datetime string).
-**Return Format**:
+**Implementation Directives:**
+- If `extension` is null, list all. If populated, filter (case-insensitive, auto-inject `.` prefix).
+- Utilize `os.scandir()` (Flat scan, recursive traversal is forbidden).
+- Return mapping: `name`, `size_kb` (float, 2 decimals), `modified` (ISO-8601 string).
+**Expected Schema**:
 ```json
 {
   "directory": "C:\\Users\\user\\Desktop",
@@ -173,25 +175,25 @@ The `path` parameter only accepts the above keys (strings, like `"desktop"`), an
  
 ### Tool 4: `clean_downloads_folder(days: int = 30) -> str`
  
-**Function**: Clean up files in the downloads folder that haven't been modified for more than the specified number of days (move to system temporary directory).
+**Objective:** Safely migrate stale payloads in the Downloads folder (exceeding `days` untouched) to the OS temp directory.
  
-**Implementation Points**:
-- Target directory is fixed to `Path.home() / "Downloads"` (cannot be modified by parameters).
-- Use `tempfile.gettempdir()` to get the system temporary directory.
-- Filter logic: `(datetime.now() - datetime.fromtimestamp(stat.st_mtime)).days > days`.
-- **Confirmation Flow**:
-  1. First scan and print the file list (including size and modification time).
-  2. If no files match, directly return `"No files matching the criteria found"`.
-  3. If there are files, print the list and prompt the user for confirmation.
-  4. After user confirmation, `shutil.move()` file by file, skip failed files and record errors.
-- Return the final result summary (N successful, M failed, detailed list).
+**Implementation Directives:**
+- Target root is permanently locked to `Path.home() / "Downloads"`.
+- Utilize `tempfile.gettempdir()` as the swap destination.
+- Stale detection logic: `(datetime.now() - datetime.fromtimestamp(stat.st_mtime)).days > days`.
+- **The Execution Pipeline:**
+  1. Scan and print the target array (filename, size, modification timestamp).
+  2. If zero matches, return: `"No files matching the temporal criteria found."`
+  3. If matches exist, prompt for physical console confirmation.
+  4. Post-authorization, execute `shutil.move()` sequentially. Log failures without crashing.
+- Return the aggregate summary (N success, M fail, detailed audit log).
 ---
  
 ### Tool 5: `kill_process(process_name: str) -> str`
  
-**Function**: Terminate a non-system process based on the process name.
+**Objective:** Terminate a running process via memory image name, circumventing protected OS processes.
  
-**Blacklist Constants** (defined at module level):
+**Module-Level Blacklist Constant:**
 ```python
 PROTECTED_PROCESSES = {
     "explorer.exe", "svchost.exe", "lsass.exe", "csrss.exe",
@@ -200,88 +202,88 @@ PROTECTED_PROCESSES = {
 }
 ```
  
-**Implementation Points**:
-- Blacklist validation is completed at the security gateway layer (case-insensitive).
-- Use `psutil.process_iter(['pid', 'name', 'exe'])` to find matching processes.
-- After finding them, print the PID and executable file path, pop up a confirmation prompt.
-- After user confirmation, call `proc.terminate()`, wait 3 seconds, if still alive, call `proc.kill()`.
-- If no matching process, return `"No running process named {process_name} found"`.
+**Implementation Directives:**
+- Blacklist verification operates at the Gateway layer (case-insensitive).
+- Leverage `psutil.process_iter(['pid', 'name', 'exe'])` for process discovery.
+- Upon discovery, print PID/Path and invoke physical confirmation prompt.
+- Post-authorization, trigger `proc.terminate()`, block for 3 seconds, then escalate to `proc.kill()` if the signal was ignored.
+- Null match return: `"No running process named {process_name} found in memory."`
 ---
  
 ### Tool 6: `set_reminder(minutes: int, message: str) -> str`
  
-**Function**: Set a non-blocking background timer reminder.
+**Objective:** Mount an asynchronous background timer daemon.
  
-**Implementation Points**:
-- Use `threading.Timer(minutes * 60, callback)` to run a timer in the background.
-- The `callback` function prints a conspicuous reminder (using ANSI color codes, or `\a` bell character).
-- Try `import win10toast`, if available, pop up a Windows notification bubble; if unavailable, only print to the console (graceful degradation, do not throw exceptions).
-- Immediately return `"Reminder set: Will remind you in {minutes} minutes ({ETA}): {message}"` (non-blocking, return immediately).
-- `message` length limit: no more than 200 characters (gateway layer validation).
+**Implementation Directives:**
+- Deploy `threading.Timer(minutes * 60, callback)`.
+- The `callback` forces an ANSI-colored console alert (and `\a` bell).
+- Graceful degradation: Try `import win10toast`. If installed, push OS notification. If missing, silently degrade to console-only.
+- Instant return payload: `"Reminder configured: Will alert you in {minutes} minutes ({ETA}): {message}"`.
+- `message` bounds limit: Max 200 chars (Validated at Gateway).
 ---
  
-# Console Output Standards
+# Terminal Telemetry Standards
  
-For the convenience of debugging and auditing, use uniform visual symbols when printing in the console:
+Enforce strict ANSI color mapping for diagnostic clarity in the terminal stdout:
  
 ```python
-# ANSI Color Constants (Windows needs os.system('') to activate)
+# ANSI Color Constants (Requires os.system('') on Windows)
 COLOR_RESET  = "\033[0m"
-COLOR_CYAN   = "\033[96m"   # Thought (Model reasoning process)
-COLOR_YELLOW = "\033[93m"   # Action (About to call a tool)
-COLOR_GREEN  = "\033[92m"   # Observation (Tool return result)
-COLOR_RED    = "\033[91m"   # Error / Warning
+COLOR_CYAN   = "\033[96m"   # LLM Thought Vector
+COLOR_YELLOW = "\033[93m"   # Tool Execution Dispatch
+COLOR_GREEN  = "\033[92m"   # Tool Observation Payload
+COLOR_RED    = "\033[91m"   # Critical Failure
 COLOR_BOLD   = "\033[1m"
 ```
  
-Print specifications:
-- **Model thought content** (text content before `finish_reason`, if any): `[🤔 Thought] {Content}` (Cyan)
-- **Tool call**: `[⚡ Action] Calling tool: {func_name}({args})` (Yellow)
-- **Tool result**: `[👁 Observe] {Result summary (first 200 chars)}` (Green)
-- **Final reply**: `[✅ Final] {Reply content}` (Bold)
-- **Error message**: `[❌ Error] {Details}` (Red)
-- **Security rejection**: `[🛡 Blocked] {Rejection reason}` (Red Bold)
+Logging Schema:
+- **LLM Thought (pre-`finish_reason`):** `[🤔 Thought] {Payload}` (Cyan)
+- **Tool Dispatch:** `[⚡ Action] Dispatching tool: {func_name}({args})` (Yellow)
+- **Tool Resolution:** `[👁 Observation] {Summary of first 200 chars}` (Green)
+- **Final Output:** `[✅ Resolution] {Payload}` (Bold)
+- **Stack Trace:** `[❌ Error] {Details}` (Red)
+- **Security Block:** `[🛡 Blocked] {Gateway Reason}` (Red Bold)
 ---
  
-# Tool Result Contract
+# Tool Resolution Architecture
  
-**All** return values of tool functions are strings (`str`), wrapped by a unified dispatcher:
+**ALL** tool return values MUST be cast to strings (`str`) by a centralized wrapper:
  
 ```python
 def dispatch_tool(func_name: str, args: dict) -> str:
     """
-    1. Call security gateway
-    2. Gateway rejects → Return rejection reason string
-    3. Gateway passes → try/except execute tool function
-    4. Execution successful → If dict/list returned, json.dumps(..., ensure_ascii=False); if already str, return directly
-    5. Execution exception → Return f"[Tool Execution Failed] {type(e).__name__}: {e}"
+    1. Invoke Security Gateway.
+    2. If blocked → Return reason payload.
+    3. If approved → try/except block the physical execution.
+    4. On Success → If dict/list, json.dumps(ensure_ascii=False); if str, return raw.
+    5. On Exception → Return f"[Tool Dispatch Failed] {type(e).__name__}: {e}"
     """
 ```
  
-Captured exception information is **returned to the model as a normal tool result** (without interrupting the program), allowing the model to perceive the reason for failure and make adjustments.
+Caught exceptions are **injected back to the LLM as valid tool responses**. This prevents hard crashes and enables the LLM to autonomously self-heal based on the stack trace.
  
 ---
  
-# Tool JSON Schema Requirements
+# JSON Schema Specifications
  
-The JSON Schema for each tool must include:
+Tool schemas MUST conform exactly to the following topology:
  
 ```json
 {
   "type": "function",
   "function": {
     "name": "tool_name",
-    "description": "[Scenario] When to call this tool. [Function] What it does. [Return] Format and field meanings of the return value.",
+    "description": "[Scenario] Contextual trigger. [Function] Mechanical action. [Return] Output schema mapping.",
     "parameters": {
       "type": "object",
       "properties": {
         "param_name": {
           "type": "string | integer | number | boolean",
-          "description": "Parameter meaning, value range, default value",
-          "enum": ["Option 1", "Option 2"]  // If enum type
+          "description": "Semantic definition, bounds, defaults.",
+          "enum": ["Option 1", "Option 2"]
         }
       },
-      "required": ["List of required parameters"]
+      "required": ["Array of required keys"]
     }
   }
 }
@@ -289,13 +291,13 @@ The JSON Schema for each tool must include:
  
 ---
  
-# File Structure Requirements
+# Topology of the Source File
  
-Explain in the comment block at the top of the script:
+Initialize the script with this exact docstring:
  
 ```python
 """
-win_agent.py — Windows AI System Command Assistant
+win_agent.py — Windows AI Depth Defense Agent Architecture
 Dependencies: pip install openai psutil win10toast (win10toast is optional)
 Environment Variables:
     DEEPSEEK_API_KEY  (Required)
@@ -304,7 +306,7 @@ Environment Variables:
 """
 ```
  
-**Complete import list** (all references must appear here, no omissions):
+**The Immutable Import Block**:
  
 ```python
 import os, sys, json, shutil, subprocess, threading, tempfile, time
@@ -314,32 +316,32 @@ import psutil
 from openai import OpenAI
 ```
  
-**Code organization sequence**:
-1. Module docstring
-2. import block
-3. ANSI color constants
-4. Business constants (Whitelist, Blacklist, MAX_LOOPS, etc.)
-5. Read environment variables and OpenAI client initialization (with friendly error prompt for missing Key)
-6. 6 tool functions
-7. tools JSON Schema list (`TOOLS_SCHEMA`)
-8. `security_gateway()` function
-9. `dispatch_tool()` dispatcher
-10. `run_agent(user_input: str)` — Single-turn ReAct loop
-11. `main()` — Interactive main loop
+**Structural Execution Sequence**:
+1. Module Docstring
+2. Import Block
+3. ANSI Telemetry Constants
+4. Security & Configuration Constants (Whitelists, Blacklists, MAX_LOOPS)
+5. Environment Auth & Client Instantiation (Graceful exit on missing API Key)
+6. 6x Atomic Tool Implementations
+7. `TOOLS_SCHEMA` JSON array
+8. `security_gateway()` implementation
+9. `dispatch_tool()` implementation
+10. `run_agent(user_input: str)` — The Core ReAct Engine
+11. `main()` — The CLI Interface Loop
 12. `if __name__ == "__main__": main()`
 ---
  
-# Absolute Prohibitions
+# Lethal Anti-Patterns (NEVER DO THIS)
  
-- ❌ Do not use any `# TODO`, `# Please implement`, or `pass` placeholders.
-- ❌ Do not use `shell=True` (all `subprocess` calls must be `shell=False`).
-- ❌ Do not accept arbitrary file system paths passed by the user.
-- ❌ Do not hardcode any API Key or URL in the code.
-- ❌ Do not use dynamic execution methods like `eval()`, `exec()`, `__import__()`.
-- ❌ Do not omit the `try-except` block for any function.
+- ❌ Do NOT output `# TODO` or `# Please implement` blocks. You must write complete code.
+- ❌ Do NOT utilize `shell=True` under any circumstances within `subprocess`.
+- ❌ Do NOT accept raw, arbitrary absolute file paths from the LLM.
+- ❌ Do NOT hardcode API credentials.
+- ❌ Do NOT execute string-parsing compilation (`eval()`, `exec()`, `__import__()`).
+- ❌ Do NOT omit the defensive `try-except` wrappers on physical I/O boundaries.
 ---
  
-# Deliverable
+# Terminal Output Expectation
  
-Output the **complete, directly runnable** `win_agent.py` file content (Python code block), without any explanatory text attached. The expected number of code lines is between 400–600 lines.
+Output **EXCLUSIVELY** the physical `win_agent.py` source code wrapped in a Python markdown block. Do not append conversational filler, apologies, or explanations. The expected file length is 400-600 lines.
 ````

@@ -2,248 +2,229 @@
 
 > "If you build it, they will come." — *Field of Dreams*
 
-In the previous chapters, we have learned how to use AI to make various small tools and mini-games. But have you ever thought about having a fully exclusive corner of your own in the internet world?
+In previous chapters, we learned how to wield AI to rapidly prototype small utilities and mini-games. But have you ever considered carving out a completely autonomous, exclusive corner of the internet that belongs entirely to you?
 
-This is the **Personal Homepage**.
+This is the power of the **Personal Homepage**.
 
-In the era of social media, all of our homepages look exactly the same: identical templates, fixed formats, with your personality and content stuffed into the platform's uniform boxes. But a personal website is different. There, you decide what the page looks like, you decide what content to display, and how to introduce yourself to the world is entirely up to you.
+In the era of algorithmic social media, our digital identities are homogenized. Every profile looks exactly the same: identical templates, rigid formatting, with your personality forcibly squeezed into the platform's uniform boxes. A personal website is fundamentally different. Here, *you* dictate the architecture, *you* control the aesthetic, and *you* decide exactly how to introduce yourself to the world.
 
-In the past, the threshold for building a personal homepage was extremely high; it was originally something only professional frontend engineers could do. However, the emergence of AI has, for the first time, given ordinary people the ability to freely define their "internet digital castles."
+Historically, the technical threshold for building and deploying a personal homepage was prohibitively high. It was a privilege reserved strictly for professional frontend engineers. Today, however, AI has democratized this capability, granting ordinary individuals the power to effortlessly architect their own "digital castles."
 
-Many AI tools will include a "Share" button after generating a webpage, allowing you to directly generate a link to send to friends. But there are several obvious problems with this:
+Many consumer-grade AI tools provide a convenient "Share" button after generating a webpage, allowing you to instantly text a link to your friends. However, this approach carries several fatal engineering flaws:
 
-1. It often requires visitors to also have an account on the corresponding AI platform;
-2. It relies on the AI platform's own temporary runtime environment, making it not truly your website;
-3. Many platforms do not save these results permanently; the link becomes invalid after a period of time.
+1. It often forces visitors to register an account on the AI platform just to view your page.
+2. The page relies entirely on the AI platform's ephemeral, temporary runtime environment. It is not *truly* your website.
+3. These platforms frequently purge their temporary cache. Within a few weeks, your link will permanently die.
 
-If you want to own a personal homepage that exists long-term and is completely under your control, you need a more stable and official publishing method.
+If you want a professional, long-term personal homepage that remains entirely under your sovereign control, you need a stable, enterprise-grade deployment pipeline.
 
-In this chapter, we will use the free static website service provided by the world's most famous code hosting platform—GitHub—called GitHub Pages. You don't need to rent a server, you don't need to buy a domain name, and you don't need to learn complex devops knowledge. Just click the mouse a few times, and in 5 minutes, you will have a personal homepage truly running on the internet.
+In this chapter, we will utilize **GitHub Pages**—a free, static hosting service provided by GitHub, the world's largest code hosting platform. You do not need to rent a Linux server, you do not need to purchase a domain name, and you absolutely do not need to learn complex DevOps pipelines. With just a few clicks, you will deploy a global, production-ready personal homepage in under 5 minutes.
 
+## Step 1: Architecting Your Homepage via Natural Language
 
-## Step 1: Sketch Your Personal Homepage with Natural Language
-
-Now, you only need to learn how to use natural language to describe the feeling you want to the AI. For example:
+Your only task is to learn how to translate your abstract aesthetic desires into precise natural language for the AI. For example:
 
 * *"I want a homepage as quiet as a deep forest at night."*
-* *"I want the buttons to have a semi-transparent texture like glass."*
-* *"I want a slight parallax effect when the page scrolls."*
-* *"I want to make a cyberpunk terminal style homepage."*
+* *"I want the UI components to possess a semi-transparent, frosted glass texture."*
+* *"I want subtle, parallax scrolling effects."*
+* *"I want an aggressive, neon-lit cyberpunk terminal aesthetic."*
 
-The AI will translate these abstract aesthetics into actual running webpage code for us. Below is an extremely minimalist and elegant personal homepage prompt template that you can directly copy to the AI:
+The AI will instantly compile these abstract aesthetics into executable HTML/CSS. Below is a highly optimized, minimalist Prompt Template that you can copy directly to generate a premium personal homepage:
 
 ```text
 # Role & Objective
-You are a top-tier full-stack frontend engineer and UI/UX designer. Please help me write a single-file personal homepage/social navigation page (Link-in-bio page), named `index.html`. The page must be completely hand-written in native HTML/CSS/JavaScript, without relying on any third-party CSS/JS frameworks or external icon libraries. All icons must use inline SVG.
+You are a world-class frontend engineer and UI/UX designer. Build a single-file personal homepage/Link-in-bio page named `index.html`. The page must be written entirely in native HTML/CSS/JavaScript. Do NOT use any third-party CSS/JS frameworks (like Tailwind or React) or external icon libraries. All icons must be highly optimized, inline SVGs.
 
 # Core Requirements
-1. Visual Style & Aesthetics (Premium Aesthetics):
-   - Adopt a refined style combining modern soft skeuomorphism and minimalism.
-   - Use CSS variables (`:root` and `html.dark`) to define two sets of high-quality color systems (e.g., forest green / Morandi colors).
-   - Use a soft gradient for the background, overlaid with an ultra-subtle Marble Texture filter dynamically and randomly generated using SVG `<feTurbulence>`, keeping opacity around 10%.
-   - The main card container should use a frosted glass effect (`backdrop-filter: blur(10px)`), with different faint strokes and shadows in dark and light modes.
+1. Visual Style & Aesthetics (Premium Quality):
+   - Adopt a refined aesthetic that merges modern soft skeuomorphism with extreme minimalism.
+   - Utilize CSS variables (`:root` and `html.dark`) to define two premium color palettes (e.g., Forest Green / Morandi Neutrals).
+   - Apply a soft gradient background, overlaid with an ultra-subtle, dynamically generated SVG `<feTurbulence>` marble texture (keep opacity around 10%).
+   - The primary card container must feature a frosted glass effect (`backdrop-filter: blur(10px)`), with distinct drop-shadows and border strokes for both dark and light modes.
 
-2. Micro-interactions & Animations:
-   - Theme toggle button: Place a circular theme toggle button in the top right corner. When toggled, the icon (☀️/🌙) is accompanied by rotation, scaling, and fade animations, with a smooth transition of the page background and variables.
+2. Micro-Interactions & Animations:
+   - Theme Toggle: Place a circular theme toggle button (☀️/🌙) in the top right. Clicking it must trigger rotation, scaling, and fade animations, alongside a silky-smooth transition of the CSS background variables.
    - Navigation Cards:
-     - The cards should be moderately wide (e.g., max 680px) and arranged vertically.
-     - On Hover: The entire card shifts slightly upwards, the shadow deepens, and the border color transitions; a horizontal colorful gradient progress bar (`::before` scale animation) smoothly appears at the top of the card; an arrow icon slides in from the left on the right side; the SVG icon on the left produces a slight rotation or enlargement.
+     - Constrain cards to a maximum width of 680px, stacked vertically.
+     - Hover State: The card smoothly translates upward, the drop-shadow deepens, and the border color shifts. A vibrant gradient progress bar (`::before` scale animation) smoothly renders at the top edge. A right-pointing arrow slides in from the right edge, while the left-aligned SVG icon slightly rotates or scales up.
 
-3. Engineering & Technical Details (Engineering Best Practices):
-   - Prevent dark mode flickering: Immediately execute an IIFE script in the `<head>` to read the theme from `localStorage` and apply it instantly.
-   - Responsive design: Perfectly adapt to mobile terminals (when max-width is below 600px, hide the right hover arrow, tweak paddings).
-   - SEO friendly: Include complete Meta tags, a reasonable HTML5 semantic structure, and aria-labels for interactive elements.
+3. Engineering Best Practices:
+   - Zero Flicker Dark Mode: Inject an Immediately Invoked Function Expression (IIFE) inside the `<head>` to read the theme from `localStorage` and apply it instantly before the DOM renders, preventing the dreaded "white flash."
+   - Extreme Responsiveness: The design must flawlessly adapt to mobile viewports (e.g., hiding hover arrows and adjusting padding when `max-width` < 600px).
+   - SEO & Accessibility: Include comprehensive meta tags, strict HTML5 semantic structure, and `aria-labels` on all interactive nodes.
 
-# Page Content Structure
-- Top: A line of exquisite and philosophical Slogan (e.g., "Flowers bloom and fall, clouds roll and unroll").
-- Middle: A group of vertically arranged cards. Each card contains an SVG icon on the left, a title and description in the middle, and a hover arrow on the right.
-- Bottom: A minimalist Footer divider and domain identifier.
+# Content Architecture
+- Header: A profound, philosophical Tagline (e.g., "Code writes the world, words record the soul").
+- Body: A vertical stack of interactive cards. Each card contains a left-aligned SVG icon, a central title/description, and a right-aligned hover arrow.
+- Footer: A minimalist divider and a copyright/domain identifier.
 
-Please output the complete, unomitted `index.html` code directly, ensuring CSS is written inside `<style>` and JS is written in the `<script>` at the bottom.
-
+Output the complete, raw `index.html` code. Embed all CSS within a `<style>` block in the head, and all JS within a `<script>` block at the bottom of the body. Do not truncate the code.
 ```
 
-(When we need to convey more complex requirements to AI, we usually use Markdown format to organize and write text. For an introduction to this format, please refer to: [Appendix: Markdown Documentation](markdown))
+*(When conveying complex architectural requirements to AI, we heavily utilize Markdown formatting. For a deep dive into this format, refer to: [Appendix: Markdown Documentation](markdown))*
 
-Below is a prompt template for a multi-module personal homepage:
+If you desire a more complex, multi-module layout, use the following "Bento Grid" Prompt Template:
 
 ```text
 # Role & Objective
-You are a hall-of-fame full-stack frontend engineer and top UI/UX designer. Please help me write a single-file premium "Bento Grid" personal homepage and multi-dimensional portfolio page, named `index.html`.
-The page must be completely hand-written in native HTML/CSS/JavaScript, rejecting any third-party frameworks or external icon libraries. All icons must strictly use high-definition inline SVGs.
+You are a hall-of-fame full-stack engineer and elite UI/UX designer. Build a single-file, premium "Bento Grid" personal portfolio named `index.html`. 
+Write it entirely in native HTML/CSS/JavaScript. Reject all third-party frameworks and external icon fonts. All icons must be high-definition inline SVGs.
 
-# Layout & Architecture (Bento Golden Grid)
-The core main body of the page is a responsive CSS Grid system with a maximum width of 1100px. Cards maintain a 20px gap. The cards are arranged in staggered dimensions (e.g., 2x2 large cards, 1x2 long cards, 1x1 square cards) to build a highly modern, tech-oriented asymmetrical visual aesthetic:
-1. [Large Card: Personal Dashboard]: Occupies the core position in the top left corner. Contains an exquisite avatar frame, name, a minimalist dynamic typewriter effect Tagline, and an elegant local time real-time running component.
-2. [Long Card: Featured Projects]: Extends horizontally. Used to showcase proud works, containing project cards, delicate grouping tags, a one-sentence striking description, and a "View Source" micro-motion button with flowing light effects.
-3. [Square Card: Skill Matrix]: Aggregates personal tech stack or interest tags. Tags use a pill design with semi-transparent breathing gradient background colors, glowing slightly like neon lights when hovered over.
-4. [Long Card: Inspiration/Essays]: Displays a philosophical motto or recent thoughts, with highly design-oriented typography.
-5. [Square Card: Social Portals]: Aggregates multiple commonly used social platforms. Each platform is an independent minimalist micro-card embedded with an exquisite SVG icon.
+# Layout & Architecture (The Bento Golden Grid)
+The core container must be a responsive CSS Grid system (max-width: 1100px) with a 20px gap. Cards must be arranged in staggered, asymmetrical dimensions (e.g., 2x2 large cards, 1x2 horizontal cards, 1x1 square cards) to construct a highly modern, tech-forward aesthetic:
+1. [Large Card: Dashboard]: Anchors the top left. Features an elegant avatar frame, your name, a dynamic typewriter-effect Tagline, and a live local-time clock component.
+2. [Horizontal Card: Featured Projects]: Spans horizontally. Showcases elite projects, utilizing pill-shaped tags, striking descriptions, and a "View Source" button with a flowing-light micro-animation.
+3. [Square Card: Skill Matrix]: Aggregates tech-stack tags. Tags must use a pill design with semi-transparent, breathing gradient backgrounds that glow slightly like neon when hovered.
+4. [Horizontal Card: Philosophy]: Displays a philosophical motto with highly deliberate, editorial-style typography.
+5. [Square Card: Social Portals]: A grid of independent, minimalist micro-cards, each embedding a pristine SVG logo of a social platform.
 
-# Design Philosophy & Aesthetics (Peak Visual Aesthetics)
-1. Extreme Dark Flowing Light (Premium Dark Mode by Default):
-   - Default to a profound tech dark style (Background color: an extremely faint gradient from Dark Night Obsidian `#0a0a0c` to Titanium Space Gray `#161619`).
-   - The background is faintly scattered with flowing light halos (Mesh Gradient Blobs) drawn with CSS, carrying a faint frosted glass astigmatism effect, drifting and rotating extremely slowly in the background to give the page vitality.
-2. Titanium Borders & Hover Light Effects (Glow & Border Effects):
-   - Each bento box card background is a semi-transparent ultra-fine material (`background: rgba(255, 255, 255, 0.03)`), paired with a frosted glass filter (`backdrop-filter: blur(12px)`).
-   - Cards have a `1px` faint semi-transparent titanium border (`rgba(255, 255, 255, 0.08)`).
-3. Dual Color System Adaptation:
-   - Must perfectly support Light Mode switching. In Light Mode, it transitions to pure and elegant Morandi white and light gray levels, borders become extremely pale elegant gray, and the whole presents a texture like premium paper.
+# Design Philosophy (Peak Visual Aesthetics)
+1. Extreme Dark Flowing Light (Premium Dark Mode Default):
+   - Default to a profound tech-dark aesthetic (Background: an ultra-subtle gradient from Obsidian `#0a0a0c` to Titanium `#161619`).
+   - The background must feature CSS-drawn Mesh Gradient Blobs that drift and rotate extremely slowly, layered beneath a faint frosted-glass blur filter to inject organic vitality into the page.
+2. Titanium Borders & Spotlights:
+   - Bento card backgrounds must use a semi-transparent material (`rgba(255, 255, 255, 0.03)`) paired with a heavy frosted glass filter (`backdrop-filter: blur(12px)`).
+   - Apply a crisp, 1px semi-transparent titanium border (`rgba(255, 255, 255, 0.08)`).
+3. Dual Color System:
+   - Must flawlessly support Light Mode. Upon toggling, transition to pure, elegant Morandi whites and grays. Borders should become ultra-faint, giving the page the physical texture of premium cardstock.
 
-# Interaction & Micro-animations (Soulful Micro-interactions)
-1. Magnetic Hover: When the mouse pointer hovers over any bento box card, the entire card produces a smooth 3D perspective slight tilt (or slightly translates upwards by 6px), the shadow deepens, and the border opacity smoothly brightens.
-2. Border Spotlight Effect: (Optional advanced effect) If possible, use JS to capture the mouse's coordinates within the card, making the card's border or background produce a faint following glow near the mouse.
-3. One-Click Twist: The theme toggle button (sun/moon) in the top right corner, when clicked, is accompanied by an extremely silky rotating collapse animation. The color variable switching time for the entire page is controlled at 0.4s, with a perfect fade-in/fade-out transition.
+# Micro-Interactions (Soulful UX)
+1. Magnetic Hover: Hovering any bento card triggers a smooth 3D perspective tilt (or a 6px upward translation), deepens the shadow, and smoothly brightens the border opacity.
+2. Border Spotlight (Advanced): Use JS to track mouse coordinates within the card, rendering a faint, following glow on the border/background directly beneath the cursor.
+3. Silky Toggle: The theme toggle button must execute an extremely silky rotating collapse animation. The global CSS variable transition duration must be locked at exactly 0.4s.
 
-# Technical Specifications & Code Quality
-1. Zero First-Screen Flicker: Embed mask logic or an Immediately Invoked Function Expression (IIFE) at the top of the `<head>` to ensure that when the page is first loaded or refreshed, the theme (dark/light) instantly matches the user's system or `localStorage`. A momentary white screen or flicker is absolutely not allowed.
-2. Extreme Responsiveness: On mobile devices (screen width less than 768px), the grid system perfectly and automatically degrades seamlessly into an elegant 1-column vertical arrangement. Card gaps are tweaked to 16px, and elements are scaled proportionally to ensure excellent mobile interaction.
-3. Pure Code: Directly output a perfectly structured `index.html` without any deletions. Styles are entirely encapsulated within `<style>`, and micro-interactions and dynamic logic are entirely encapsulated within the `<script>` at the bottom. Please completely fill the text content in the page first using poetic, highly geek-romantic premium placeholders (e.g., Name: "Nameless Voyager", Motto: "Code writes the world, words record the soul", etc.).
-
+# Technical Specifications
+1. Zero First-Screen Flicker: Inject an IIFE script at the absolute top of the `<head>` to instantly sync the theme with `localStorage` or `window.matchMedia`. White-screen flashes are strictly forbidden.
+2. Extreme Responsiveness: On viewports < 768px, the grid must elegantly degrade into a seamless, 1-column vertical stack. Gaps shrink to 16px, and padding scales proportionally.
+3. Pure Output: Output a structurally perfect `index.html`. Do not truncate. Pre-fill the content with poetic, geek-romantic placeholders (e.g., Name: "Nameless Voyager").
 ```
 
+## Step 2: Extracting Your HTML File
 
-## Step 2: Prepare and Download Your HTML File
+Whether you are utilizing ChatGPT Canvas, Claude Artifacts, or Gemini, once the AI generates the webpage, you must extract that raw code into a physical file on your local machine.
 
-Whether you are using ChatGPT Canvas, Claude Artifacts, Gemini, Meta AI, or other AI tools, as long as it has generated a webpage program based on the prompts above, you eventually need to turn this code into a real file on your computer.
+* **Using Claude Artifacts or ChatGPT Canvas:** Look for a dedicated "Download" icon (usually a downward arrow or file icon) near the preview panel. Click it, and the browser will instantly save the HTML file to your drive.
+* **Using a Standard Chat Interface:** Click the **Copy code** button in the top right corner of the AI's code block. Open a basic text editor (like Notepad or TextEdit), paste the code, and save the file to your Desktop.
 
-Depending on the tool you use, the way you extract the code varies slightly:
+Regardless of how you saved it, locate the file, right-click, select **Rename**, and change the filename to exactly: **`index.html`**
 
-* **If you are using Claude Artifacts or ChatGPT Canvas**: In the bottom right corner or top of the generated webpage preview interface, you will see an obvious "Download" icon (usually a small downward arrow or a code file icon). Click it, and the browser will automatically download the webpage to your computer.
-* **If you are using a normal AI chat window**: In the top right corner of the code block output by the AI, click **Copy code**. Then create a new text file (TXT) on your computer desktop, paste the code into it, save and close.
-
-After downloading or saving, find this file, right-click and select **Rename**, and completely change its name to: **`index.html`**
-
-:::tip Why must it be called `index.html`?
-In the internet world, `index.html` is the "home page" determined by the server by default. When someone visits a URL, the server will automatically prioritize looking for a file with this name and display it. Therefore, the entry file of the vast majority of static websites must be called `index.html`.
+:::tip Why must it be named `index.html`?
+In web server architecture, `index.html` is the globally recognized default entry point. When a user navigates to your base URL, the server automatically hunts for a file with this exact name to render first. If you name it anything else, the server will throw an error.
 :::
 
+## The Deployment Pipeline
 
-## The Overall Process of Free Website Building
-
-Once you have this local `index.html` personal homepage file, publishing it to the internet is actually far less complicated than you might imagine. The overall process is roughly just the following four steps:
+Deploying your local `index.html` to the global internet is incredibly straightforward. The entire pipeline consists of four macro steps:
 
 ```mermaid
 flowchart LR
-    A[Download local index.html] --> B[Upload to GitHub repository]
-    B --> C[Enable GitHub Pages feature]
-    C --> D[Get a globally accessible homepage link]
+    A[Extract local index.html] --> B[Push to GitHub Repository]
+    B --> C[Configure GitHub Pages]
+    C --> D[Acquire Global Production URL]
 
     style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
     style B fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     style C fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
     style D fill:#ede7f6,stroke:#6a1b9a,stroke-width:2px
-
 ```
 
-Essentially, you are just uploading your homepage file to GitHub's cloud servers. And GitHub Pages will automatically turn it into a real website.
+Essentially, you are pushing your raw code to GitHub's enterprise cloud servers, and GitHub Pages will autonomously compile and host it as a production website.
 
+## Step 3: Architecting the Cloud Repository (Unlocking Your Top-Level Domain)
 
-## Step 3: Create a Cloud "Repository" (Unlock Exclusive Top-Level Domain)
-
-In GitHub, every project has an independent storage space called a Repository. We can think of it as a "cloud folder for putting homepage files."
+In GitHub, every discrete software project lives inside an isolated storage space called a **Repository** (Repo). 
 
 ```mermaid
 flowchart TD
-    A[Click the + button in the top right corner] --> B[Select New repository]
-    B --> C[Fill in specific name: your-username.github.io]
-    C --> D[Select Public attribute]
-    D --> E[Check Add a README file]
-    E --> F[Click Create repository]
+    A[Click the '+' icon top right] --> B[Select 'New repository']
+    B --> C[Name it EXACTLY: your-username.github.io]
+    C --> D[Set visibility to 'Public']
+    D --> E[Check 'Add a README file']
+    E --> F[Click 'Create repository']
     
     style F fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
-
 ```
 
-The specific steps are as follows:
+Execute the following sequence:
 
-1. After logging into GitHub, click the **`+`** icon in the top right corner of the page and select **New repository**.
-2. **Repository name**: **There is a very crucial "hidden easter egg" here!** Please be sure to enter precisely: `your-username.github.io` (For example, if your GitHub username is `tom`, then fill in `tom.github.io` here).
-3. **Description**: You can write a brief introduction (optional), such as "My AI-customized personal homepage and social navigation."
-4. **Public/Private**: **Must check Public**! For free accounts, GitHub will only allow us to turn on the GitHub Pages website publishing service if the repository is set to Public. If set to Private, others will not be able to access your webpage.
-5. **Initialize this repository with**: Check **Add a README file**. This step is very important; it helps us automatically initialize the repository environment.
-6. Scroll to the very bottom of the page and click the green **Create repository** button.
+1. Log into GitHub. Click the **`+`** icon in the top right navigation bar and select **New repository**.
+2. **Repository name:** **PAY CLOSE ATTENTION!** You must name this repository precisely: `your-username.github.io` (e.g., if your GitHub handle is `tom`, you must enter `tom.github.io`).
+3. **Description:** Enter a brief descriptor (e.g., "My AI-architected personal portfolio").
+4. **Public/Private:** You **MUST select Public**. GitHub's free tier only allows Pages hosting for public repositories. If you select Private, the deployment will fail.
+5. **Initialize:** Check the box that says **Add a README file**. This is critical for initializing the Git branch architecture on the server.
+6. Scroll to the bottom and smash the green **Create repository** button.
 
-:::tip Why use this special repository name?
-If you name the repository something ordinary in English (e.g., `my-homepage`), your final homepage URL will have a little tail, becoming `https://tom.github.io/my-homepage/`.
-But if you precisely set the repository name to `your-username.github.io`, GitHub will recognize this as your **highest-level personal homepage**, and the final generated URL will be perfectly flawless: **`https://tom.github.io/`**. With no redundant paths at the end, you instantly get the professional, high-end feel of a major tech company's official website!
+:::tip The Naming Cheat Code
+If you give this repository a generic name (e.g., `my-homepage`), GitHub will host it at a messy sub-path: `https://tom.github.io/my-homepage/`.
+However, if you name the repository exactly `your-username.github.io`, GitHub's routing engine recognizes this as your **Apex Personal Domain**. Your final URL will be flawlessly clean: **`https://tom.github.io/`**. This instantly provides the premium, highly professional aesthetic of a dedicated tech portfolio!
 :::
 
+## Step 4: Pushing Your Payload
 
-## Step 4: Upload Your Personal Homepage File
+With the cloud repository initialized, we must push your local `index.html` file up to the server. You do not need to use the terminal for this; it can be executed entirely via the web UI:
 
-Now that your cloud repository is built, we need to upload the prepared `index.html` file to it. You don't need to install any professional software at all; it can be completed directly in the browser:
+1. On your new repository's main page, click the **Add file** dropdown near the top right, and select **Upload files**.
+2. **Drag and Drop:** Drag your local `index.html` file directly into the massive dashed box in the center of the screen.
+3. Wait for the upload progress bar to hit 100%. You will see `index.html` populate in the staging list.
+4. **Commit changes:** In the commit box at the bottom, write a brief architectural log (e.g., `Initial deployment of personal homepage`).
+5. Click the green **Commit changes** button to permanently lock the code into the repository.
 
-1. On the homepage of the repository you just built, click the **Add file** button in the top right corner, and select **Upload files**.
-2. **Drag and drop upload**: Directly drag the `index.html` file on your computer into the dashed box in the middle of the webpage.
-3. Wait for the file upload progress bar to finish, and you will see `index.html` in the list.
-4. **Commit changes**: Enter a sentence of description in the input box at the bottom of the page (e.g., `Deploy my personal homepage`).
-5. Click the green **Commit changes** button to save the upload.
+Your repository should now contain exactly two files: `README.md` and `index.html`.
 
-At this point, your repository should contain two files simultaneously: `README.md` and `index.html`.
+:::tip 💡 Advanced Engineering: Injecting Local Assets (Images/Avatars)
+If you want to display your real photo on the homepage, you cannot simply reference your local hard drive (e.g., `C:/Desktop/avatar.jpg`). The internet cannot access your local file system. 
+**You must upload the asset using a "Relative Path":**
 
-:::tip 💡 Advanced Play: Want to put your real photo on your personal homepage?
-When making a personal homepage, what people usually want to put up the most is their own avatar. If you directly use a local computer path (like `C:/Users/Desktop/avatar.jpg`), others absolutely won't be able to open it on the internet.
-**The correct approach is to upload it together using a "relative path":**
-
-1. Put your personal photo (renamed to simple English, like `avatar.jpg`) and `index.html` in the **same folder** on your computer.
-2. When asking the AI to write the webpage code, add a requirement: "My avatar file name is `avatar.jpg`, please refer to it using a relative path directly in the code."
-3. When uploading in this step, **drag and drop** `index.html` and `avatar.jpg` **simultaneously** into the GitHub repository. This way, your personal homepage can perfectly display your own photo!
+1. Place your photo (renamed to a clean, lowercase name like `avatar.jpg`) inside the **exact same local folder** as your `index.html`.
+2. When prompting the AI, explicitly state: *"My avatar filename is `avatar.jpg`. You must reference it in the `<img>` tag using a strict relative path."*
+3. During the GitHub upload step, **drag and drop both `index.html` and `avatar.jpg` simultaneously** into the repository. The server will host both, and the image link will resolve perfectly!
 :::
 
+## Step 5: Igniting GitHub Pages
 
-## Step 5: Enable GitHub Pages
+This is the final configuration step. We are commanding GitHub's CI/CD pipeline to render your uploaded code into a live production website.
 
-This is the most crucial step; we will command GitHub to render the webpage files we just uploaded into a real website accessible globally.
+1. In your repository, click the ⚙️ **Settings** tab located on the far right of the top navigation bar.
+2. In the left-hand sidebar, scroll down to the **Code and automation** section and click on 🌐 **Pages**.
+3. Under the **Build and deployment** header, ensure the **Source** dropdown is set to **Deploy from a branch**.
+4. Directly below that, look at the **Branch** selector. It should currently display **`main`** (or `master` on older accounts), with `/ (root)` selected next to it. Because you checked "Add a README" during creation, GitHub usually pre-configures this. If the dropdown says `None`, click it and manually select **`main`**.
+5. Click the **Save** button.
 
-1. In the row of function tabs at the top of the repository, click the ⚙️ **Settings** on the far right.
-2. Scroll down the navigation bar on the left, find the 🌐 **Pages** option under the **Code and automation** section, and click to enter.
-3. In the **Build and deployment** section, find the **Source** option, which should default to **Deploy from a branch**.
-4. In the **Branch** dropdown menu below, **check if `main` is already selected by default** (some older accounts might be `master`) along with `/ (root)` next to it. Because we checked "Add a README file" when creating the repository in the previous steps, GitHub usually automatically configures this for you. If it still shows as `None`, please click manually to change it to **`main`**.
-5. Click the **Save** button on the right.
+## Step 6: Acquiring the Production Link
 
+After clicking save, GitHub silently spins up a build server in the background to compile and deploy your code.
 
-## Step 6: Get Your Exclusive Website Link
+1. Wait patiently for roughly 60 to 120 seconds.
+2. Refresh the Pages settings tab. A highlighted green notification banner will appear at the top:
+   > **Your site is live at `https://<your-username>.github.io/`**
 
-After clicking save, GitHub will automatically start the build server for us in the background.
+3. **Execute the Link:** Click the URL. A miracle of modern infrastructure occurs: the highly stylized, AI-architected code from your local machine is now running flawlessly on the global internet!
+4. **Distribution:** Copy this pristine, top-level URL and inject it into your social media bios or send it to colleagues. Because it is a responsive web app, it will render perfectly across mobile, tablet, and desktop viewports.
 
-1. Wait patiently for 1 to 2 minutes.
-2. Refresh the current Pages settings page, and you will see a highlighted notification bar with a green background appear at the top of the page:
-> **Your site is live at `https://<your-username>.github.io/`**
+## The CI/CD Loop: Iterating Your Homepage
 
+When you inevitably want to upgrade your homepage (e.g., tweaking the Tagline, injecting a new social module, or overhauling the color palette), the iterative deployment loop is incredibly streamlined:
 
-3. **Click the link**: Click that URL, and a miracle happens! The highly designed personal homepage that you personally commanded the AI to write is perfectly running on the real internet!
-4. **Share the joy**: Copy this clean, perfect top-level link and send it to friends or put it in your social software bio. Regardless of whether others are using a phone, tablet, or computer, they can instantly and smoothly visit your personal website.
-
-
-## Continuous Evolution: How to Update Your Homepage in the Future?
-
-When you want to continue iterating your homepage via AI (such as modifying the Slogan, adding new social links, or changing theme colors), the process is extremely simple:
-
-| Action | Operation Steps |
+| Phase | Execution Steps |
 | --- | --- |
-| **1. Iterative Development** | Enter new requirements in the AI chat box (e.g., "Help me add a NetEase Cloud Music card"), and download the updated HTML code. |
-| **2. Prepare Files** | Ensure the new file is still named `index.html` (if there are new images, ensure the file names are consistent too). |
-| **3. Overwrite Upload** | Open the corresponding repository page on GitHub, click **Add file** -> **Upload files**, and drag the new file(s) in. |
-| **4. Auto Deployment** | Click **Commit changes** to submit. GitHub will automatically republish in the background, and about 1 minute later, the original link will automatically update! |
+| **1. AI Iteration** | Feed your current HTML back into the AI. Issue new architectural commands (e.g., *"Inject a Spotify currently-playing card widget"*), and extract the updated code. |
+| **2. Local Preparation** | Ensure the new file is strictly named `index.html`. Ensure any new image assets are gathered in the same folder. |
+| **3. Push Payload** | Open your GitHub repository, click **Add file** -> **Upload files**, and drag the new payload into the staging area. |
+| **4. Auto-Deploy** | Click **Commit changes**. GitHub's webhooks will instantly detect the mutation, automatically trigger a background rebuild, and your live URL will reflect the new architecture within 60 seconds! |
 
-The small games, tools, etc., that we made using AI in the previous chapters can also be downloaded using the same method, uploaded to GitHub one by one, and linked on your personal homepage. Your homepage will become the "central headquarters" for all your AI creations.
+You can utilize this exact same pipeline to host the mini-games and utilities we built in previous chapters. Simply upload them to GitHub and link to them from your homepage, transforming your `index.html` into a centralized hub for all your AI engineering creations.
 
+## Critical Red Lines for Zero-Foundation Developers
 
+While deploying code is highly rewarding, you must remain vigilant against these common infrastructural landmines:
 
-## Red Lines to Avoid for Zero-Foundation Players on GitHub
+* **Strict Case Sensitivity:** Your primary file MUST be named exactly `index.html` (pure lowercase). Never use `Index.html` or `INDEX.HTML`. Linux web servers are violently case-sensitive; a single capitalized letter will instantly trigger a catastrophic 404 (Not Found) error.
+* **Network Resource Links:** If you command the AI to utilize external assets (like placeholder images or web fonts), verify it utilizes **Absolute HTTPS URLs** (e.g., `https://picsum.photos/200`). If you are using your own proprietary assets, you must strictly adhere to the Relative Path workflow detailed in the Advanced Engineering tip above.
+* **CDN Propagation Delay:** After you click "Commit changes," it may take several minutes for the global DNS and CDN nodes to flush their cache and serve your new code. This is standard network latency. Do not panic. Wait 3 minutes, then execute a Hard Refresh on your browser (Ctrl+F5 on Windows, Cmd+Shift+R on Mac) to bypass the local cache.
 
-While enjoying the immense sense of accomplishment of publishing a website, please be sure to note the following common stumbling blocks:
+### The Author's Live Architecture
 
-* **Case Sensitivity**: The file name must be purely lowercase `index.html`, not `Index.html` or `INDEX.HTML`. Linux servers are extremely sensitive to case; one wrong letter will result in a 404 error (webpage not found).
-* **Network Resource References**: If you ask AI to introduce external, non-custom resources into the webpage, ensure you use **absolute network links** (e.g., `https://picsum.photos/200`). If you want to use your own unique local images, be sure to refer to the "Advanced Play" in Step 4 to use relative paths and upload them together.
-* **Access Delay**: Sometimes, due to international network fluctuations, it may take a few minutes for the website to display the latest content after clicking Commit. This is a normal network phenomenon; please wait patiently or try clearing your browser cache (shortcut Ctrl+F5 or Command+Shift+R) before trying again.
+For reference, the author's personal portfolio was architected using this exact AI-driven methodology and iteratively refined over time:
 
-
-
-### The Author's Personal Homepage
-
-For reference, my personal homepage was also generated using similar AI prompts, and was continuously fine-tuned and completed subsequently.
-
-* **Homepage Preview**: [https://qizhen.xyz/](https://qizhen.xyz/)
-* **Open Source Code**: [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen)
+* **Live Production URL:** [https://qizhen.xyz/](https://qizhen.xyz/)
+* **Raw Repository Source Code:** [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen)

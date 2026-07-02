@@ -1,33 +1,30 @@
-# Introduction to Iterative Improvement and Debugging
+# Iterative Architecture and Debugging
 
 > "There is no great writing, only great rewriting." — Justice Brandeis
 
-After taking the first step of commanding AI to create a simple mini-game, you might find that no matter how detailed we write the requirements, it's absolutely impossible for AI to generate a flawless program that meets your expectations 100% in one go.
+After successfully commanding an AI to synthesize your first minimal web application, you will inevitably collide with a brutal reality: No matter how meticulously you engineer your Prompt, it is mathematically impossible for an AI to generate a 100% flawless, production-ready system in a single Zero-Shot execution.
 
-This is not because the AI isn't smart enough, but because large language models are essentially probabilistic generative systems. They don't have "fixed inputs, fixed outputs" like traditional programs. Even with the same prompt, the results generated at different times might have subtle differences.
+This is not a failure of the model's "intelligence." Large Language Models are, by physical design, probabilistic generative engines. They do not execute "Fixed Input = Fixed Output" algorithms like legacy compilers. Even with a mathematically identical Prompt, the payload generated across different API sessions will exhibit subtle structural mutations.
 
+## The Architecture of Iteration
 
+If you attempt to brute-force a massive architectural requirement on the first prompt—e.g., *"Build an open-world MMO engine with WebSockets, a Postgres account system, 3D WebGL rendering, and real-time leaderboards"*—the AI will suffer catastrophic Context Collapse. The extreme density of conflicting architectural constraints will cause the model to hallucinate violently, outputting fractured logic and lethal syntax errors.
 
-## Iterative Improvement
+The elite engineering methodology is to architect a **Minimum Viable Product (MVP)** and ruthlessly execute iterative, continuous delivery loops.
 
-If you throw an incredibly grand task with complex requirements at the AI right from the start, such as "Help me make an open-world game platform with AI chat, an account system, multiplayer online, 3D scenes, and real-time leaderboards." At this time, the AI might go directly into a "delirious" state due to excessive context accumulation and overly dense conflict points, and the output code will often have chaotic logic and frequent errors.
+### The Minimum Viable Product (MVP)
 
-A more effective method is to make a Minimum Viable Product (MVP) first, and then continuously improve upon it.
+MVP is the foundational doctrine of Silicon Valley engineering. It dictates: *"Deploy the absolute minimum feature-set required to validate the core architectural thesis, at maximum velocity."*
 
-### Minimum Viable Product (MVP)
-
-MVP (Minimum Viable Product) is a very classic concept in the internet industry. It means "using the least features to verify the core idea as quickly as possible."
-
-The core idea of MVP is to ensure the program is alive first, and then consider whether it looks cool.
-
+The prime directive of an MVP is survival: Ensure the application physically executes before you waste compute optimizing the CSS shadows.
 
 ```mermaid
 flowchart TD
-    A[Clarify Core Action] --> B[Let AI Generate Minimalist MVP]
-    B --> C{Can it run successfully?}
-    C -- No --> D[Feedback Error, Adjust Code]
-    C -- Yes --> E[Add a New Feature]
-    E --> F[Test New Feature]
+    A[Define Core Vector] --> B[Execute Zero-Shot Minimalist MVP]
+    B --> C{Does it execute without Exit Code 1?}
+    C -- False --> D[Inject stderr Logs; AI Self-Heals]
+    C -- True --> E[Inject Incremental Feature Payload]
+    E --> F[Execute Regression Test]
     F --> C
     D --> B
     
@@ -35,234 +32,188 @@ flowchart TD
     style E fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
 ```
 
-A qualified MVP usually only needs to meet three conditions:
-1. Runnable (double-clicking to open is not a white screen);
-2. Interactive (button clicks have feedback);
-3. Can complete one core action.
+An architecturally sound MVP satisfies exactly three constraints:
+1. **Compilation:** It executes without a fatal white-screen or compiler crash.
+2. **Interaction:** Event listeners are active (e.g., clicking a button fires a console log).
+3. **Core Loop:** It successfully completes exactly one primary business action.
 
-Nothing more.
+Nothing else matters. Many of the most dominant enterprise platforms operating today began as crude, barely functioning single-file MVPs.
 
-Many large products today were actually unimaginably simple at the beginning.
+### Live Execution: The 5-Phase Iteration Protocol for a Flashcard Application
 
+Assume we are architecting a Spaced-Repetition Flashcard application. You must **never** command the AI to *"Build a full-stack Quizlet clone"* on turn one. We must construct it layer by layer, utilizing a strict Micro-Operations framework.
 
-### Practical Exercise: The 5-Step Iteration Method for a Vocabulary App
+The correct iteration cadence scales linearly:
 
-Suppose we want to make a vocabulary app. We shouldn't ask the AI to make a "full version Baicizhan" all at once, but should build it up layer by layer like building blocks.
-
-The correct iteration rhythm should be like climbing stairs:
-
-| Iteration Phase | Target Task | Prompt Example |
+| Execution Phase | Architectural Objective | The Payload (Prompt Vector) |
 | :--- | :--- | :--- |
-| **Step 1: Build the Skeleton** | Only do the most core display function | "I want to make a vocabulary webpage. Please help me generate a runnable single-file HTML. Put a word card in the middle of the interface, randomly displaying an English word and its Chinese translation, with a 'Next' button below it. Clicking it should randomly switch the word." |
-| **Step 2: Add One-Way Interaction** | Introduce user judgment feedback | "Excellent. Now please add a 'Remembered' and a 'Forgot' button at the bottom of the webpage. When clicking 'Remembered', the card background turns green and automatically switches to the next one; when clicking 'Forgot', the card turns red, and at the top of the screen, count how many words have been accumulated as remembered today." |
-| **Step 3: Optimize Visuals & Progress** | Establish visual feedback | "Please add a progress bar above the card to show today's vocabulary progress (e.g., finishing 10 is 100%). Add a smooth transition animation when the card flips." |
-| **Step 4: Introduce Data Persistence** | Ensure data is not lost (without a server) | "Use the browser's LocalStorage technology to save the words memorized today and the count. This way, when I refresh the webpage or close and reopen the browser, my progress and records will still exist." |
-| **Step 5: Enrich Business Logic** | Add a mistake book/review mode | "Now, please add a 'Review Mode' button. After clicking, it will only loop through the words I previously clicked 'Forgot' for, until I click 'Remembered' to remove them from the review book." |
+| **Phase 1: The Core DOM Matrix** | Establish the base rendering engine. | "Architect a minimal Flashcard SPA (Single Page Application). Output a single-file HTML payload. Render a central Card component that randomly displays an English string and its localized translation. Inject a 'Next' CTA button that triggers the randomization function." |
+| **Phase 2: State Mutation** | Inject boolean user feedback loops. | "Excellent. Inject two CTAs below the card: 'Retained' and 'Failed'. If 'Retained' is clicked, mutate the Card background to `#4ade80` (Green) and trigger 'Next'. If 'Failed', mutate to `#f87171` (Red). Render a persistent Counter tracking total 'Retained' nodes in the current session." |
+| **Phase 3: Visual Polish & UX** | Establish deterministic visual feedback. | "Inject a dynamic Progress Bar `<progress>` in the header tracking the completion ratio (e.g., 10 cards = 100%). Bind a CSS 3D `transform: rotateY(180deg)` transition to the card flip event." |
+| **Phase 4: Data Persistence** | Ensure State survives the browser lifecycle without a backend. | "Implement `LocalStorage` persistence. Serialize the user's progress arrays and integer counts. The state machine must automatically re-hydrate the DOM upon a hard browser refresh." |
+| **Phase 5: Advanced Business Logic** | Inject complex array filtering. | "Inject a 'Review Protocol' mode. When triggered, the application must filter the data array and exclusively loop through nodes previously marked as 'Failed'. The node is only purged from the Review array once the user clicks 'Retained'." |
 
-:::tip The Joy of Iteration
-You will find that after adopting this "snowball" style of development, the scope of the AI's modification each time will be very small.
-This not only greatly reduces the probability of logic collapse, but also gives you a very strong sense of creative feedback:
-Every time you refresh the page, you can clearly see that the software you created with your own hands has evolved a bit more.
-:::
+> [!TIP]
+> **The Velocity of Iteration**
+> By executing this "Snowball" protocol, the delta of the code mutated by the AI per turn is extremely isolated. 
+> This mathematically minimizes the probability of a catastrophic logical collapse. More importantly, it provides a massive neurochemical feedback loop: With every `<F5>` refresh, you witness your architecture evolving in real-time.
 
-## Practical Upgrade: Making a Cool 3D Game Step by Step
+## Advanced Execution: Architecting a 3D WebGL Engine via Iteration
 
-The previous examples were mostly "2D web tools." Now we'll try to upgrade further, using natural language to step-by-step generate a 3D flying shooting game.
+The previous examples utilized 2D DOM manipulation. We will now escalate the complexity, utilizing Natural Language to iteratively architect a 3D WebGL Space Shooter.
 
-As a beginner with zero foundation, we don't need to understand the technology behind making 3D games at all. What we truly need to master is how to break down requirements. For a zero-foundation player, you just need to send the following steps to the AI paragraph by paragraph. The AI will continue to automatically expand the system based on the code from the previous round.
+As an Intent Architect, you do not need to understand Matrix Mathematics, Quaternions, or WebGL Shaders. Your core responsibility is the **Rigorous Decomposition of Constraints.** You must inject the following architectural phases into the AI, one node at a time. The Agent will autonomously expand the system state based on the payload of the previous execution loop.
 
-The entire development idea is roughly as follows:
+The macro-topology of the project:
 
 ```text
-🛸 [3D Flight Game Development Blueprint]
-├── Phase 1: Build 3D World Prototype (Starry sky, spaceship model, camera follow)
-├── Phase 2: Inject Core Gameplay (Flying, shooting, enemy spawning)
-├── Phase 3: Establish Game Loop (Collision, scoring, death, Boss)
-├── Phase 4: Add Growth System (Items, upgrades, enhancements)
-└── Phase 5: Audiovisual Packaging and Mobile Adaptation
+🛸 [WebGL Space Engine Topology]
+├── Phase 1: Initialize the 3D Sandbox (Skybox, Player Mesh, Camera Rig)
+├── Phase 2: Inject Combat Vectors (Projectile physics, Entity spawning)
+├── Phase 3: The Event Loop (AABB Collision detection, UI State, Boss triggers)
+├── Phase 4: Roguelike State Machine (Loot drops, Stat scaling)
+└── Phase 5: Post-Processing & Mobile Touch Interceptors
 ```
 
+Execute the following payload sequentially. **Do not** batch these prompts into a single command. After each Phase, execute the code, verify the physics engine hasn't crashed, and proceed.
 
-The specific commands are as follows. It is recommended to send them paragraph by paragraph. Do not throw everything at the AI at once.
-
-After completing each step, run and playtest first. Confirm it hasn't crashed before continuing to the next phase.
-
-#### 0. Initialize Project
+#### Phase 0: System Initialization
 ```text
-Create a 3D low-poly flight shooting game in a single-file HTML.
-Use Three.js and import it via importmap CDN.
-The player's plane is located in the lower-middle of the screen, can move left, right, up, and down, and flies forward automatically.
-The camera follows behind and slightly above the plane.
-Add a starry sky background and a ground grid.
-Supports keyboard WASD/arrow keys, as well as a mobile virtual joystick.
-First generate a runnable prototype, including a start screen and a game-over restart.
+Architect a 3D Low-Poly Space Shooter within a single-file HTML payload.
+- Inject the `Three.js` dependency via an ESM importmap CDN.
+- Instantiate the Player Mesh at the bottom-center of the viewport. The Mesh automatically translates positively on the Z-axis.
+- The Camera Rig must follow the Player on a delayed interpolation curve (Chase Cam).
+- Inject a deep-space Skybox and a neon wireframe ground-plane.
+- Bind Player translation (X/Y axis) to Keyboard WASD/Arrows, and inject a virtual joystick for Mobile viewports.
+- Execute this as a Minimum Viable Prototype containing only the Start UI and Game Over/Restart state logic.
 ```
 
-#### 1. Combat System
+#### Phase 1: The Combat Engine
 ```text
-Add automatic shooting and manual charge shooting.
-Bullets use a glowing material with a trailing effect.
-Enemy planes are divided into three types:
-Small planes charge in a straight line;
-Medium planes sway left and right;
-Large planes have high health and are slow.
-Enemy planes will spawn procedurally from the front with simple tracking AI.
-Add particle effects for bullet hits and enemy plane explosions.
-Display score and combo system.
+- Inject an auto-fire loop and a manual Charge-Shot mechanic.
+- Projectile Meshes must utilize a glowing `MeshBasicMaterial` with a TrailRenderer effect.
+- Architect 3 Enemy Entity classes:
+  1. Light: High velocity, linear translation on the Z-axis.
+  2. Medium: Medium velocity, Sine-wave translation on the X-axis.
+  3. Heavy: Low velocity, massive HP scaling.
+- Enemy entities must spawn procedurally outside the camera frustum with basic tracking algorithms.
+- Inject WebGL particle emitters for Projectile impacts and Entity death states.
+- Render a DOM overlay tracking Score and the current Kill-Combo multiplier.
 ```
 
-#### 2. Player System
+#### Phase 2: Player State Machine
 ```text
-The player has 3 bars of health.
-Deducts health when colliding with enemy planes or hit by enemy bullets.
-Add a roll invincibility mechanic:
-Press Shift or double-tap the screen to trigger a side roll, invincibility lasts for 0.8 seconds, with a 3-second cooldown.
-Add an energy bar system.
-Charge attacks consume energy; energy recovers over time.
-UI uses English display: Score, Health, Energy, Combo.
+- The Player Entity possesses a rigid 3-HP state.
+- Decrement HP upon AABB bounding-box collision with an Enemy Entity or Enemy Projectile.
+- Inject an "Evasion Roll" i-frame mechanic:
+  - Triggered by the `Shift` key or a Double-Tap touch event.
+  - Grants absolute invincibility for 800ms, bound by a 3000ms cooldown.
+- Inject an Energy state integer. Charge-shots decrement Energy; Energy auto-regenerates via a `requestAnimationFrame` delta-time loop.
+- The DOM UI must cleanly render: Score, HP, Energy, Combo.
 ```
 
-#### 3. Procedural Levels and Difficulty
+#### Phase 3: Procedural Scaling
 ```text
-Add endless mode.
-Game difficulty increases with time and score.
-Generate a Boss wave every 60 seconds.
-The Boss has three attack patterns:
-Scatter shot, laser sweep, tracking missiles.
-Ground and clouds are procedurally generated.
-Add parallax scrolling to the distant background.
-Add asteroid obstacles that the player needs to dodge.
+- Enforce an Infinite-Runner logic loop.
+- Global entity velocity and spawn-rates scale logarithmically against the Score integer.
+- At T=60s intervals, spawn a Boss Entity.
+- The Boss must cycle randomly through 3 attack state-machines:
+  1. Radial Scatter-Shot
+  2. X-Axis Laser Sweep
+  3. Homing Missiles
+- The environment (Ground/Clouds) must generate procedurally to simulate infinite translation.
+- Inject a Parallax background and spawn Asteroid collision obstacles.
 ```
 
-#### 4. Roguelike Growth
+#### Phase 4: Roguelike Stat Scaling
 ```text
-When an enemy plane is destroyed, there is a 20% chance to drop a random item:
-1. Scatter gun
-2. Shield
-3. Energy recovery
-4. Wingman
-
-Items last for 15 seconds and can stack.
-
-Every time 5000 points are gained, pop up a choose-one-of-three upgrade:
-- Fire rate +20%
-- Movement speed +15%
-- Max health +1
-
-Upgrade selection is implemented using a pause popup.
+- Upon Entity death, calculate a 20% probability to instantiate a Loot Drop Mesh:
+  1. Spread-Fire Module
+  2. Temporary Invincibility Shield
+  3. Energy Battery
+  4. Drone Wingman
+- Loot buffs persist for 15,000ms and allow state-stacking.
+- Every 5000-point interval, halt the `requestAnimationFrame` loop and render a "Level Up" DOM overlay. The user selects one permanent buff:
+  - Fire Rate +20%
+  - Velocity +15%
+  - Max HP +1
 ```
 
-#### 5. Audiovisual Polish
+#### Phase 5: Audiovisual Post-Processing
 ```text
-Overall Art Style:
-Low-poly + Glowing materials.
-The main color palette is cyber blue and purple.
-
-Add:
-- Engine exhaust flame
-- Bullet trails
-- Explosion shockwaves
-- Camera shake
-- Slow-motion kill effects
-
-Use Web Audio API to synthesize:
-- Shooting sound effects
-- Explosion sound effects
-- Item pickup sound effects
-- Boss alarm
-
-Background music uses procedural electronic bass loops.
+- Global Art Direction: Low-Poly geometry + aggressive Bloom post-processing.
+- Enforce a Cyber-Punk color palette (Neon Cyan and Magenta).
+- Inject advanced WebGL shaders:
+  - Engine thruster exhaust plumes
+  - Projectile light-casting
+  - Screen-shake during heavy collisions
+  - A localized time-dilation (Slow-Motion) effect upon Boss kills
+- Utilize the Web Audio API to synthesize raw oscillators for: Laser blasts, Explosions, Loot pickups, and a heavy Synth-Bass procedural background loop.
 ```
 
-#### 6. Mobile Adaptation and Experience
+#### Phase 6: Mobile Compilation
 ```text
-Add a left virtual joystick for movement control.
-Right buttons control rolling and charging.
-
-Auto-shooting is on by default and can be turned off in settings.
-
-UI adapts to landscape and portrait screens.
-Increase font and button sizes for mobile devices.
-
-Add a pause button and settings menu.
-
-Display after game over:
-- Current score
-- Historical highest score
-- Kills
-- Survival time
-
-Highest score is saved using LocalStorage.
+- The Left half of the viewport intercepts Touch events for the Virtual Joystick.
+- The Right half renders Touch targets for Evasion and Charge-Shot.
+- Ensure all DOM overlays adapt flawlessly to both Portrait and Landscape orientations via CSS Media Queries.
+- Serialize the High Score integer to `LocalStorage`.
 ```
 
-#### 7. Launch and Packaging
+#### Phase 7: Optimization & Deployment
 ```text
-Please merge all code into a single-file HTML.
-Three.js is imported using CDN importmap.
-
-Compress and inline CSS and JS.
-Try to keep the file size under 300KB.
-
-Add the title "Stellar Breakout" to the top of the page.
-Add brief operation instructions.
-
-Export a version that can be directly uploaded to static website hosting platforms.
-
-Finally, generate a brief introductory text within 100 words in English to embed in a blog.
+- Consolidate all JS, CSS, and GLSL code into the single HTML payload.
+- Minify the payload where possible. The target bundle size is < 300KB.
+- Ensure the application executes identically when deployed to a static CDN bucket (e.g., Cloudflare Pages).
+- Generate a 100-word SEO metadata block in English for deployment embedding.
 ```
 
-When the AI helps you generate the complete prototype, click run. You will see geometric spaceships gently tilting under your control in the deep 3D starry sky, with exhaust flames drawing eerie blue trails in the dark.
+When the AI finalizes the engine, execute it. You will witness complex 3D geometry banking and rolling under your input, rendering real-time post-processing bloom and particle physics. 
 
-And all this might just come from a few rounds of natural language conversation between you and the AI. This is the most addictive part of "natural language programming." It makes the act of "creating software" as natural as telling a story.
+This entire architecture was synthesized via a few rounds of highly structured Natural Language. This is the lethal power of the "Intent Architect." You no longer write code; you command physics.
 
+## Debugging: The "Exit Code 1" Protocol
 
-Below is the result generated by my AI: ([Result Demo](https://artifacts.meta.ai/share/a/1e9a1aac-d6d4-43bf-99b2-dd7c00fef3d6?utm_source=meta_ai_web_share_copy_link&utm_medium=share&utm_campaign=ecto_share))
+As previously established, you proceed to the next iteration *only if the application compiles.* But what happens when it crashes?
 
+If your browser console explodes with red stack-traces, or if the screen renders a fatal white blank, **do not panic.** In software engineering, exceptions are the default state of reality. Elite Principal Engineers battle cryptic stack-traces every single day.
 
-## Fixing Errors
-
-It was mentioned above, "If the program doesn't crash, continue to the next step." But what if it crashes?
-
-If you see a string of red error messages pop up in your browser, or if there's nothing at all, don't panic. Because "errors" are just the daily routine of software development. Even senior engineers with more than ten years of experience battle error logs almost every day.
-
-In the past, if we encountered an error, we had to go to Google or professional forums to ask, or troubleshoot the problem bit by bit ourselves. But now, we can throw the error directly to the AI.
-
+Historically, debugging required scouring StackOverflow or manually executing binary searches across the source code. Today, you simply pipe the stack-trace directly into the AI.
 
 ```mermaid
 graph LR
-    A[Discover Exception or Error] --> B(Copy Error Message/Screenshot)
-    B --> C[Send Directly to AI]
-    C --> D(AI Analyzes and Fixes Automatically)
-    D --> E[Re-run Test]
+    A[Fatal Exception Triggered] --> B(Copy Stack-Trace / Screenshot)
+    B --> C[Inject Payload into AI Context]
+    C --> D(AI Executes Autonomous Self-Healing)
+    D --> E[Execute Regression Test]
 
     style C fill:#ffebee,stroke:#c62828,stroke-width:2px
     style D fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### The Golden Rule of Complaining
+### The Golden Rule of Bug Reporting
 
-When you find the program isn't running as expected, never say "My webpage is broken, help me take a look." Because the AI can't see it; it neither knows what you did on the interface nor where the error occurred or what kind of error it is. This way, it can only rely on "guessing" to modify the problem, and the repair effect is usually very random.
+When the system halts, **never** issue a subjective complaint like *"The app is broken, please fix."* The AI cannot "see" your browser. It does not know what state triggered the crash, what line failed, or what the compiler threw. A vague complaint forces the AI to hallucinate a patch based on statistical probability, which often completely corrupts the repository.
 
-The truly efficient way is to provide specific details, such as: "After I click the 'Review Mode' button, the page suddenly freezes." Or, press F12 to open the browser's developer tools, copy all the text in its Console tab, and send it to the AI.
+The elite debugging protocol demands absolute, deterministic telemetry: *"Agent, upon clicking the 'Review Mode' CTA, the main thread deadlocked."* Then, hit `F12`, copy the entire raw output from the browser's Console, and paste it into the prompt.
 
-This amount of information for the AI is almost equivalent to "medical record + CT scan + X-ray." It can often accurately locate the problem within seconds. Many times, it troubleshoots even faster than human programmers.
+By injecting the exact `stderr` logs, you provide the AI with a mathematical CT scan of the failure. The model will calculate the root cause and output a precise diff-patch, often diagnosing complex race conditions faster than a human Architect.
 
+## Core Survival Heuristics for the Uninitiated
 
-## Golden Rules for Zero-Foundation Players to Avoid Pitfalls
+The following heuristics will prevent 90% of the catastrophic failures encountered by junior AI engineers:
 
-The following experiences can almost help you avoid 90% of beginner trainwreck scenes.
+### 1. Weaponize "Tailwind CSS" for Instant UI Polish
 
-### Make Good Use of "Tailwind CSS" to Beautify the Interface
+If you command an AI to generate a web app without layout constraints, it defaults to the horrific, legacy 1990s HTML aesthetic (Times New Roman, raw blue hyperlinks). Always append this global constraint to your prompt: *"You MUST utilize the Tailwind CSS CDN to architect the UI. Enforce an aggressive, enterprise-grade Dark Mode. Inject smooth CSS `transform` and `transition` states on all interactive nodes."*
 
-If the AI generates a webpage by default without any restrictions, it is usually a very rough classic blue and white color scheme. If you add a sentence at the end of the prompt: "Please use Tailwind CSS to beautify the entire interface, adopt an exquisite and elegant Dark Mode, and add smooth Hover Scale animations to the buttons." Then the texture of the page will instantly level up.
+Because LLMs have ingested millions of React/Tailwind repositories, this single sentence forces the AI to instantly upgrade the visual architecture, outputting a highly polished, Silicon Valley-grade interface.
 
-Tailwind CSS is a modern interface layout tool that AI is extremely familiar with. As long as you have this constraint, the texture of the webpage spat out by the AI will instantly jump, presenting a "big tech product-level" look full of sci-fi feel.
+### 2. Sever Backend Dependencies in V1
 
+Integrating physical databases, JWT Authentication arrays, or external API routers exponentially spikes the architectural complexity. We will master these backend integrations in subsequent chapters. During your initial MVPs, enforce a strict "Frontend-Only" constraint. If state must be persisted, utilize the browser's native `LocalStorage`. 
 
-### Don't Touch Databases and Servers Right from the Start
+### 3. "Execution Over Elegance"
 
-Web programs with backend services will greatly increase the complexity of the program. Common backend services include: account registration and login, linking to cloud data, calling AI services, etc. This book will introduce these features in later chapters. But as a beginner, it is best for us to temporarily avoid these features and deal with them after accumulating some experience.
-
-### Always Prioritize "It Can Run," Save Elegance for Later
-
-For experienced programmers, when they see AI-generated code, they might already start considering whether the code is elegant, whether the naming is standardized, whether the architecture is advanced, and whether there is duplicated logic. But these are not the most important issues at this stage. What is truly important now is whether you can quickly establish the confidence that "I can really build software."
+Veteran developers often instinctively critique AI output: *"Is this code DRY? Is the Big-O time complexity optimal? Is the naming convention PEP-8 compliant?"* 
+At this stage of prototyping, **ignore all of it.** The only metric that matters is: *Does the payload execute without crashing?* Your immediate objective is not to write elegant enterprise infrastructure; your objective is to rapidly establish the cognitive absolute that *"I am capable of commanding an AI to build software."* 
+Elegance comes later, during the Refactoring cycles.

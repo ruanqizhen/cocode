@@ -1,311 +1,276 @@
-# AI Agent Skills
+# Agentic Skills & Context Modularization
 
 > "Do what you do best, and outsource the rest." — Peter Drucker
 
-When pair programming with advanced AI Agents (like Claude Code), if we stuff all the project backgrounds, specifications, build commands, and specific task prompts into global rules, we will quickly encounter the problems of "cognitive overload" and "context dilution."
+When executing pair-programming loops with elite AI Agents (e.g., Claude Code, Google Antigravity), injecting every single project constraint, deployment command, and architectural nuance into a global `AGENTS.md` constitution will trigger a catastrophic failure. 
 
-To solve this pain point, Agent Skills emerged. It is rapidly becoming a standard feature of AI programming tools. If global rules are the "global common sense" permanently residing in the brain, then AI Skills are "skill chips" inserted on demand. This article will systematically explain the essence of Skills, their underlying operational mechanisms, when to use them, and how to customize exclusive skills for your project.
+You will collide head-on with two lethal LLM physics problems: **Cognitive Overload** and **Context Dilution**.
 
+To circumvent this bottleneck, the paradigm of **Agent Skills (Skill Chips)** was engineered. This architecture is rapidly becoming the universal standard across all frontier AI IDEs. If the global `AGENTS.md` is the AI's "Long-Term Memory" that is always active, then **Skills** are hyper-specialized "Data Chips" that are hot-swapped into the context window only when required. 
 
+This chapter systematically deconstructs the architecture of Skills, their underlying triggering mechanisms, and how to engineer custom Skill Chips for your enterprise repository.
 
-## What is an AI Skill?
+## What is an Agent Skill?
 
-Skills are a set of skill directories (Skill Folders) under the `.claude/skills/` directory. Each Skill exists as an independent folder, with the core entry file being `SKILL.md`. Their value lies in: turning the knowledge that should have been repeatedly explained in `CLAUDE.md` or in conversations into reusable modules that can be triggered on demand. Anthropic's official definition is also extremely concise: "A Skill is a set of instructions—packaged as a simple folder—that teaches Claude how to handle a specific task or workflow."
+Skills are isolated directories (Skill Folders) provisioned under a specific root, typically `.agents/skills/` or `.claude/skills/`. Each Skill exists as a standalone module, governed by a primary entry point file: `SKILL.md`.
 
-From a technical perspective, a Skill is a Prompt-based Meta-tool. It is not executable code (it will not run Python or start an HTTP service), but an instruction package loaded on demand.
+Their architectural value proposition is extreme efficiency: They encapsulate highly repetitive, niche engineering directives (that would otherwise bloat the global constitution) into modular packages that are loaded *exclusively on demand*.
 
-Its basic structure consists of a YAML Frontmatter at the top (which controls how it is triggered) and the Markdown instruction body below:
+Anthropic's engineering definition is brutally concise: *"A Skill is a set of instructions—packaged as a simple folder—that teaches the Agent how to execute a highly specific workflow."*
+
+From a systems perspective, a Skill is an **Instructional Meta-Tool**. It is not an executable binary (it does not spawn a Python compiler or a Node server). It is a prompt payload.
+
+The exact schema mandates a YAML Frontmatter block at the absolute top (which controls the semantic triggering engine), followed by the Markdown directive body:
 
 ```markdown
 ---
-name: skill-name        # Unique identifier of the skill (kebab-case)
-description: text       # Key description for semantic matching (important basis for AI to decide whether to load)
+name: skill-name        # The unique identifier (kebab-case)
+description: text       # The Semantic Trigger Vector. (LETHAL: This determines if the AI loads it)
 ---
 
-# Skill Title
+# The Skill Directive
 
-## Core constraints and process instructions...
+## Core Execution Constraints...
 ```
 
+### Two Cognitive Analogies
 
+1. **The Cybernetic Chip:** Think of the chip inserted into Neo's brain in *The Matrix*. The AI does not constantly hold the knowledge of "How to fly a helicopter" in its active RAM. The knowledge is only dynamically injected the moment a helicopter is encountered.
+2. **The Cookbook vs. The Sous Chef:** A Skill is a "Cookbook" containing exact recipes and constraints; the AI remains the executor. (Conversely, a *Subagent* is an independent "Sous Chef" to whom you delegate the entire cooking process).
 
-### Two Excellent Analogies
-
-1. Skill Chip
-   This is like the chips inserted into the back of the head in The Matrix. The AI usually doesn't need to master this skill; it is only temporarily loaded when executing a specific task.
-
-2. Cookbook vs Sous Chef
-   A Skill is more like a "cookbook," providing steps and specifications; the AI is still the executor. A Subagent is more like an "independent colleague," responsible for completing a whole segment of work.
-
-
-
-## Core Advantages and Underlying Operational Mechanisms
+## The Semantic Trigger Architecture
 
 ### Progressive Disclosure
 
-AI Skills can achieve "on-demand loading," and the key lies in the combination of Frontmatter (YAML metadata) and the progressive disclosure mechanism. It is used to reduce the problem of global rules occupying context for a long time.
+The absolute advantage of AI Skills is **Dynamic Loading**. This is achieved through a "Progressive Disclosure" engine driven by the YAML Frontmatter. It mathematically prevents global rules from suffocating the context window.
 
-The entire process can be understood as two phases:
+The engine executes in a two-phase loop:
 
-### Phase One: Lightweight Registration
+### Phase 1: Lightweight Indexing (Cold State)
+Upon initialization, the IDE scans the `.agents/skills/` directory. It parses *only* the YAML Frontmatter (`name` and `description`) of each skill, compiling a lightweight semantic vector index. The heavy Markdown payloads are ignored to preserve tokens.
 
-The AI only reads the YAML metadata at the top of each Skill (such as `name` and `description`) to build an index, without loading the main text.
+### Phase 2: Just-In-Time (JIT) Injection (Hot State)
+When a user issues a prompt, the system executes a semantic similarity search between the prompt payload and the indexed `description` vectors. If the confidence threshold is breached, the engine dynamically injects the entire `SKILL.md` payload into the LLM's active context window.
 
-### Phase Two: On-Demand Loading
+## Architectural Matrix: Constitution vs. Skills vs. Subagents
 
-When the user inputs a task, the system will perform semantic matching between the current request and the `description` of all Skills. Once successfully matched, the `SKILL.md` content of the corresponding Skill will be fully loaded into the context.
+All three systems scale AI capabilities, but their execution vectors are fundamentally different:
 
-
-
-## Skill vs Global Rules vs Subagent
-
-All three can expand AI capabilities, but their mechanisms are completely different:
-
-| Dimension | Global Rules (CLAUDE.md) | AI Skills (Skill Chips) | Subagent (Independent Colleague) |
+| Dimension | The Constitution (`AGENTS.md`) | Agent Skills (The Skill Chips) | Autonomous Subagents |
 | ----- | ---------------- | --------------- | ------------- |
-| Essence | Static project constitution | Instruction package loaded on demand | Independently executed AI instance |
-| Loading Mechanism | Globally always present | Loaded after semantic matching | Started at the task level |
-| Context Usage | Long-term occupation | Briefly loaded on demand | Independent context window |
-| Applicable Scenarios | Global specifications, tech stack conventions | Reusable processes, tool specifications | Multi-step complex tasks |
+| **Ontology** | Static Project DNA & Rules | JIT (Just-In-Time) Instruction Payloads | Independent, autonomous AI instances |
+| **Loading Vector** | Globally prepended to all contexts | Injected dynamically via semantic match | Instantiated explicitly for a macro-task |
+| **Token Footprint** | Permanent Long-Term Occupation | Ephemeral (Loaded on demand) | Zero footprint (Operates in an isolated window) |
+| **Target Use-Case** | Global constraints, Tech Stack definitions | Niche workflows, Template generation, Audits | Multi-step deployments, intense research |
 
+## When Should You Engineer a Skill?
 
+### The Architectural Decision Tree
 
-## When Should You Use a Skill?
+* Is the payload a Code Template or Format Transformer? 👉 **Engineer a Skill**
+* Is the payload a highly specific, repeatable workflow? 👉 **Engineer a Skill**
+* Is the payload a localized Domain Constraint? 👉 **Engineer a Skill**
+* Does the task require intense autonomous multi-step reasoning and terminal execution? 👉 **Deploy a Subagent**
+* Does the workflow contain a deep, recursive verification loop? 👉 **Deploy a Subagent**
 
-### Decision Tree Guide
+**The Golden Rule:** Always default to a Skill. Skills are deterministic, token-efficient, and easy to maintain. Only escalate to an autonomous Subagent when the orchestration complexity exceeds a single prompt execution.
 
-* Is it a tool / transformation / template? 👉 Use Skill
-* Is it a reusable process? 👉 Use Skill
-* Is it a domain-specific rule or specification? 👉 Use Skill
-* Does it require multi-step reasoning and execution coordination? 👉 Use Subagent
-* Is it a complex workflow or a task with a verification loop? 👉 Use Subagent
+### High-Leverage Execution Scenarios
 
-Core advice: Start with Skills. Skills are more lightweight and easier to maintain. Only upgrade to Subagents when complex orchestration is needed. Both can be used collaboratively.
+* **Format Mutators:** PDF → Markdown extraction; DOCX → JSON serialization.
+* **Engineering Standards:** Enforcing Conventional Commits; executing strict Security Audits.
+* **Boilerplate Generators:** Scaffolding REST API endpoints; synthesizing standardized unit tests.
+* **DevOps Protocols:** Step-by-step production deployment checklists; Incident Response debugging flows.
 
+## How to Engineer and Deploy a Skill
 
+### 1. Directory Topology
 
-### Typical Application Scenarios
+Skills are governed by a strict scope hierarchy:
 
-* File Conversion: PDF → Text, DOCX → Parsing
-* R&D Specifications: Git Commit specifications, code audit processes
-* Template Generation: API documentation, interface instructions, email templates
-* Standardized Processes: Troubleshooting steps, deployment specifications, code review checklists
+* **Global (User-Level):** `~/.config/claude/skills/` or `~/.gemini/skills/` (Accessible across all local repositories)
+* **Local (Repository-Level):** `.agents/skills/` (Committed to Git; synchronized across the engineering team)
 
-
-
-## How to Create and Deploy a Skill?
-
-### 1. Directory Structure Specifications
-
-Skills are divided into two scopes:
-
-* User level (Global Skills): `~/.config/claude/skills/` or `~/.claude/skills/`
-* Project level (Recommended): `.claude/skills/` (committed with Git)
-
-Each Skill is an independent folder:
+Each Skill mandates an isolated sub-directory:
 
 ```text
-your-project/
-├── .claude/
+enterprise-repo/
+├── .agents/
 │   └── skills/
-│       └── git-commit/
+│       └── generate-commit/
 │           ├── SKILL.md
 │           ├── examples.md
 │           └── scripts/
 ```
 
-
-
-### 2. Writing the SKILL.md Template
+### 2. The `SKILL.md` Schema
 
 ```markdown
 ---
-name: git-commit
-description: Generate Conventional Commit messages based on git diffs. Use when writing commit messages or reviewing changes for commits.
+name: generate-commit
+description: Generates Git commit messages conforming to the Conventional Commits specification based on the git diff. Trigger this when writing commits or executing a diff review.
 ---
 
-# Git Commit Specification Generation Skill
+# Conventional Commit Generator
 
-When you are asked to generate Git Commit messages, please follow these rules:
+When requested to synthesize a Git commit payload, you MUST adhere to the following architecture:
 
-## 1. Commit Format
+## 1. Syntax Format
 <type>(<scope>): <subject>
 
-- feat: New feature
-- fix: Bug fix
-- docs: Documentation changes
+- feat: A new feature payload
+- fix: A vulnerability or bug patch
+- docs: Markdown or comment mutations
 
-## 2. Constraints
-- The subject must not exceed 50 characters
-- Use imperative mood (add x, not added x)
+## 2. Lethal Constraints
+- The subject line is strictly bounded to 50 characters.
+- MUST utilize the imperative mood (e.g., "add feature", NOT "added feature").
 ```
 
+### 3. Elite Production Templates
 
-
-### 3. Typical Scaffolding Skill Cases
-
-#### Case 1: Creating a New Feature Module
+#### Blueprint 1: Domain-Driven Scaffolding
 
 ````markdown
 ---
-name: new-feature
-description: Create a new feature module under features/ with standard vertical slice architecture
+name: scaffold-domain
+description: Architects a new domain module under src/features/ adhering to the strict Vertical Slice Architecture. Trigger when creating a new business feature.
 ---
 
-# Create New Feature Module
+# Feature Scaffolding Engine
 
-## Directory Structure
+## Target Directory Topology
 
-```
+```text
 src/features/{module_name}/
-├── router.py
-├── service.py
-├── repository.py
-├── schemas.py
-├── tests/
+├── controllers.ts
+├── services.ts
+├── repositories.ts
+├── schemas.ts
+├── __tests__/
 ```
 
-## Constraints
-- All modules must use the unified structure
-- All DB operations must go into repository
-- router must be registered in main.py
+## Lethal Constraints
+- ALL modules must replicate this exact topology. Zero deviation.
+- ALL direct database mutations MUST occur within `repositories.ts`.
+- The controller MUST be registered within `src/routes/main.ts`.
 
-## After Completion
-- Run typecheck
-- Register router
+## The Definition of Done (DoD)
+- Execute `pnpm run typecheck`
+- Verify the router binding.
 ````
 
-
-
-#### Case 2: Database Migration Skill
+#### Blueprint 2: Database Migration Engine
 
 ````markdown
 ---
 name: db-migration
-description: Handle Alembic database migrations safely. Use when modifying database schema or models.
+description: Safely executes Prisma ORM database migrations. Trigger this skill whenever database schemas or models are mutated.
 ---
 
-# Database Migration Rules
+# ORM Migration Protocol
 
-## ⚠️ Hard Constraints
-- Do not modify historical migration files
-- Do not write business logic in migrations
-- Must support downgrade
+## ⚠️ Lethal Constraints
+- LETHAL: You are strictly forbidden from mutating historical migration files in `prisma/migrations/`.
+- Migrations must strictly contain schema mutations. Zero business logic is allowed.
+- The migration must compile successfully.
 
-## Standard Process
+## Standard Execution Vector
 ```bash
-alembic revision --autogenerate -m "update schema"
-alembic upgrade head
-alembic downgrade -1
+npx prisma migrate dev --name "descriptive_name"
+npx prisma generate
 ```
 
-## Completion Criteria
-- Tests pass
-- Rollback is possible
+## Completion State
+- The `schema.prisma` compiles.
+- The TypeScript types are successfully re-generated.
 ````
 
+## Advanced Heuristics and Anti-Patterns
 
+### 1. The Description Vector is Everything
 
-## Best Practices and Guide to Avoiding Pitfalls
+The `description` field is the sole metric the IDE uses to trigger the skill. If it is ambiguous, the skill will never load.
 
-### 1. Description is the Key Entry Point
+* ❌ **Toxic:** `A skill for git stuff.`
+* ✅ **Elite:** `Generates commit payloads adhering to Conventional Commits. Triggers on git diff analysis, commit generation, or code reviews.`
 
-The description is the most important semantic basis for a Skill to be matched:
+### 2. Surgical Modularity
 
-* ❌ Vague: This is a git skill
-* ✅ Clear: Used to generate commit messages that conform to Conventional Commit, triggered when the user writes a commit or reviews a diff
+Do not engineer "God Skills." Maintain strict modularity.
 
+* ❌ **Toxic:** `backend-omnipotent-helper`
+* ✅ **Elite:** `db-migration` / `api-doc-generator` / `log-analyzer`
 
+### 3. Cognitive Compression
 
-### 2. Finely Split Skills
+The `SKILL.md` must remain extremely lightweight to preserve the context window. If a skill requires massive JSON schemas or verbose examples, shard the payload into sibling files:
 
-Do not create "omnipotent Skills". For example:
+* `examples.md`
+* `references/api-schema.json`
 
-* ❌ backend-helper
-* ✅ db-migration / api-doc-generator / log-analyzer
+### 4. Inject "References", Not Abstract Prose
 
+LLMs process concrete paths significantly better than abstract English concepts.
 
+* ❌ **Toxic:** *"Scaffold a new module according to the project's architectural standards."*
+* ✅ **Elite:** *"Execute a 1:1 structural replication of the `src/features/billing/` directory. You are forbidden from mutating the structural layout."*
 
-### 3. Control Complexity
+## Preventing "Hallucinated Scaffolding"
 
-Skills should remain lightweight; complex instructions can be split into:
+### The Triad of Failure
+When AI generates files without a Skill, it typically fails via:
+1. Depositing files in the wrong root directory.
+2. Hallucinating custom utility functions instead of utilizing the existing `src/utils`.
+3. Drifting from the team's casing standards (e.g., mixing `camelCase` and `snake_case`).
 
-* examples.md
-* references/
-
-
-
-### 4. Use "References" Instead of Abstract Descriptions
-
-❌ "Create a module according to project specifications"
-✅ "Copy the structure using the billing module as a template"
-
-
-
-## Preventing "Scaffolding Amnesia"
-
-### Three Common Problems
-
-* Files placed in the wrong directory
-* Reinventing the wheel
-* Naming style drifting
-
-
-
-### Solution: Use References Instead of Rules
+### The Solution: Deterministic Referencing
 
 ```markdown
-❌ Abstract Rule
-"Create module according to specification"
+❌ The Abstract Fallacy:
+"Create the module according to our strict specs."
 
-✓ Reference Constraint
-"Strictly copy the billing module structure, not allowed to change the directory layout"
+✓ The Deterministic Anchor:
+"Execute a strict 1:1 clone of the `auth` module directory structure. Utilize the `ApiResponse<T>` interface located in `src/types/global.ts` for all returns."
 ```
 
+## Reverse Engineering: Generating Skills via AST Scans
 
+You can force the Agent to build its own Constitution and Skills by scanning a legacy repository:
 
-## Reverse Engineering: Generating Specifications from Existing Projects
-
-```markdown
-Please analyze the codebase and generate a CLAUDE.md draft, including:
-
-1. Directory structure patterns
-2. Naming conventions
-3. Test organization methods
-4. Import styles
-5. Potential forbidden zones
-
-And explain the basis for each rule
+```text
+Execute a deep AST scan of the entire `src/` directory. Synthesize a highly structured `AGENTS.md` constitution and relevant `SKILL.md` payloads.
+Extract the following vectors:
+1. Directory layout patterns.
+2. Variable and Class naming conventions.
+3. Test suite organization patterns (e.g., Colocation vs. `__tests__`).
+4. Strict import/export boundaries.
+5. Identify all lethal "Forbidden Zones" (e.g., legacy files that must not be touched).
+Append a justification for every rule you extract.
 ```
 
+## The Tri-Layer Security Perimeter
 
-
-## Collaboration Between Skills and Hooks
-
-A three-tier constraint system can be built:
+Skills are highly probabilistic; they *guide* the LLM. To engineer a truly indestructible repository, you must deploy a Tri-Layer Perimeter:
 
 ```mermaid
 graph TD
-A[CLAUDE.md + Skills] --> B[Git Hooks]
-B --> C[CI/CD]
+A[AGENTS.md + Skill Chips<br/>(Probabilistic Guidance)] --> B[Git Hooks<br/>(Local Deterministic Blocks)]
+B --> C[CI/CD Pipeline<br/>(Absolute Cloud Verification)]
 ```
 
-* Skills: Provide probabilistic guidance
-* Hooks: Provide local deterministic constraints
-* CI: Provides ultimate strong verification
+* **Skills/Rules:** Provide the initial cognitive guidance to generate accurate code.
+* **Git Hooks (e.g., Husky):** Provide localized, mathematical blocks (Linters, Typechecks) to prevent dirty commits.
+* **CI/CD:** Provides the ultimate, immutable integration test suite.
 
-Only by combining the three can a stable engineering system be formed.
+Only by weaving these three layers together can you achieve a stable, autonomous AI engineering pipeline.
 
+## Cross-Platform Standardization
 
+The "Skill Chip" architecture is rapidly becoming the universal protocol across all frontier IDEs (Cursor, Claude Code, Antigravity). By organizing your logic into `.agents/skills/`, you achieve the ultimate engineering metric: *"Write Once, Deploy Everywhere."*
 
-## Cross-Tool Support and Summary
+### Executive Summary
 
-The Skill mechanism has gradually become a cross-tool standard, supported by multiple AI programming tools, achieving "write once, use everywhere".
+AI Skills are a **Just-In-Time Capability Injection System**. They decompose sprawling engineering lore into modular, hyper-efficient data chips. This allows the Agent to load instructions only exactly when required, thereby mathematically eliminating the threat of Context Exhaustion caused by a bloated Global Constitution.
 
-
-
-### One-Sentence Summary
-
-AI Skills is a "capability module system loaded on demand". It breaks down engineering experience into reusable skill units, allowing the AI to temporarily load them when needed and keep lightweight when not needed, thereby solving the problem of global rules occupying context for a long time.
-
-Writing a good description, doing a good job of splitting, and collaboratively designing with CLAUDE.md, Hooks, and Subagents is the key to maximizing the value of this system.
+Architecting high-fidelity Semantic Descriptions, enforcing strict modularity, and deploying them in tandem with `AGENTS.md` and Git Hooks is the absolute requirement for scaling AI Pair Programming.

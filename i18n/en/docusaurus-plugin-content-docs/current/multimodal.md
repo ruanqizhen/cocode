@@ -2,89 +2,84 @@
 
 > "A picture is worth a thousand words." — English Idiom
 
-Some models can only process text. For example, when the author wrote this book, DeepSeek could still only process text. But some models can not only process text but also images, and even audio and video; these are called multimodal models. Google Gemini is a multimodal model, so when we were creating illustrations for our book, we didn't even need to use extra AI tools. By directly making a request in the Google Antigravity dialog box, "Add some beautiful illustrations to this book," it started working.
+Historically, Large Language Models were strictly confined to processing text. When the author first drafted this book, models like DeepSeek were entirely blind; they could read source code, but they could not *see* a user interface. Today, frontier models have evolved into **Multimodal Architectures**, capable of processing text, images, audio, and video simultaneously. Google Gemini is a native multimodal model. Consequently, when generating illustrations for this book, we didn't require external design software; we simply requested in the Google Antigravity console: *"Generate beautiful architectural diagrams for this chapter,"* and the system executed it flawlessly.
 
-For programming, the more useful scenario might not be drawing, but seeing. For example, if you encounter this situation: the frontend interface is drawn crookedly, the UI has a pixel-level misalignment, or a designer directly throws you a hand-drawn sketch, how do you give instructions to the AI?
+In the domain of software engineering, the most lethal application of multimodality is not generating art—it is **Visual Debugging**. 
 
-For models that only support text, our communication with the model is strictly limited to "text." For the AI to help us restore a beautiful card layout, we have to painfully write long textual descriptions. This method is not only inefficient and full of ambiguity, but the AI often fails to capture the exact meaning, and the visual effects produced by blind modifications are even more bizarre.
+Consider this scenario: The frontend CSS is misaligned by two pixels, the Flexbox layout collapsed on mobile, or your UI/UX designer hands you a rough, hand-drawn wireframe on a napkin. How do you communicate these spatial concepts to an AI?
 
-With the full maturity of Multimodal Large Language Models (Multimodal LLMs) represented by the Claude series and the Google Gemini series, human-machine interaction has officially entered the visual era. AI programming tools have grown bright eyes and can directly deconstruct multimedia contexts such as images and videos using underlying logic. This chapter will lead you to appreciate the ultimate power of the "cyber retina" applied in frontend visual reconstruction, UI defect self-healing, and automated testing.
+If your model only processes text, you are forced into the agonizing process of translating physical geometry into verbose paragraphs. Not only is this highly inefficient, but the inherent ambiguity of human language guarantees that the AI will misinterpret your instructions, often outputting CSS that is even more catastrophically broken.
 
+With the maturity of Multimodal LLMs (like the Claude 3.5 Sonnet and Gemini 1.5 Pro series), human-machine interaction has officially crossed into the Visual Era. AI Agents now possess a "Cyber Retina." They can natively deconstruct the DOM, parse multimedia payloads, and execute spatial logic. This chapter will demonstrate the explosive power of visual engineering applied to frontend architecture, UI self-healing, and automated browser testing.
 
+## The Architectural Duel: Passive Vision vs. Active Vision
 
-## The Philosophical Duel Between Passive Vision and Active Vision
-
-At the current frontier of AI programming, Claude Code and Google Antigravity have respectively taken distinctly different yet converging engineering evolutionary paths in processing multimedia resources:
+At the absolute frontier of AI engineering, tools like Claude Code and Google Antigravity have adopted radically different—yet complementary—philosophies regarding visual processing:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             The Multimodal Retinal System of AI Programming            │
+│            The Multimodal Architecture of AI Programming               │
 ├───────────────────────────────────────┬────────────────────────────────┤
 │       Claude Code (Passive Vision)    │Google Antigravity (Active Vision)│
 ├───────────────────────────────────────┼────────────────────────────────┤
-│  * Relies on developers manually      │  * Relies on built-in browser  │
-│    feeding images                     │    agents to autonomously get  │
-│                                       │    visual feedback             │
-│  * One-click clipboard encoding /     │  * Automatically generates rich│
-│    Handoff Bundle integration         │    media artifacts like screen │
-│                                       │    recordings and screenshots  │
-│  * Hacker-style "see picture, write   │  * A tester capable of "seeing"│
-│    code" extreme executor             │    effects and self-healing    │
+│  * Strictly dependent on human devs   │  * Integrates a headless Browser│
+│    injecting image payloads manually. │    Subagent to acquire vision. │
+│  * Features instant clipboard parsing │  * Autonomously synthesizes rich│
+│    and Figma Design Bundle Handoff.   │    media artifacts (screenshots).│
+│  * A ruthless "See Image -> Write    │  * An autonomous QA Engineer    │
+│    Code" execution engine.            │    capable of visual self-healing.│
 └───────────────────────────────────────┴────────────────────────────────┘
-
 ```
 
-### Claude Code: Targeted Vision Centered on Human Input
+### Claude Code: Passive, Targeted Vision
 
-Although Claude Code is a hardcore command-line tool running in a pure text Terminal, its underlying Harness framework possesses extremely lightweight and sexy image perception capabilities. In the terminal, it primarily accepts human visual input through two passive methods:
+While Claude Code operates as a hardcore CLI tool inside your terminal, its underlying Harness framework is equipped with a highly optimized image-processing pipeline. It ingests human visual data via two primary vectors:
 
-* Direct Clipboard Injection: After using shortcuts in the local system to capture a UI defect or error popup, directly press `Cmd + V` (or `Ctrl + V`) in the terminal. The Harness will automatically encode the image in the background, tag it with `[image]`, and push it into the current context window.
-* Design Handoff Bundle Integration: Through deep integration with the Claude Design toolchain, a complete asset bundle exported by a designer from Figma can be directly fed into the terminal via a single command, allowing the main agent to instantly gain a global, pixel-level big picture view.
+* **Clipboard Injection:** When you spot a catastrophic UI rendering defect or a cryptic error popup, simply screenshot it. Press `Cmd + V` (or `Ctrl + V`) directly inside the terminal. The CLI Harness instantly encodes the image, tags it with a `[image]` flag, and injects it directly into the context window.
+* **Figma Handoff Integration:** Through deep integration with design ecosystems, a complete asset bundle exported from Figma can be piped into the terminal via a single bash command. The AI instantly gains a pixel-perfect, global map of the UI architecture.
 
-### Google Antigravity: The Agent's Autonomously Acquired Visual Feedback Mechanism
+### Google Antigravity: Active Autonomous Vision
 
-Completely opposite to Claude Code's passive mode of waiting for humans to feed images, Google Antigravity demonstrates the "active vision" dominance of a giant mothership.
+In stark contrast to Claude's passive consumption, Google Antigravity acts as an autonomous mothership executing "Active Vision."
 
-Relying on the underlying Computer Use technology of Gemini, it directly embeds a headless Browser Subagent within the system. This means that after it modifies frontend code, it doesn't need you to check the effect for it; it can silently pull up a local browser itself, click buttons and fill out forms like a human user, and take screenshots or record operation videos at key steps itself.
+Powered by Gemini's native Computer Use APIs, it embeds a headless Browser Subagent directly into its execution loop. When the Agent modifies a React component, it doesn't wait for you to verify the render. It silently spins up a Chromium instance, navigates the DOM, clicks buttons exactly like a human user, and captures high-resolution DOM snapshots and MP4 video recordings.
 
-These multimedia resources will be precipitated into its Artifacts system. You can not only intuitively review its "Proof of Work," but also, like reviewing Google Docs, draw lines and leave comments with your mouse directly on the screenshots it submits. The agent will accurately extract the screen coordinates from the feedback and automatically initiate a new round of code fixes.
+These multimedia artifacts are injected into the Artifacts panel. You can intuitively review its "Proof of Work" and—just like marking up a Google Doc—use your mouse to draw bounding boxes and leave red-pen annotations directly on the AI's screenshots. The Agent instantly extracts the physical coordinates from your markup and executes the required CSS patches.
 
+## Use Case 1: Compiling Napkin Sketches into React Components
 
-## Restoring Design Draft Sketches to React Frontend Components with One Click
+To demonstrate the raw power of multimodal engineering, let us execute a classic "Cold Start" requirement. You are architecting a Point-of-Sale (POS) interface for an indie coffee shop. You (or your designer) hastily scribble a wireframe on a napkin: A hero banner, a "Daily Special" card, and an "Add to Cart" sticky button.
 
-To personally experience the power of multimodality, we first simulate a classic "requirement cold start" scenario: you are designing an online ordering page for a cafe. Your designer (or yourself) hastily drew a layout wireframe on a blank piece of paper with a pencil, including a Banner image, a today's special recommendation card, and an "Add to Cart" floating button at the bottom.
+Historically, you would manually scaffold the HTML DOM tree, followed by two hours of agonizing CSS pixel-pushing to align the Flexbox, shadows, and typography. Today, we simply photograph the napkin and inject it straight into the AI IDE.
 
-In the past, you needed to manually write the HTML skeleton first, then write hundreds of lines of CSS to tediously adjust alignment, spacing, fonts, and shadows, tossing and turning for an entire afternoon. Now, we just take a photo of this sketch with our phone and feed it directly to the AI programming tool.
+### Injecting the Spatial Constraints
 
-### Feeding the Wireframe and Clarifying Constraint Specifications
-
-* If you are using Claude Code: Directly drag the manuscript into the terminal and issue instructions.
-* If you are using Google Antigravity: Drag the image into the Context area of the sidebar and issue macro goals in the panel.
+* **In Claude Code:** Drag the `.jpeg` of the napkin directly into the terminal and fire the prompt.
+* **In Google Antigravity:** Drop the image into the Context Sidebar and issue the macro instructions.
 
 ![Hand-drawn ordering interface layout sketch](/img/coffee_order_sketch.png)
-*Figure: Hand-drawn ordering interface layout sketch*
+*Figure: The crude, hand-drawn wireframe.*
 
-#### Visual Reconstruction Prompt Template
+#### The Visual Reconstruction Prompt:
 
 ```text
 # Role
-You are a frontend visual reconstruction expert proficient in Tailwind CSS and React.
+You are an elite Frontend Architect, holding absolute mastery over Tailwind CSS v3 and React 18.
 
 # Task
-This is a hand-drawn sketch of an ordering interface layout I made (already uploaded). Please carefully read the wireframe hierarchy and text instructions in the picture and write a highly restored responsive coffee ordering card component for me.
+Ingest the provided hand-drawn wireframe sketch. Parse the spatial hierarchy and handwritten annotations. You will architect a fully responsive, highly polished React component for this Coffee POS interface.
 
-# Visual Design Hard Constraints
-1. Color System: Strictly forbid using default black and white. Must use a premium "Cyber Retro Cafe" exclusive color palette (dark brown `#3E2723`, light beige `#D7CCC8`, and striking warm orange `#FF9800` as the main colors).
-2. Design Aesthetics: Use the exquisite Glassmorphism effect popular in modern frontends and large rounded corners (`rounded-3xl`), paired with delicate diffused shadows to create visual depth.
-3. Responsive Layout: Presents as a vertical single column under small screen mobile viewports, and adaptively spreads out into a multi-column grid on medium to large screens.
+# Visual Hard Constraints (Lethal)
+1. **Color Palette:** The usage of default hex `#000000` or `#FFFFFF` is STRICTLY FORBIDDEN. You MUST implement a premium "Cyber-Retro Cafe" palette: Dark Espresso (`#3E2723`), Warm Beige (`#D7CCC8`), and High-Contrast Orange (`#FF9800`).
+2. **Design Language:** Enforce the modern "Glassmorphism" aesthetic. Utilize extreme border-radii (`rounded-3xl`) paired with hyper-diffused, soft drop-shadows to simulate physical depth.
+3. **Responsive Topology:** The DOM must render as a constrained vertical stack on mobile (`< 640px`) and automatically reflow into a multi-column CSS Grid on desktop viewports.
 
-Please output a pure, directly deployable React code segment, and automatically introduce `lucide-react` within the component for icon beautification.
-
+Generate the raw, deployable React JSX payload. Automatically inject icons from the `lucide-react` library.
 ```
 
-### Highly Cohesive Code Produced After AI Visual Deconstruction
+### The AI-Synthesized Architecture
 
-The moment the large model receives the image input, its neural network completes the two-way retrieval mapping of line geometric relationships and text entities. In just a few seconds, it spits out a structurally complete industrial-grade component:
+The exact millisecond the LLM ingests the image payload, its neural network executes a bidirectional mapping of the geometric bounding boxes and the text entities. In under 5 seconds, it outputs an industrial-grade, fully styled component:
 
 ```jsx
 import React, { useState } from 'react';
@@ -95,44 +90,44 @@ export default function CoffeeOrderCard() {
 
   return (
     <div className="min-h-screen bg-[#F5F2EB] p-6 flex flex-col items-center">
-      {/* Cafe Banner Area */}
+      {/* Hero Banner Component */}
       <div className="w-full max-w-md bg-[#3E2723] rounded-3xl overflow-hidden shadow-2xl relative mb-6">
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
         <div className="h-48 bg-[url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600')] bg-cover bg-center" />
         <div className="absolute bottom-4 left-6 right-6 text-white z-10">
-          <span className="bg-[#FF9800] text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Today's Special</span>
-          <h1 className="text-2xl font-bold mt-2">Amber Ice Drip Cold Brew</h1>
-          <p className="text-sm text-gray-300 mt-1">Minimalist and mellow fermented for 72 hours, with a unique fruity aftertaste.</p>
+          <span className="bg-[#FF9800] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">Today's Special</span>
+          <h1 className="text-3xl font-extrabold mt-3 tracking-tight">Amber Ice Drip</h1>
+          <p className="text-sm text-gray-200 mt-2 font-medium">72-hour slow fermentation. Hyper-clean profile with citrus notes.</p>
         </div>
       </div>
 
-      {/* Ordering Data Card (Glassmorphism Effect) */}
-      <div className="w-full max-w-md bg-white/80 backdrop-blur-md border border-[#D7CCC8] rounded-3xl p-6 shadow-xl relative">
-        <button className="absolute top-6 right-6 p-2 rounded-full bg-gray-100 hover:bg-red-50 transition-colors">
-          <Heart className="w-5 h-5 text-gray-400 hover:text-red-500 transition-colors" />
+      {/* Interactive Glassmorphism Data Card */}
+      <div className="w-full max-w-md bg-white/70 backdrop-blur-xl border border-[#D7CCC8]/50 rounded-3xl p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] relative">
+        <button className="absolute top-6 right-6 p-2.5 rounded-full bg-white/50 hover:bg-red-50 transition-all duration-300">
+          <Heart className="w-5 h-5 text-gray-400 hover:text-red-500 hover:fill-red-500 transition-colors" />
         </button>
 
-        <div className="flex items-center gap-2 text-yellow-600 font-semibold text-sm">
+        <div className="flex items-center gap-2 text-[#FF9800] font-bold text-sm">
           <Star className="w-4 h-4 fill-current" />
-          <span>4.9 (180+ Reviews)</span>
+          <span>4.9 (184 Verified Reviews)</span>
         </div>
 
-        <div className="mt-4 flex justify-between items-baseline">
-          <h2 className="text-xl font-bold text-gray-800">Special Amber Ice Drip</h2>
-          <span className="text-2xl font-extrabold text-[#3E2723]">¥ 38.00</span>
+        <div className="mt-5 flex justify-between items-end">
+          <h2 className="text-xl font-bold text-[#3E2723]">Cold Brew Special</h2>
+          <span className="text-3xl font-black text-[#3E2723] tracking-tighter">¥38.00</span>
         </div>
 
-        {/* Specification Selection Grid */}
-        <div className="mt-6 flex flex-col gap-3">
-          <span className="text-sm font-semibold text-gray-500">Sweetness Selection</span>
-          <div className="grid grid-cols-3 gap-2">
-            {['No Sugar', 'Less Sugar (30%)', 'Half Sugar (50%)'].map((sugar, index) => (
+        {/* State Toggle Grid */}
+        <div className="mt-8 flex flex-col gap-3">
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Sugar Level</span>
+          <div className="grid grid-cols-3 gap-3">
+            {['Zero', 'Light (30%)', 'Half (50%)'].map((sugar, index) => (
               <button 
                 key={index}
-                className={`py-2 px-3 text-xs rounded-xl border text-center transition-all ${
+                className={`py-3 px-2 text-xs font-bold rounded-2xl border transition-all duration-200 ${
                   index === 1 
-                    ? 'bg-[#3E2723] text-white border-[#3E2723] shadow-md' 
-                    : 'border-[#D7CCC8] text-gray-600 hover:bg-gray-50'
+                    ? 'bg-[#3E2723] text-white border-[#3E2723] shadow-lg shadow-[#3E2723]/20' 
+                    : 'bg-white/50 border-[#D7CCC8] text-[#3E2723] hover:bg-white hover:shadow-md'
                 }`}
               >
                 {sugar}
@@ -141,69 +136,65 @@ export default function CoffeeOrderCard() {
           </div>
         </div>
 
-        {/* Dynamic Add to Cart Main Action Area */}
+        {/* Primary Call to Action (CTA) */}
         <div className="mt-8 flex gap-4 items-center">
           <button 
             onClick={() => setCartCount(c => c + 1)}
-            className="flex-1 bg-gradient-to-r from-[#FF9800] to-[#E65100] text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:translate-y-[-1px] active:translate-y-[0px] transition-all flex justify-center items-center gap-2"
+            className="flex-1 bg-gradient-to-br from-[#FF9800] to-[#E65100] text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-orange-500/20 hover:shadow-2xl hover:shadow-orange-500/40 hover:-translate-y-1 active:translate-y-0 transition-all flex justify-center items-center gap-3"
           >
-            <ShoppingCart className="w-5 h-5" />
-            <span>Add to Cart ({cartCount})</span>
+            <ShoppingCart className="w-6 h-6" />
+            <span className="text-lg">Add to Cart ({cartCount})</span>
           </button>
         </div>
       </div>
     </div>
   );
 }
-
 ```
 
-Merge this highly restored code into your local trunk, and a dynamic ordering card that perfectly follows your wireframe layout design, possesses modern aesthetics, and has extremely reasonable rounded corners and spacing is born. Multimodal AI helps you compress the originally tedious work of "resetting pixels" into just a few breaths of lightning speed.
+Merge this code payload into your trunk. In seconds, you have deployed a highly dynamic, production-ready POS component that perfectly honors your spatial napkin sketch while injecting modern aesthetics and flawlessly calculated padding. Multimodal AI compresses the brutal drudgery of "CSS pixel pushing" into a fraction of a second.
 
+## Use Case 2: Autonomous Diagnosis of Mobile Viewport Defects
 
+The most mission-critical vector for multimodal models is diagnosing "transient" visual bugs that are mathematically invisible when merely reading the source code. This is especially true for catastrophic layout collapses triggered by mobile viewport engines (e.g., iOS Safari's WebKit).
 
-## Practical Case 2: Diagnosis and Self-Healing of Bizarre Visual Defects on Mobile Devices
+### The Lethal `100vh` Safari Viewport Bug
 
-Another extremely high-value battlefield for multimodality is handling those "transient" visual Bugs that are hard to find just by reading code. Especially style collapses caused by different mobile device viewports and different browser cores (like iOS Safari's WebKit core).
+Frontend engineers are universally traumatized by a classic mobile bug: You assign `height: 100vh` to a full-screen modal overlay. It renders flawlessly in your desktop Chrome emulator. However, when deployed to a physical iPhone Safari browser, the "Confirm Payment" CTA button at the bottom of the screen is violently occluded by Safari's dynamic navigation toolbar, rendering the application completely unusable.
 
-### The `100vh` Address Bar Blocking Defect at the Bottom of Mobile Full Screens
+This occurs because the CSS `100vh` spec calculates the absolute maximum physical display height, totally ignoring the fact that mobile browsers inject dynamic, shrinking toolbars that overlay the DOM.
 
-Developers often encounter a classic mobile historical trap: when setting `height: 100vh` in CSS for a full-screen mask modal popup, everything is perfect on a PC emulator; but once it runs on a real iPhone Safari browser, you will painfully discover that the "Confirm Payment" or "Close Popup" button at the bottom is halfway ruthlessly blocked by Safari's own dynamic bottom toolbar popup, making it completely unclickable.
+### Phase 1: Injecting the Visual Payload
 
-This is because in mobile specifications, `100vh` calculates the maximum physical viewport of the browser, which often forcibly includes the dynamically shrinking address bar.
-
-### Step 1: Visual Context Feeding
-
-We simply take a screenshot of this horrific truncated screen on the phone and throw it to the AI tool (while `@` mentioning the `Modal.css` source code responsible for the layout in the prompt):
+We simply screenshot the catastrophic rendering failure on the physical iPhone and inject it into the AI IDE, while tagging the offending `Modal.css` file:
 
 ![Mobile Safari 100vh Bottom Blocking Defect](/img/mobile_layout_bug.png)
-*Figure: Schematic diagram of the Mobile Safari 100vh bottom blocking defect*
+*Figure: The lethal Safari 100vh occlusion bug.*
 
 ```css
-/* Component CSS with a soft technical flaw before optimization */
+/* The buggy legacy CSS payload */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh; /* ❌ Classic 100vh mobile visual landmine */
+  height: 100vh; /* ❌ The lethal 100vh mobile trap */
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 ```
 
-Human Director Instruction: "Dr. AI, my modal popup experienced a blocking Bug when running on a real iOS device. The 'Confirm Payment' button at the bottom is covered by Safari's native toolbar. This is a real screenshot of the trainwreck I just took. I've attached the code file responsible for the layout. Please 'open your eyes' to help me diagnose and provide a self-healing rewritten solution."
+**The Architect's Prompt:** *"Agent, my modal overlay has suffered a fatal occlusion bug on physical iOS devices. The 'Confirm Payment' CTA is being blocked by the Safari native toolbar. I have injected the screenshot of the failure state and the relevant CSS payload. Execute a visual diagnosis and deploy a self-healing patch."*
 
-### Step 2: AI Retina Trial and Correction
+### Phase 2: Autonomous Retinal Diagnosis & Self-Healing
 
-After reading the physical geometric misalignment of the intercepted button in the image and combining it with the `100vh` in the code, the AI programming assistant issues an accurate diagnostic report and rewriting plan within 2 seconds:
+By cross-referencing the physical geometric occlusion in the screenshot with the `100vh` declaration in the CSS, the Agent instantly calculates the diagnostic report and deploys the patch in under 2 seconds:
 
-"Diagnostic Report: A classic mobile Dynamic Viewport Height calculation defect."
+**Agent Diagnostic Output:** *"Critical Mobile Viewport Height (dvh) collision detected."*
 
-Deep Cause: The address bar and toolbar of mobile browsers stretch and shrink dynamically with scrolling. `100vh` cannot perceive this dynamic change. To break this completely, dynamic viewport units (`dvh`) in modern CSS specifications must be introduced, along with environment variables for the safe area of full screens (`Safe Area Insets`).
+**Root Cause:** Mobile browser toolbars expand and contract dynamically. `100vh` is a static calculation that fails to perceive this hardware-level UI. To execute a flawless patch, we must inject modern Dynamic Viewport units (`dvh`) and utilize CSS Environment Variables to respect the hardware's Safe Area Insets.
 
 ```css
 .modal-overlay {
@@ -212,11 +203,11 @@ Deep Cause: The address bar and toolbar of mobile browsers stretch and shrink dy
   left: 0;
   width: 100vw;
   
-  /* Degradation defense line: for extremely old browser cores that completely don't support new features */
+  /* Fallback Layer: For deprecated legacy WebKit cores */
   height: 100vh;
   height: -webkit-fill-available;
   
-  /* Modern standard: perfectly adapts to the stretching and shrinking of mobile dynamic address bars and toolbars */
+  /* Modern Standard: Flawlessly tracks the dynamic expansion/contraction of the Safari toolbar */
   height: 100dvh; 
   
   background: rgba(0, 0, 0, 0.5);
@@ -225,40 +216,37 @@ Deep Cause: The address bar and toolbar of mobile browsers stretch and shrink dy
   justify-content: space-between;
   box-sizing: border-box;
   
-  /* ✅ Dimensionality reduction strike on full-screen landmines: accurately avoids the black bar/safe viewport area at the bottom of full screens */
+  /* ✅ The Kill-Shot for Mobile Layouts: Injects dynamic padding to perfectly avoid the physical iPhone home-indicator (Safe Area) */
   padding-bottom: env(safe-area-inset-bottom); 
 }
-
 ```
 
-Merge the self-healing code into the system. The web page not only perfectly avoids the physical black bar at the bottom of the phone's full screen, but also achieves pixel-level seamless adaptation as the toolbar pops up and shrinks.
-
-
+Merge the patch. The modal not only dynamically resizes in real-time as the Safari toolbar expands, but it also mathematically calculates the physical black bar (home indicator) at the bottom of the iPhone, injecting flawless pixel-padding to prevent the button from touching the bezel.
 
 ## The Four Iron Laws of Visual Prompt Engineering
 
-To squeeze the absolute most out of the multimodal model's eyes and avoid generating new "visual hallucinations" when processing visual assets, you must strictly follow these four golden iron laws when feeding images and instructing agents:
+To maximize the extraction power of the AI's "Cyber Retina" and prevent the model from hallucinating geometry, you must strictly adhere to these four architectural laws when injecting visual payloads:
 
-### Iron Law 1: Implement "High Contrast" Cropping and Red Circle/Red Line Marking
+### Law 1: Enforce "High-Contrast" Cropping and Red-Lining
 
-If your screen is very large and the Bug is just a small icon misplaced by 2 pixels in the corner, absolutely do not throw a raw 4K resolution global large screenshot directly! This will cause the model's visual attention matrix to be extremely diluted by massive desktop background noise.
+If you are debugging a tiny 12-pixel icon misalignment, **absolutely do not** upload a raw, 4K resolution screenshot of your entire IDE. The model's neural attention matrix will be violently diluted by millions of pixels of background noise.
 
-* Golden Operation: Use a cropping tool to precisely slice the local defect. If possible, use a red brush to hand-draw a red circle in the core area of the Bug, and add indicative text like "overlap", "overlap" next to it. The recall rate of multimodal models for images with red high-contrast annotations is close to 100%.
+* **The Golden Standard:** Utilize a cropping tool to surgically extract only the localized DOM failure. Use a digital red marker to draw a high-contrast circle around the exact bug, and write explicit text (e.g., "OVERLAP ERROR") pointing to it. A multimodal model's detection recall rate approaches 100% when visual payloads contain high-contrast red annotations.
 
-### Iron Law 2: Force Injection of Explicit Layout and Spacing Constraints
+### Law 2: Inject Lethal Spatial Constraints
 
-Although large models are sensitive to colors and macro structures, they often ignore micro-spacing (Margin / Padding) when faced with precise frontend restoration.
+While LLMs are brilliant at perceiving macro-color palettes and grid topologies, they often hallucinate micro-geometry (Margins and Padding) during frontend execution.
 
-* Golden Operation: When issuing instructions, you must append clear, qualitative detail descriptions: "Note that the spacing between the image and the text title must equal half the font height; the rounded corners of the card need to present extremely obvious obtuse roundness; the shadows should be delicate, borderless diffused reflections, rejecting any stiff, hard black drop shadows."
+* **The Golden Standard:** Append brutal, qualitative geometric constraints to your prompt: *"The padding between the hero image and the H1 tag MUST equal exactly half the font's line-height. The border-radius must be a severe, obtuse curve. The drop-shadow must be a hyper-diffused, borderless ambient glow; I will instantly reject any harsh, solid-black offsets."*
 
-### Iron Law 3: Precise Hexadecimal Grounding of Color Systems
+### Law 3: Execute Absolute Hexadecimal Grounding
 
-Physical whiteboard photos or mobile phone photos taken by cameras will inevitably produce severe color cast and color distortion due to the influence of the color temperature of the ambient light in the real world.
+Physical photographs of whiteboards or mobile screens suffer from severe chromatic aberration and white-balance distortion caused by ambient light.
 
-* Golden Operation: If you know the standard brand colors, never vaguely describe to the AI, "Help me make a nice-looking dark background with a warm orange button." You must specify the exact hexadecimal color value (like `#3E2723`), or directly embed a brand Color Palette benchmark dictionary into the prompt.
+* **The Golden Standard:** Never issue a vague semantic command like *"Make the background a nice dark color and the button warm orange."* You must ground the AI mathematically. Inject the exact Hexadecimal arrays (e.g., `#3E2723`), or physically embed your brand's core Design System Token JSON directly into the prompt payload.
 
-### Iron Law 4: Break DOM Dependency, Force the Start of Pure Visual Reasoning
+### Law 4: Sever DOM Dependency; Force Pure Visual Computation
 
-When working in autonomous agent IDEs like Google Antigravity, community developers found a hidden blind spot: agents sometimes "over-lazily rely on the DOM tree structure" when testing UI. Finding that the HTML tags are all there, it takes for granted that the page is fine, thereby ignoring low-level disasters in its own screenshots, such as button text overflowing, or two elements visually overlapping each other.
+When orchestrating autonomous agents in environments like Google Antigravity, elite developers have uncovered a critical blind spot: Agents sometimes "cheat" by reading the underlying HTML DOM tree. If the Agent sees that the `<button>` node exists in the DOM, it assumes the test passes—completely failing to realize that physically, on the screen, the button text has catastrophically overflowed its container.
 
-* Golden Operation: When dispatching a test agent, forcefully append a high-priority pure visual review command in the Prompt: *"Please activate your multimodal retina to carefully examine the real rendering screenshot you just took in the foreground. Strictly confirm that in the visual presentation, no text overflows container boundaries, no buttons have pixel-level physical overlap, and everything is completely visible within the current mobile viewport."*
+* **The Golden Standard:** When deploying a visual QA Agent, you must inject a forced visual override: *"You are strictly forbidden from relying on the DOM hierarchy for validation. You MUST activate your multimodal retina to parse the physical, rasterized screenshot. You will execute a pure visual calculation to guarantee that zero text nodes overflow their geometric containers and that zero physical pixels overlap in the mobile viewport."*
