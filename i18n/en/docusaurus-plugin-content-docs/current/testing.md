@@ -1,6 +1,6 @@
 # Testing
 
-> "True gold fears no fire."
+> "Trust, but verify." — Russian Proverb
 
 
 

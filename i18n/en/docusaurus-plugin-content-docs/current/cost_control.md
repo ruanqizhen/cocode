@@ -1,6 +1,6 @@
 # AI Cost Control
 
-> "Every little bit matters when it comes to frugality." — "Zhu Zi's Family Maxims"
+> "A penny saved is a penny earned." — Benjamin Franklin
 
 When developers or R&D teams transition from "occasionally using the web version of large models" to using Cursor, Claude Code, or autonomous agents for round-the-clock development, they usually experience their first "bill shock."
 

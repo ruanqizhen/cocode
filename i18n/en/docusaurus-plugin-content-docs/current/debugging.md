@@ -1,6 +1,6 @@
 # Debugging and Troubleshooting
 
-> "From seeing the small, one knows the budding; from seeing the beginning, one knows the end." — "Han Feizi"
+> "If debugging is the process of removing software bugs, then programming must be the process of putting them in." — Edsger W. Dijkstra
 
 You paste a piece of error message to the AI, and a few seconds later, it gives a detailed explanation and repair suggestion. It sounds reasonable, so you apply it. As a result, the original error disappears, only to be replaced by a new, more incomprehensible error. 30 minutes later, you have fallen into the quagmire of "using patches to fix patches," further away from the root cause than when you started.
 

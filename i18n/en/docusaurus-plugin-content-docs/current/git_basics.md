@@ -1,6 +1,6 @@
 # Code Version Control
 
-> "It is not too late to mend the fold after a sheep is lost." — "Strategies of the Warring States"
+> "Anyone who has never made a mistake has never tried anything new." — Albert Einstein
 
 The speed at which AI writes code is extremely fast, but the speed at which it makes mistakes, goes off track, or even "helps make things worse" and completely crashes the system is equally fast. If every version of the code is not saved, once the AI breaks the core logic of the program in a certain step, and we can't remember which files it changed or what it looked like before the changes, it would be a disaster—we might even need to tear down the entire program and start over.
 

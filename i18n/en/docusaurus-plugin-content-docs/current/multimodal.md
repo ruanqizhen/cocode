@@ -1,6 +1,6 @@
 # Visual Engineering
 
-> "Hearing is deceiving; seeing is believing." — "Book of Han"
+> "A picture is worth a thousand words." — English Idiom
 
 Some models can only process text. For example, when the author wrote this book, DeepSeek could still only process text. But some models can not only process text but also images, and even audio and video; these are called multimodal models. Google Gemini is a multimodal model, so when we were creating illustrations for our book, we didn't even need to use extra AI tools. By directly making a request in the Google Antigravity dialog box, "Add some beautiful illustrations to this book," it started working.
 

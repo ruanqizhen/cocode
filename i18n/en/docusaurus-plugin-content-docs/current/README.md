@@ -1,6 +1,6 @@
 # To My Future Self in the AI Era
 
-> "If you can one day renovate yourself, do so from day to day. Yea, let there be daily renovation." — *The Great Learning*
+> "Stay hungry, stay foolish." — Stewart Brand
 
 The recent advancements in AI have truly astounded me. It feels like an approaching tsunami; the more I pay attention, the more anxious I become.
 

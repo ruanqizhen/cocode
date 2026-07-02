@@ -1,6 +1,6 @@
 # AI API
 
-> "The gentleman by birth is not different from others; he is good at making use of external things." — Xunzi, "Encouraging Learning"
+> "Give me a lever long enough and a fulcrum on which to place it, and I shall move the world." — Archimedes
 
 Most AI platforms not only provide convenient web applications (like ChatGPT, Claude Web) but also usually provide **API interfaces**, allowing developers to call large models through code. The underlying magic of all mainstream AI programming tools on the market today (such as Cursor, Windsurf, Cline, or Aider) is actually calling these API interfaces and encapsulating complex operating processes.
 

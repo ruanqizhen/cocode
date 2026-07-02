@@ -1,6 +1,6 @@
 # Introduction to Iterative Improvement and Debugging
 
-> "Jade needs to be carved and polished before it becomes an exquisite artifact." — "Three Character Classic"
+> "There is no great writing, only great rewriting." — Justice Brandeis
 
 After taking the first step of commanding AI to create a simple mini-game, you might find that no matter how detailed we write the requirements, it's absolutely impossible for AI to generate a flawless program that meets your expectations 100% in one go.
 

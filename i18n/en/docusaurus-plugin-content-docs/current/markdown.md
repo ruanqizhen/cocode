@@ -1,6 +1,6 @@
 # Markdown File Format
 
-> "Speech without literary grace will not spread far." — "Zuo Zhuan"
+> "Design is not just what it looks like and feels like. Design is how it works." — Steve Jobs
 
 You may have already noticed that in our interactions with AI, we have always been using the Markdown format. You might wonder: why is the entire AI collaboration ecosystem highly unanimously supporting the Markdown (.md) format instead of more advanced Word or structured JSON/XML?
 

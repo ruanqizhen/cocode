@@ -1,6 +1,6 @@
 # Team Collaboration
 
-> "He whose ranks are united in purpose will be victorious." — "The Art of War"
+> "Coming together is a beginning, staying together is progress, and working together is success." — Henry Ford
 
 The preceding chapters of this book mainly unfold from the perspective of an individual developer: how you write Prompts, how you manage context, and how you transform into a code judge to control the bottom line. But real-world commercial software development is never a solo fight.
 

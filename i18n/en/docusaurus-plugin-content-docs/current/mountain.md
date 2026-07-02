@@ -1,6 +1,6 @@
 # The Ever-Growing Mountain of Shit
 
-> "It takes more than one cold day for the river to freeze three feet deep." — Wang Chong
+> "Rome wasn't built in a day." — English Proverb
 
 
 Submit a requirement to an AI, and it can generate thousands of lines of runnable code in seconds. When you need to add a feature, the speed at which it adds existing code is just as fast. At this point, everything seems perfect. The productivity of software development seems to have ushered in an unprecedented leap.

@@ -1,6 +1,6 @@
 # AI Agent
 
-> "Knowledge is the beginning of action; action is the completion of knowledge." — Wang Yangming
+> "Well done is better than well said." — Benjamin Franklin
 
 The application form of AI is evolving from the initial "generative dialogue tool (Chatbot)" to an "Artificial Intelligence Agent (AI Agent)" capable of autonomous execution.
 

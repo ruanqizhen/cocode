@@ -1,6 +1,6 @@
 # Code Refactoring
 
-> "Weed out the old to bring forth the new." — "Book of Documents"
+> "Always leave the campground cleaner than you found it." — The Boy Scout Rule
 
 Whether you are writing precise Python data processing scripts or building high-concurrency TypeScript backend services, there is a fate you cannot avoid in software development: fighting "software entropy increase." Every patch applied to rush the schedule, every temporary hack, and every special case that bypasses the design will eventually condense into massive technical debt.
 

@@ -1,6 +1,6 @@
 # Node.js and npm
 
-> "A terrace nine stories high begins with a pile of earth." — "Laozi"
+> "Mighty oaks from little acorns grow." — English Proverb
 
 Before learning Claude Code, almost all of us will encounter a command like this:
 

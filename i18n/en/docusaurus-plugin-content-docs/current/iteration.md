@@ -1,6 +1,6 @@
 # Iteration and Continuous Verification
 
-> "Without accumulating small steps, one cannot reach a thousand miles." — "Xunzi"
+> "A journey of a thousand miles begins with a single step." — Laozi
 
 
 

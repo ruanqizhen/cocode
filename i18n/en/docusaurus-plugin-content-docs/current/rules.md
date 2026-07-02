@@ -1,6 +1,6 @@
 # Project Constitution
 
-> "Nothing can be accomplished without norms or standards." — "Mencius"
+> "Learn the rules like a pro, so you can break them like an artist." — Pablo Picasso
 
 When pair programming with Large Language Models (LLMs), we must face a cold technical reality: LLMs are essentially completely stateless. The model will not remember your project, nor will it automatically understand your engineering conventions.
 

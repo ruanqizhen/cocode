@@ -1,6 +1,6 @@
 # The Programming Mindset in the Era of Large Models
 
-> The mindset is the foundation of the moves.
+> "Whether you think you can, or you think you can't – you're right." — Henry Ford
 
 We often see various impetuous promotions on the internet like "god-level prompts," "universal prompt templates," or "generate a whole App with one sentence." But after truly integrating AI deeply into your workflow, you will gradually discover that the core of human-AI collaboration is absolutely not "memorizing prompts."
 

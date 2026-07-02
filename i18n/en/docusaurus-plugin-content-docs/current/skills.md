@@ -1,6 +1,6 @@
 # AI Agent Skills
 
-> "There is specialization in arts and trades." — Han Yu, "On Teachers"
+> "Do what you do best, and outsource the rest." — Peter Drucker
 
 When pair programming with advanced AI Agents (like Claude Code), if we stuff all the project backgrounds, specifications, build commands, and specific task prompts into global rules, we will quickly encounter the problems of "cognitive overload" and "context dilution."
 

@@ -1,6 +1,6 @@
 # Claude Code and Google Antigravity
 
-> "Just as water retains no constant shape, so in warfare there are no constant conditions." — Sun Tzu, "The Art of War"
+> "Be formless, shapeless, like water." — Bruce Lee
 
 In the previous chapter, we systematically reviewed the six major vertical forms of AI programming tools. If that was a top-down view of the weaponry spectrum, then in this chapter we will select the rulers representing two extreme philosophical evolutions within this spectrum, and conduct a comprehensive dissection and duel.
 

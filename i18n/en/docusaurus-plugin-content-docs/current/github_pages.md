@@ -1,6 +1,6 @@
 # Publishing and Sharing Your Webpage
 
-> "Peaches and plums do not speak, but a path is formed beneath them." — "Records of the Grand Historian"
+> "If you build it, they will come." — *Field of Dreams*
 
 In the previous chapters, we have learned how to use AI to make various small tools and mini-games. But have you ever thought about having a fully exclusive corner of your own in the internet world?
 

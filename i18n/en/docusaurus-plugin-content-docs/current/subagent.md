@@ -1,6 +1,6 @@
 # Cross-AI Teams (Subagents)
 
-> "A single silk strand doesn't make a thread; a single tree doesn't make a forest."
+> "Talent wins games, but teamwork and intelligence win championships." — Michael Jordan
 
 As the volume of code expands, we will quickly hit a more hidden architectural bottleneck. For example, to refactor a complex business logic spanning 5 modules and involving 20 files, even if we issue an extremely restrained command, the AI programming tool, in order to thoroughly understand the context, will have to frantically call tools to `grep` search and `view` traverse thousands of lines of code across these dozens of files.
 

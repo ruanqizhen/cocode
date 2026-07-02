@@ -1,6 +1,6 @@
 # AI Programming Tools
 
-> "The mechanic, who wishes to do his work well, must first sharpen his tools." — "The Analects of Confucius"
+> "A workman is only as good as his tools." — English Proverb
 
 Although large language models are powerful, if you have to go to a web page and ask every time you write a short snippet of code, it is still inconvenient.
 

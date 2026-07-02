@@ -1,6 +1,6 @@
 # Loop Engineering
 
-> "Running water does not go stale, and a door hinge is not worm-eaten." — "Lüshi Chunqiu"
+> "We are what we repeatedly do. Excellence, then, is not an act, but a habit." — Aristotle
 
 In the field of AI-assisted programming, paradigm shifts in technology often come faster than imagined. In 2023, we were discussing how to write perfect prompt words (Prompt Engineering); in 2024, the focus shifted to providing precise context for models (Context Engineering); by 2025, Harness Engineering (building a reliable working environment for Agents) started to boom.
 

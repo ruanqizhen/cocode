@@ -1,6 +1,6 @@
 # Formulating a Plan
 
-> "Plan before you act, and know when to stop to achieve success." — "Sun Tzu's Art of War"
+> "Give me six hours to chop down a tree and I will spend the first four sharpening the axe." — Abraham Lincoln
 
 Architecture and context engineering solve the "stage" problem—making the environment where AI works clear enough. But daily development work is the performance on stage—how to break down tasks, how to advance the workflow, how to ensure quality, and how to merge code.
 

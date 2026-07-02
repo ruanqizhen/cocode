@@ -1,6 +1,6 @@
 # Hallucination
 
-> "To know what you know and what you do not know, that is true knowledge." — "The Analects of Confucius"
+> "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge." — Daniel J. Boorstin
 
 
 

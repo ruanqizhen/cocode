@@ -1,6 +1,6 @@
 # Growing Together with AI
 
-> "The superior man is not an implement." — "The Analects of Confucius"
+> "The only limit to our realization of tomorrow will be our doubts of today." — Franklin D. Roosevelt
 
 The advent of every epoch-making technology is often accompanied by a utopian illusion. When large language models were opened to the public with an extremely low threshold, people cheered, believing that the resource barrier between ordinary people and geek elites had finally been broken. Since everyone can possess a super external brain that generates code with one click, shouldn't the starting line between geniuses and the mediocre be completely leveled?
 

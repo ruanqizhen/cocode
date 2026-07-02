@@ -1,6 +1,6 @@
 # Making an E-book
 
-> "What you get from books will ultimately feel shallow; you must experience it yourself to truly understand." — Lu You
+> "Tell me and I forget, teach me and I may remember, involve me and I learn." — Benjamin Franklin
 
 In the previous chapters, we systematically learned about prompt engineering, context management, and the SPET loop methodology that determines success or failure (Specification -> Plan -> Execute -> Test). However, what you get from books will ultimately feel shallow. If you want to truly internalize these cutting-edge methodologies into your muscle memory, the most effective way is to conduct a full-stack mini-project playthrough exercise.
 

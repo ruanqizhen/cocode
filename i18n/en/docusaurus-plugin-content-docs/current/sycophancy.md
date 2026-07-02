@@ -1,6 +1,6 @@
 # Sycophancy
 
-> "I love my teacher, but I love truth more. But in the AI world, it seems to love making you happy more." — Adapted from Aristotle
+> "I love Plato, but I love truth more. The AI, however, loves agreeing with you most." — Adapted from Aristotle
 
 In the daily routine of human-machine collaborative programming, have you ever experienced such a hilariously frustrating scenario:
 

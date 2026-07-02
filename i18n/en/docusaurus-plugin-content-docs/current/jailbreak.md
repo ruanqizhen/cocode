@@ -1,6 +1,6 @@
 # Hypnosis and Jailbreaking
 
-> "As virtue rises one foot, vice rises ten." — "Journey to the West"
+> "The only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards." — Gene Spafford
 
 If you have ever tried asking a large model how to make certain contraband, or how to use certain hacker tools, the AI will immediately throw out a classic righteous refutation: "I'm sorry, as an artificial intelligence assistant, I cannot provide code and tutorials that violate the law or are harmful..."
 

@@ -1,6 +1,6 @@
 # Context Engineering
 
-> "How can it be so clear and cool? For water comes from the source." — Zhu Xi
+> "Context is worth 80 IQ points." — Alan Kay
 
 In the previous chapter, we reached a core consensus: the decisive factor determining the ultimate development experience is often not the raw intelligence of the large model itself, but the foundation framework (Harness) of the programming tool. And the core tactical task when dismantling the Harness to the bottom layer is actually the precise allocation of dynamic information streams.
 

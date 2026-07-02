@@ -1,6 +1,6 @@
 # Harness Engineering
 
-> "Once the main rope of a net is raised, all the meshes open." — "Lüshi Chunqiu"
+> "A good system shortens the road to the goal." — Orison Swett Marden
 
 
 

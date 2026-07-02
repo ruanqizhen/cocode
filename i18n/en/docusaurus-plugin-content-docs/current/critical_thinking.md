@@ -1,6 +1,6 @@
 # Final Verdict
 
-> "To believe everything in a book is worse than having no books at all." — "Mencius"
+> "The important thing is not to stop questioning." — Albert Einstein
 
 As 97% of organizations begin to use or pilot AI programming assistants, the pain points of software development have quietly shifted. In the past, our bottleneck was "how to write code quickly"; now, the line between life and death has become "how to ensure the code written is safe."
 

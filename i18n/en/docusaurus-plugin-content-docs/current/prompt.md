@@ -1,6 +1,6 @@
 # Prompt Engineering
 
-> "If names be not correct, language is not in accordance with the truth of things. If language be not in accordance with the truth of things, affairs cannot be carried on to success." — "The Analects of Confucius"
+> "The difference between the almost right word and the right word is really a large matter—it's the difference between the lightning bug and the lightning." — Mark Twain
 
 When we first start using AI for programming, we all go through a phase where we just say directly to the AI: "Help me write a login system."
 

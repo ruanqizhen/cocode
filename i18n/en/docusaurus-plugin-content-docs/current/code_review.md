@@ -1,6 +1,6 @@
 # Code Review
 
-> "The bystander is clear, the player is confused."
+> "Sometimes you can't see the wood for the trees." — English Proverb
 
 Even if all your local tests pass, before merging into the main Git branch, it must undergo strict code quality auditing and technical documentation sedimentation.
 

@@ -1,6 +1,6 @@
 # Model Context Protocol (MCP)
 
-> "Like a tiger with wings." — "Records of the Three Kingdoms"
+> "The whole is greater than the sum of its parts." — Aristotle
 
 When developing a complex project over a long period, we often need large models to execute a series of composite actions across text editors: for example, reading local files, querying private databases, or manipulating a browser to take screenshots. In the past, if AI tools wanted to connect to these external data sources, they needed to develop integrations separately, leading to an extremely fragmented ecosystem.
 
