@@ -147,11 +147,11 @@ When you command the AI to author Chapter 9, **never** just say, *"Write the nex
 * **In Claude Code:** Utilize its autonomous file-system exploration: `claude "Execute the payload for Chapter 9. Query the knowledge/ directory to ingest the core laws and pointer registries. Upon completion, autonomously mutate mysteries.md to update the pointer resolution status."`
 * **In Google Antigravity:** Pin the entire `knowledge/` directory into the workspace context to establish a persistent LTM cache, then execute continuous rolling generation in the inline dialog.
 
-*(Note: A complete reference architecture for this AI-generated Knowledge Base is available on GitHub: https://github.com/ruanqizhen/vanish)*
+*(Note: A complete reference architecture for this AI-generated Knowledge Base is available on GitHub: https://github.com/ruanqizhen/vanish_eng )*
 
-> [!TIP]
-> **The Architect's Paradigm**
-> Many developers assume LLMs are incapable of handling massive, long-lifecycle projects. The failure is rarely the model's compute limit; the failure is the human's inability to manage project-level state. Just as a massive codebase requires rigorous interface contracts and type definitions, driving an AI to synthesize a massive digital asset requires an iron-clad, machine-readable Knowledge Base.
+:::tip The Architect's Paradigm
+Many developers assume LLMs are incapable of handling massive, long-lifecycle projects. The failure is rarely the model's compute limit; the failure is the human's inability to manage project-level state. Just as a massive codebase requires rigorous interface contracts and type definitions, driving an AI to synthesize a massive digital asset requires an iron-clad, machine-readable Knowledge Base.
+:::
 
 ## Phase 3: Global CI/CD Distribution (The Publish Phase)
 
@@ -204,7 +204,7 @@ From this millisecond onward, your maintenance pipeline is flawless: You simply 
 
 Once your e-book is deployed, it ceases to be "dead" static text. It transforms into a living software entity with a continuous lifecycle. You can inject frontend components to radically upgrade its capabilities:
 
-1. **Custom DNS Routing:** Cloudflare Pages allows you to bind a custom apex domain (e.g., `vanish.qizhen.xyz`) for free, automatically shielding it with enterprise-grade DDoS protection and CDN caching.
+1. **Custom DNS Routing:** Cloudflare Pages allows you to bind a custom apex domain (e.g., https://vanishing.qizhen.xyz ) for free, automatically shielding it with enterprise-grade DDoS protection and CDN caching.
 2. **Decentralized Community (Giscus):** Injecting an interactive comment stream no longer requires a fragile backend database. By integrating the open-source **Giscus** component, you hijack the GitHub Discussions API. Readers authenticate via GitHub to inject line-by-line technical or narrative commentary directly into your DOM. All data is persisted immutably in your GitHub repository, organically bootstrapping a high-retention geek community.
 3. **Telemetry and Analytics (Umami):** Command the AI to inject a lightweight, privacy-compliant telemetry script like Umami into your Docusaurus config. Through the analytics dashboard, you can monitor global traffic vectors, geographic distribution, and absolute dwell time per chapter (validating which narrative hooks executed perfectly). This raw, physical telemetry data becomes the mathematical fuel for your next iteration loop.
 
