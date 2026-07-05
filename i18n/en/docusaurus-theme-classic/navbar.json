@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Refactoring Programmer",
+    "message": "Refactored: The AI-Driven Evolution of the Modern Developer",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Refactoring Programmer",
+    "message": "Refactored: The AI-Driven Evolution of the Modern Developer",
     "description": "The alt text of navbar logo"
   }
 }
