@@ -16,13 +16,13 @@ $$\text{Total Cost} = (\text{Input Tokens} \times \text{Unit Price}) + (\text{Ou
 
 - **Input Tokens (The Infinite Money Sink):** This includes your prompts, the historical conversation backlog, and all the code files you force the AI to read. In a standard development workflow, this accounts for a staggering 80% to 90% of your overall financial consumption.
 - **Output Tokens:** The actual code generated and returned by the AI. Computational generation is extremely expensive; its unit price is typically 3x to 5x higher than input tokens.
-- **Cache Hit Tokens (Your Profit Margin):** If the data payload sent across consecutive API requests possesses a high degree of overlap, the vendor will reuse the cached context on their servers (Prompt Caching). Cache hits are heavily discounted, often dropping the price by 50% to 90%. Optimizing this metric is your primary financial defense!
+- **Cache Hit Tokens (Your Profit Margin):** If the data payload sent across consecutive API requests possesses a high degree of overlap, the vendor will reuse the cached context on their servers (Prompt Caching). Pricing differs by vendor: Anthropic cache hits cost ~10% of base input price (90% discount), OpenAI cache hits cost ~50% of base (50% discount). Optimizing this metric is your primary financial defense!
 
 The terrifying "Context Compound Effect": In an automated Agent session, by the 50th round of conversation, the active context window may have swollen to a staggering 200K Tokens. This means that if you simply type, *"Test passed, continue,"* the system will blindly repackage and resend the entirety of the previous 50 rounds of history. This silent, compounding snowball effect is the primary culprit behind crushed budgets.
 
 ## Model Routing Tiering
 
-In a team development environment, the ultimate waste of capital is "mindlessly operating at max power"—throwing every trivial engineering task at the most expensive, hyper-intelligent flagship models (like Claude 3.7 Sonnet or Gemini 2.0 Pro). 
+In a team development environment, the ultimate waste of capital is "mindlessly operating at max power"—throwing every trivial engineering task at the most expensive, hyper-intelligent flagship models (like Claude 4 Sonnet / Opus 4 or Gemini 2.5 Pro). 
 
 In reality, 60% to 80% of daily software engineering tasks are routine manual labor: writing boilerplate tests, formatting JSON, renaming variables, and generating documentation. The output quality of an ultra-cheap, lightweight model performing these tasks is utterly indistinguishable from that of an expensive flagship model.
 
@@ -30,9 +30,9 @@ You must aggressively implement a **Tiered LLM Strategy**:
 
 | Task Tier | Recommended Model & Strategy | Estimated Input Cost (per 1M Tokens) |
 | --- | --- | --- |
-| **Manual Labor (Formatting/Comments)** | Local Models (Qwen2.5-Coder 14B) or Ultra-Fast Models (Gemini 2.5 Flash / DeepSeek-V3) | $0.00 ~ $0.14 (Virtually negligible) |
-| **Daily Mainstay Development** | The Cost-Effective Sweet Spot (GPT-4o-mini / Claude 3.5 Haiku) | $0.15 ~ $1.00 |
-| **Hardcore Architectural Problem Solving** | God-Level Reasoning (DeepSeek-R1) or Code Masters (Claude 3.7 Sonnet) | $0.55 ~ $3.00 (Only draw this sword when absolutely necessary) |
+| **Manual Labor (Formatting/Comments)** | Local Models (Qwen2.5-Coder 14B) or Ultra-Fast Models (Gemini 2.5 Flash / DeepSeek-V3) | $0.00 ~ $0.15 (Virtually negligible) |
+| **Daily Mainstay Development** | The Cost-Effective Sweet Spot (GPT-4o-mini / Claude Haiku 4) | $0.15 ~ $1.25 (Haiku 4 ~$0.80) |
+| **Hardcore Architectural Problem Solving** | God-Level Reasoning (DeepSeek-R1) or Code Masters (Claude 4 Sonnet — $3 input / $15 output) | $3.00 ~ $15.00 (Only draw this sword when absolutely necessary) |
 
 In a multi-agent system architecture, assign your expensive, flagship models to serve as the **Planner** (formulating high-level architectural refactoring blueprints). Once the plan is dismantled into discrete steps, delegate the actual file modifications to your cheap, lightweight models serving as **Executors**.
 

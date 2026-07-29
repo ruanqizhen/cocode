@@ -19,7 +19,7 @@ The illusion of "intelligence" we perceive is merely an emergent property genera
 In the architecture of an LLM, a "Token" is the fundamental atomic unit of processing. An LLM does not read "words" or "characters" as humans do; it shreds all inputs into mathematical Token arrays.
 
 * **In English:** One word typically maps to $1 \sim 1.5$ Tokens (roughly 4 characters per Token).
-* **In CJK (Chinese/Japanese/Korean):** The encoding is vastly different. Legacy models consumed $1 \sim 2$ Tokens for a single Chinese character. However, modern models optimized for CJK (e.g., DeepSeek, modern open-source models) utilize advanced Tokenizers that aggregate common phrases, idioms, and even short sentences into a single Token. Consequently, a CJK character now often consumes less than 1 Token.
+* **In CJK (Chinese/Japanese/Korean):** The encoding is vastly different. In legacy generic English tokenizers, a single Chinese character often consumed $1.5 \sim 2$ Tokens. In modern CJK-optimized tokenizers (e.g., Qwen, DeepSeek), common two-character words may be merged into 1 Token, averaging about $0.6 \sim 1.0$ Token per Chinese character. It is rare for an entire idiom or short sentence to be compressed into a single Token.
 
 ### The Context Window (The Volatile RAM)
 

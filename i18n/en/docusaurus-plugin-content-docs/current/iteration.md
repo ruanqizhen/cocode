@@ -63,7 +63,7 @@ By enforcing this Text Testing defense line, data-stream conflicts (such as cont
 
 A digital product targeting the hardcore 18-35 demographic requires a top-tier visual payload. We will utilize the AI to execute the entire closed-loop pipeline, from generating design prompts to frontend implementation.
 
-1. **Synthesize the Design Prompt (Midjourney / DALL-E 4):**
+1. **Synthesize the Design Prompt (Midjourney / DALL-E 3 / GPT Image):**
 We command the AI: *"Analyze the urban delivery rider, Lovecraftian Cthulhu, and anomalous-rule aesthetics of our project. Synthesize a highly optimized, comma-separated English prompt string for an AI image generator."*
 > **AI Output:** *"An urban cyberpunk street, a Chinese delivery rider standing beneath colossal glowing eldritch neon signs, anomalous-rule horror atmosphere, hyper-detailed, toxic neon green and abyss black twilight, 8k resolution, book cover composition --ar 3:4"*
 
@@ -120,7 +120,7 @@ To inject viral "geek humor" into the project, we can utilize the `PRODUCT.md` s
 | :--- | :--- | :---: |
 | **Trisolaran First Observer** | "The biologicals attempt to utilize JavaScript and food delivery API endpoints to combat high-dimensional narrative laws. This is highly anomalous bug behavior. Recommendation: Immediate deployment of a dual-vector foil to show maximum respect." | ⭐⭐⭐⭐⭐ |
 | **Chaoyang District Delivery Union** | "Comrade Xiao Shan's telemetry logs perfectly explain our SLA timeouts. It's not traffic latency; the dispatch routing algorithm was hot-patched by an Elder God. Mandatory reading for all nodes!" | ⭐⭐⭐⭐⭐ |
-| **Anonymous Cthulhu Agent** | "The memetic hazard is injected directly into the Docusaurus HTML tags. Upon parsing Chapter 15, my indescribable cognition triggered a catastrophic `LocalStorage` buffer overflow." | ⭐⭐⭐⭐✨ |
+| **Anonymous Cthulhu Agent** | "The memetic hazard is injected directly into the Docusaurus HTML tags. Upon parsing Chapter 15, my indescribable cognition triggered a catastrophic `localStorage` buffer overflow." | ⭐⭐⭐⭐✨ |
 | **Legacy Literature Analyst** | "Syntax Error! This violates all traditional publishing protocols! However, observing its fully automated CI/CD deployment pipeline and self-healing patches, I strongly suspect the author's biological status is null." | ⭐⭐⭐⭐⭐ |
 ```
 
@@ -141,7 +141,7 @@ Our Markdown editor requires a mission-critical statistical algorithm: It must a
 We require a pure, deterministic function: `countChineseWords(text: string): number`.
 
 * Pure English or numeric input: Return `0`.
-* Standard input: "Hello AI" → Return `2` (Counts the Chinese characters only).
+* Standard Chinese text: "你好 AI" → Return `2` (Counts Chinese characters only).
 * Edge cases (empty strings, nulls): Return `0`.
 
 #### Step 2: Command the AI to Forge the Test Suite
@@ -163,7 +163,7 @@ describe('countChineseWords Core Contract Test', () => {
   });
 
   it('should aggressively filter out AST noise in mixed CJK/English/Markdown inputs', () => {
-    expect(countChineseWords('# Hello 这是一个 强设定 网文')).toBe(8);
+    expect(countChineseWords('# Hello 这是一个 强设定 网文')).toBe(9);
   });
 
   it('should gracefully return 0 on pure English, whitespace, or empty strings', () => {

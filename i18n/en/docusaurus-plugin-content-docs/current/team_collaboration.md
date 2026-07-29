@@ -54,9 +54,9 @@ To ensure that a newly onboarded engineer—or a freshly booted AI Agent—can i
 ```plaintext
 project-root/
 ├── CLAUDE.md              # The Global Constitution (Architectural intent, security taboos. Active for all Agents.)
-├── .cursorrules           # IDE-specific AST linter rules and localized prompt constraints.
-├── AGENTS.md              # Boundary constraints specifically designed to throttle high-privilege autonomous Agents.
-├── .agents/skills/        # The Modular Skill Library (Reusable automation and review workflows.)
+├── .cursor/rules/         # Cursor rules directory (`.cursorrules` is legacy — do not use both)
+├── AGENTS.md              # Universal entrypoint - Single Source of Truth for all IDEs (symlink .cursor/rules/ and CLAUDE.md to this if needed)
+├── .claude/skills/        # The Modular Skill Library (Reusable automation and review workflows. Avoid .ai-skills/ split)
 ├── docs/
 │   ├── ARCHITECTURE.md    # The holistic system map (Microservice bounding boxes, Data persistence layers, API routes.)
 │   └── PRODUCT.md         # The Decision Log (Records WHY a specific architecture was chosen over another.)
@@ -64,9 +64,9 @@ project-root/
 
 ### The CI/CD Knowledge Sync (Preventing Context Rot)
 
-Rule files are highly susceptible to "Context Rot." An outdated `.cursorrules` file is lethal; it will force the AI to continuously generate deprecated, toxic APIs. The organization must enforce Rule Updates as a hard Blocker in the PR process:
+Rule files are highly susceptible to "Context Rot." An outdated `.cursor/rules/` file (legacy `.cursorrules`) is lethal; it will force the AI to continuously generate deprecated, toxic APIs. The organization must enforce Rule Updates as a hard Blocker in the PR process:
 
-> **The Protocol:** When a developer refactors a foundational module, they are mathematically required to update `ARCHITECTURE.md` and `.cursorrules` in the same PR. If the context is not synced, the PR is rejected. This guarantees the next Agent boots up with a pristine worldview.
+> **The Protocol:** When a developer refactors a foundational module, they are mathematically required to update `ARCHITECTURE.md` and `.cursor/rules/` (or `AGENTS.md` single source) in the same PR. If the context is not synced, the PR is rejected. This guarantees the next Agent boots up with a pristine worldview.
 
 ## Deploying the Automated Intercept Perimeter
 
@@ -113,7 +113,9 @@ jobs:
 
       - name: 4. Autonomous Coverage Enforcement (Coverage > 80%)
         # Forces the AI to synthesize matching test assertions. Anything below 80% is physically blocked from the trunk.
-        run: npx vitest run --coverage --coverage.thresholds.lines=80
+        # Thresholds are configured in vitest.config.ts, not via incorrect CLI flag --coverage.thresholds.lines
+        # vitest.config.ts: { test: { coverage: { thresholds: { lines: 80 } } } }
+        run: npx vitest run --coverage
 ```
 
 Only when every single machine blocker executes with an `Exit Code 0` does the PR enter the Human Reviewer's queue. At this stage, the human is completely freed from hunting syntax errors; they only need to verify one critical vector: **"Does this implementation violate the core system architecture?"**

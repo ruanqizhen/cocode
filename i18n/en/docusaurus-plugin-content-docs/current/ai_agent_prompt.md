@@ -217,7 +217,8 @@ PROTECTED_PROCESSES = {
 **Implementation Directives:**
 - Deploy `threading.Timer(minutes * 60, callback)`.
 - The `callback` forces an ANSI-colored console alert (and `\a` bell).
-- Graceful degradation: Try `import win10toast`. If installed, push OS notification. If missing, silently degrade to console-only.
+- Graceful degradation: Try `import win11toast` or `from plyer import notification`. If installed, push OS notification. If missing, silently degrade to console-only.
+  > Legacy `win10toast` is discontinued (incompatible with Python 3.10+), use `win11toast` or `plyer`.
 - Instant return payload: `"Reminder configured: Will alert you in {minutes} minutes ({ETA}): {message}"`.
 - `message` bounds limit: Max 200 chars (Validated at Gateway).
 ---
@@ -298,7 +299,7 @@ Initialize the script with this exact docstring:
 ```python
 """
 win_agent.py — Windows AI Depth Defense Agent Architecture
-Dependencies: pip install openai psutil win10toast (win10toast is optional)
+Dependencies: pip install openai psutil (optional notification: pip install win11toast or plyer, win10toast discontinued)
 Environment Variables:
     DEEPSEEK_API_KEY  (Required)
     DEEPSEEK_BASE_URL (Optional, defaults to https://api.deepseek.com)

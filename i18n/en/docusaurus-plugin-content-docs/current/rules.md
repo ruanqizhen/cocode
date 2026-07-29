@@ -33,7 +33,7 @@ The value of an AI Agent is not measured by *"How smart was this single conversa
 Constitutional files do not exist in a vacuum. They are architected as a Cascading Hierarchy. The system resolves rule conflicts by enforcing a strict law of physics: **Proximity dictates Priority.** The closer a rule is to the execution context, the higher its overriding authority.
 
 ### 1. The Global User Stratum
-*(Path: `~/.config/claude/CLAUDE.md` or `~/.gemini/config/AGENTS.md`)*
+*(Path: `~/.claude/CLAUDE.md` — global user memory)*
 - Applies to every repository on your physical machine.
 - Defines absolute developer preferences (e.g., *"Always utilize `pnpm` instead of `npm`. Never speak in passive voice."*)
 
@@ -98,11 +98,11 @@ An outdated rule is infinitely more dangerous than having no rule at all. It wil
 ### Law 5: The Priority Hierarchy
 LLMs heavily prioritize data at the very top and very bottom of a context window. Place your "Lethal Constraints" at the absolute top of the file.
 
-### The "Invisible Comment" Exploit
-If you need to leave instructions for other human maintainers without burning AI tokens, use HTML comments. The parser strips them before sending the payload to the LLM:
+### The "Invisible Comment" Clarification
+If you need to leave instructions for other human maintainers without affecting AI behavior, note that HTML comments **are still visible to the LLM** — they do enter the context window. They are not automatically stripped by the parser. To hide content from the AI, put it in a separate file that is not loaded into context (e.g., `docs/internal-notes.md` excluded via `.claudeignore`), or rely on file-level ignore rules. Use HTML comments only for human annotations that are harmless if seen by the AI:
 
 ```html
-<!-- Human Notice: Do not add React rules here. This repo is transitioning to Svelte. -->
+<!-- Human Notice: This repo is transitioning to Svelte. Prefer Svelte patterns for new components. -->
 ```
 
 ## Progressive Disclosure & File Sharding
@@ -116,11 +116,15 @@ When a repository scales, a monolithic `AGENTS.md` becomes a bottleneck. You mus
 *Function:* Dynamically injects the contents of the target file into the context window only when required.
 
 ### Path-Based Activation
-```yaml
-paths:
-  - "src/api/*.ts"
+Official Cursor rules use frontmatter to control activation scope. Instead of a fictional `paths:` field, use the supported `globs:` key in `.cursor/rules/` or `.claude/rules/*.md`:
+
+```markdown
+---
+description: API route validation rules
+globs: ["src/api/**/*.ts"]
+---
+- All REST APIs MUST wrap outputs in `ApiResponse<T>`.
 ```
-*Function:* The IDE only loads these specific validation rules when the Agent touches the `src/api` namespace.
 
 ### The `AGENTS.md` Universal Entrypoint
 As the AI ecosystem fragments (Cursor, Claude, Copilot), `AGENTS.md` is emerging as the universal standard API.
@@ -163,17 +167,20 @@ Verify: `pnpm run typecheck`
 Frontier tools (like Claude Code) feature an invisible telemetry engine that records interaction state.
 
 ### The Physical Storage Layer
+Claude Code stores per-project session state locally (not in your repo). An example layout:
+
 ```text
-~/.claude/projects/<project>/memory/
-├── MEMORY.md (The Global Context)
-├── build-commands.md (Execution histories)
-└── debugging.md (Resolved stack-traces)
+~/.claude/projects/<encoded-project-path>/
+├── memory/          # compacted session context (auto-managed)
+└── <session-id>.jsonl   # raw conversation history
+
+./CLAUDE.local.md    # optional local overrides, gitignored
 ```
 
 ### Architectural Properties
-- **Localized State:** Stored entirely on your physical disk.
-- **Git Ignored:** It is dynamically appended to `.gitignore`. It does not pollute your repository.
-- **Self-Healing:** The Agent autonomously parses its own failures and writes to these files to prevent repeating the same mistake.
+- **Localized State:** Stored entirely on your physical disk under `~/.claude/`.
+- **Git Ignored:** Local override file `CLAUDE.local.md` and `~/.claude/` are never committed.
+- **Self-Healing:** The Agent may summarize learnings into `CLAUDE.md` or `CLAUDE.local.md` when you run `/memory`, but it does not create `MEMORY.md` / `build-commands.md` / `debugging.md` files — those filenames are fictional.
 
 ## Cross-Platform Constitutional Standards
 

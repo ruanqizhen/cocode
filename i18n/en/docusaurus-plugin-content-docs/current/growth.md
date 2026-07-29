@@ -42,7 +42,7 @@ AI will not directly replace programmers. However, programmers who expertly wiel
 
 ```mermaid
 graph LR
-    Paster["1. The Code Paster (Junior) <br> Mindlessly copy-pastes AI code without comprehension.<br>Reduced to a permanent prisoner of the intellectual wheelchair."] --> Director["2. The AI Orchestrator (Senior) <br> Masters architectural intent and interface boundaries.<br>Instantly pierces through AI hallucinations and logic loops."]
+    Copier["1. The Code Copier (Junior) <br> Mindlessly copy-pastes AI code without comprehension.<br>Reduced to a permanent prisoner of the intellectual wheelchair."] --> Director["2. The AI Orchestrator (Senior) <br> Masters architectural intent and interface boundaries.<br>Instantly pierces through AI hallucinations and logic loops."]
     Director --> Architect["3. The Expert-Generalist (Master) <br> Fuses hardcore CS fundamentals with elite business insight.<br>Wields AI to execute dimensionality reduction strikes on traditional developers."]
 ```
 
@@ -82,14 +82,14 @@ If you intend to stand at the absolute apex of this global computing wave, execu
 
 **Execution Priorities:**
 - **Refuse Blind Copying:** Whenever an AI generates flawless logic, brutally interrogate it: *"What is the underlying algorithmic principle? What are the memory assumptions? Under what exact edge cases will this fail?"* Code you cannot intellectually defend must never touch the main branch.
-- **Master the SPET Pipeline:** Before waking the AI, force yourself to write a strict, Markdown-based architectural contract. Integrate surgical Git commits into every micro-iteration of the AI's output, and master the `git reset --hard` emergency landing protocol.
+- **Master the SPET Pipeline:** Before waking the AI, force yourself to write a strict, Markdown-based architectural contract. Integrate surgical Git commits into every micro-iteration of the AI's output, and master safe fallback tools like `git stash` / `git reflog` / `git reset --soft`. Avoid using destructive `git reset --hard` lightly — it is not a safe “regret pill”.
 
 ### Phase 2 (Months 4 - 6): Cross-Boundary Wall Breaking & Team MCP Orchestration
 **Core Objective:** Exploit AI to aggressively patch your technical shortcomings, achieve true full-stack mastery, and dictate precise context feeding.
 
 **Execution Priorities:**
 - **Shatter Tech Stack Barriers:** If you are a frontend specialist, force yourself to utilize AI to architect a highly concurrent Python/Go microservice. Vice versa for backend devs.
-- **Master Context Engineering:** Master surgical context commands (`@Files`, `@Codebase`). Eradicate the habit of engaging in 100-turn chat logs. Master token-pruning and the art of the "Hard Reset."
+- **Master Context Engineering:** Master surgical context commands — for Claude Code use `@filename` references and `/memory` / `/clear` / `/compact` (Cursor uses `@Files` / `@Codebase`). Eradicate the habit of engaging in 100-turn chat logs. Master token-pruning and the art of the "Hard Reset."
 - **Deploy Custom Connectors:** Architect and deploy a bespoke MCP (Model Context Protocol) Server for your engineering team. Bridge the AI directly to your proprietary enterprise databases and private internal APIs, granting the LLM physical agency in the real world.
 
 ### Phase 3 (Months 7 - 9): TDD-Driven Autonomous Pipelines

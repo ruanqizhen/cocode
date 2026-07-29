@@ -31,7 +31,7 @@ A standalone CPU is a useless piece of silicon; it requires an Operating System 
 | **Persistent memory and project context** | The model is purely stateless; it suffers total amnesia the moment a session ends. | Injecting a local file system scanner and continuous Vector Database indexing. |
 | **Autonomous execution of complex tasks** | The model can only output dead, plain-text strings. | Equipping the model with a Bash terminal and atomic code-execution tools. |
 | **Safe, non-destructive code verification** | The model's hallucinated commands could easily execute `rm -rf /` or leak API keys. | Enforcing a rigid Sandbox environment with outbound network isolation. |
-| **Combating "Intelligence Degradation" in long chats** | The LLM suffers from the "Lost in the Middle" effect, dropping critical context over time. | Architecting dynamic token pruning and aggressive historical context compression (Compaction). |
+| **Combating "Intelligence Degradation" in long chats** | The LLM suffers from the "Lost in the Middle" effect, dropping critical context over time. | Architecting dynamic context pruning and aggressive historical context compression (Compaction). |
 | **Autonomous troubleshooting and resilience** | Upon encountering an error, the LLM instinctively apologizes and gives up. | Architecting a forced Self-Correction Loop linked to physical Git tracking. |
 
 ## 2. Cognitive Upgrade: Harness Engineering vs. Context Engineering
@@ -66,9 +66,9 @@ Tools are the exclusive "hands and feet" the AI uses to manipulate the physical 
 
 * **The Trap of Low-Precision Tools:** In the early days, rudimentary Agent frameworks blindly exposed a generic `execute_bash` terminal tool to the AI, allowing it to manually type `sed` or `awk` to mutate files. This resulted in catastrophic disasters. LLMs frequently hallucinate complex regular expressions, and outputting 500-line files via bash often triggers silent truncations.
 * **The Dominance of High-Precision Semantic Tools:** Elite modern Harnesses (like Cursor's backend or Claude Code) provide highly cohesive, surgical semantic tools:
-  * `view_file`: Strictly limits the AI to reading specific line ranges, surgically preventing context window overflow.
-  * `replace_file_content`: Enforces strict string-matching for block replacements, completely eliminating the risk of destructive file overwrites.
-  * `find_symbols`: Utilizes an underlying AST (Abstract Syntax Tree) parser (e.g., Tree-sitter) to instantly locate class/variable definitions, preventing the AI from blindly `grep`-ing through the entire repository.
+  * `Read`: Strictly limits the AI to reading specific line ranges, surgically preventing context window overflow.
+  * `Edit`: Enforces strict string-matching for block replacements, completely eliminating the risk of destructive file overwrites.
+  * `Grep`: Utilizes an underlying AST (Abstract Syntax Tree) parser (e.g., Tree-sitter) to instantly locate class/variable definitions, preventing the AI from blindly grepping through the entire repository.
 
 ### Pillar 2: Sandbox & Control Engineering
 

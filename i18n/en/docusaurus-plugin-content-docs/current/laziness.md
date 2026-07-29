@@ -62,7 +62,9 @@ Because AI has inherited human lethargy when facing massive workloads, you, as a
 
 Many developers instinctively apply human social lubricants when prompting AI: *"Could I trouble you to help me add a button to the homepage? Thanks for your hard work!"*
 
-However, empirical research from Pennsylvania State University proved otherwise: When tackling identical technical problems, the code correctness rate of **ruthless, aggressive prompts** (e.g., *"Fix this bug immediately. Output the full code. Do not omit anything."*) was a full **4 percentage points higher** than highly polite prompts.
+However, according to an informal community comparison test (no peer-reviewed paper found): when tackling identical technical problems, the code correctness of terse, direct, even mildly aggressive prompts was slightly higher than extremely polite versions.
+
+> **Academic Rigor Note:** The often-cited “Penn State research showing 4% higher correctness” is difficult to verify in public paper repositories and is likely a mis-citation of community anecdotes. Treat it as informal observation, not academic citation. The core takeaway is that excessive politeness adds token noise; concise and direct is usually more effective.
 
 An LLM's Attention Mechanism does not care about your manners. Pleasantries are mathematical noise that dilute the core semantic vectors. Ruthless, authoritarian instructions force the neural network to concentrate 100% of its computational weight exclusively on resolving the technical constraints, rather than wasting tokens generating a polite, sycophantic response.
 
@@ -119,8 +121,8 @@ At the absolute frontier of Cyber Management lies a highly practical tactic conc
 
 Currently, the foundational training corpus of every major global LLM is overwhelmingly dominated by English technical data (GitHub, StackOverflow, Arxiv). This hardwires distinct "muscle memories" into the neural network based on the language you use:
 
-* **The Quality Delta:** Authoritative benchmarks demonstrate that issuing complex architectural refactoring prompts in English yields bug-fix rates and first-pass correctness rates **15% to 30% higher** than in Chinese or other languages. English prompts surgically trigger the deepest, most hardcore technical weights within the neural network.
-* **The Token Economics:** Conversely, due to the structural nature of CJK characters (Chinese/Japanese/Korean), these languages achieve a significantly higher compression ratio during Tokenization. Expressing the exact same business logic in Chinese can frequently save up to **40% in API Token consumption** compared to English.
+* **The Quality Delta:** Some developers report a subjective sense that English prompts work better for certain models in some tasks, but there is no public authoritative benchmark. Claims like “English is 15%-30% higher than Chinese” lack reliable sources; actual results vary by model and task.
+* **The Token Economics:** Token consumption depends on the specific tokenizer. Modern Chinese-optimized tokenizers (Qwen, DeepSeek) can achieve about 0.6-1.0 Token per Chinese character, while English-centric tokenizers still cost ~1-2 Tokens per character. Claims like “Chinese saves 40%” are overly absolute — measured differences for technical descriptions are typically within ±15%. Measure with a token counter rather than relying on stereotypes.
 
 ### 💡 The Architect's Routing Strategy
 

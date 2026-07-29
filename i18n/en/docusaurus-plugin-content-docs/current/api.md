@@ -20,7 +20,7 @@ API interactions typically utilize an **array of conversation history**. Each me
 
 ### Hyperparameters
 
-* **`temperature`**: Dictates the randomness and creative variance of the model's output. Values generally range from `0.0` to `2.0`.
+* **`temperature`**: Dictates the randomness and creative variance of the model's output. Values generally range from `0.0` to `2.0`, with vendor differences: OpenAI `0.0`–`2.0`, Anthropic `0.0`–`1.0`, DeepSeek `0.0`–`1.0`.
   * For deterministic tasks requiring extreme precision—such as **writing code, extracting data, or converting formats**—it is critical to set this to **`0.0` or a very low value (like `0.1`)** to guarantee stable outputs and rigorous logic.
   * For creative tasks like copywriting or brainstorming, you can increase this to `0.7` or higher.
 
@@ -48,6 +48,8 @@ Standard text output is like a runaway train; the AI's response might be padded 
 
 With this mechanism in place, your local code parser can reliably ingest the JSON and accurately execute the code replacement with zero manual intervention.
 
+> **How to enable JSON Mode:** Implementation varies by vendor. OpenAI requires setting `response_format={"type":"json_schema","json_schema":{...}}` or `{"type":"json_object"}` in the request; Anthropic can return structured data via Tool Use or structured output in newer SDKs; Google Gemini requires configuring `response_mime_type="application/json"` and `response_schema` in `GenerateContentConfig`. Merely describing the expected format in the prompt is not enough — the model may still emit conversational fluff.
+
 ### Tool Use / Function Calling
 
 This is the very soul of an autonomous Agent and the exact mechanism that enables tools like Cline and Windsurf to seemingly "control your computer."
@@ -56,7 +58,7 @@ In standard API calls, a large language model acts as an "armchair strategist." 
 
 1. **Developer "Empowerment"**: When calling the API, you declare your available tools to the AI in the parameters: *"Dear model, I have two local tools you can utilize: `read_file(path)` and `run_command(cmd)`. Here are their parameter formats and exact purposes."*
 2. **AI "Decision Making"**: The AI analyzes your prompt: *"Help me add a copyright notice to the first line of all `.js` files in the current directory."* It realizes it first needs to know what files exist, so it **does not return standard text**. Instead, it returns a special "call request" object: *"I am requesting to invoke the `run_command` tool, passing the parameter `ls`."*
-3. **Program "Execution"**: Your local wrapper application intercepts this call request, securely runs the `ls` command in your terminal, captures the output (e.g., `index.js` and `utils.js`), and **sends the execution result back to the AI as a brand-new `user` message**.
+3. **Program "Execution"**: Your local wrapper application intercepts this call request, securely runs the `ls` command in your terminal, captures the output (e.g., `index.js` and `utils.js`), and **sends the execution result back to the AI as a tool message** (OpenAI requires `role: "tool"` + `tool_call_id`, Anthropic requires a `tool_result` block inside a `user` message, Google uses `role: "tool"` with `functionResponse`).
 4. **AI "Continued Execution"**: The AI processes the execution result and triggers the next necessary call request (e.g., invoking `read_file` on `index.js`). This loop repeats autonomously until the entire objective is achieved.
 
 ```mermaid
@@ -154,6 +156,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI();
 
+// Note: top-level await requires "type": "module" in package.json or .mjs extension, or wrap in (async () => { ... })()
 const response = await openai.chat.completions.create({
   model: "gpt-4o-mini", // updated to modern model
   temperature: 0.0,
@@ -165,6 +168,7 @@ const response = await openai.chat.completions.create({
 
 console.log(response.choices[0].message.content);
 ```
+> **Note:** The Node.js example above uses top-level `await`, which requires `"type": "module"` in `package.json` or a `.mjs` extension, or wrapping in an `(async () => { ... })()` async function.
 
 ---
 
@@ -182,7 +186,7 @@ from anthropic import Anthropic
 client = Anthropic() 
 
 message = client.messages.create(
-    model="claude-3-5-sonnet-latest", 
+    model="claude-sonnet-4-0", 
     max_tokens=2048,
     temperature=0.0,
     system="You are a rigorous software security audit expert.",
@@ -232,7 +236,7 @@ from openai import OpenAI
 
 # Instantiate the client and point the base URL directly to DeepSeek's endpoint
 client = OpenAI(
-    base_url="https://api.deepseek.com/v1",
+    base_url="https://api.deepseek.com",
     api_key=os.environ.get("DEEPSEEK_API_KEY")
 )
 

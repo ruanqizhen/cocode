@@ -25,7 +25,7 @@ Before diving into terminal commands, you should mentally model Git as a "high-d
 | **Clone** | Downloading a perfect, 1:1 replica of a cloud repository to your local machine. |
 | **Push** | Safely syncing your local historical snapshots up to a cloud server (like GitHub) for permanent backup. |
 | **Pull** | Downloading the latest architectural modifications from the cloud and merging them locally (crucial when collaborating across multiple laptops or team members). |
-| **Reset / Rollback** | The ultimate undo button in the AI era. No matter how violently an AI ravages your codebase, a Rollback instantly reverts the system to the last pristine snapshot. |
+| **Reset / Revert / Restore** | The ultimate undo button in the AI era. No matter how violently an AI ravages your codebase, a reset/revert/restore instantly reverts the system to the last pristine snapshot. Git implements rollback via `reset`, `revert`, `restore`, etc. — there is no subcommand named `rollback`. |
 
 :::tip The Distributed Design Philosophy
 The core architecture of Git is strictly "distributed." Every developer's local laptop possesses the *complete* project history, allowing you to code and commit offline. GitHub, conversely, acts as the "Grand Central Station" located in the cloud, utilized purely for cross-device synchronization and global team collaboration.
@@ -166,7 +166,7 @@ graph TD
     Test -- "Passes all tests" --> Commit["4. Execute git add . & git commit<br>Manually lock the snapshot"]
     Commit --> Start
     
-    Test -- "Logic derails / AI hallucinates" --> Rollback["5. Emergency Landing:<br>Execute Git Rollback to pristine state"]
+    Test -- "Logic derails / AI hallucinates" --> Rollback["5. Emergency Landing:<br>Execute Git Reset/Restore to pristine state (no subcommand named rollback)"]
     Rollback --> Refine["6. Refine your Prompt engineering"]
     Refine --> Code
 
@@ -180,7 +180,9 @@ graph TD
 If an AI aggressively corrupts your architecture, execute one of these "Emergency Landing" commands immediately:
 
 ```bash
-# Scenario 1: AI corrupted live files, but you HAVEN'T run 'git add'. Discard all workspace mutations.
+# Scenario 1: AI corrupted live files, but you HAVEN'T run 'git add'. Discard all tracked file mutations.
+# Note: restore only affects tracked files. To delete new untracked files created by AI, use git clean -fd
+# Full cleanup (preview first with git status and git clean -n): git restore . && git clean -fd
 git restore . 
 # (Legacy Git syntax: git checkout -- .)
 

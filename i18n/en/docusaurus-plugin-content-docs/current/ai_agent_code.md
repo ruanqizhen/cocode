@@ -5,11 +5,11 @@ Below is the complete source code for the AI Agent. Copy it into a file named `w
 ```python
 """
 win_agent.py — Windows AI System Command Assistant
-Dependencies: pip install openai psutil win10toast (win10toast is optional)
+Dependencies: pip install openai psutil (optional notification: pip install win11toast or plyer, win10toast is discontinued and incompatible with Python 3.10+)
 Environment Variables:
     DEEPSEEK_API_KEY  (Required)
     DEEPSEEK_BASE_URL (Optional, defaults to https://api.deepseek.com)
-    DEEPSEEK_MODEL    (Optional, defaults to deepseek-v4-flash)
+    DEEPSEEK_MODEL    (Optional, defaults to deepseek-chat)
 """
 
 import os, sys, json, shutil, subprocess, threading, tempfile, time
@@ -60,7 +60,7 @@ if not API_KEY:
     sys.exit(1)
 
 BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
+MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 
 try:
     client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
@@ -76,7 +76,9 @@ def get_system_stats() -> dict:
     try:
         cpu = psutil.cpu_percent(interval=1)
         mem = psutil.virtual_memory()
-        disk = psutil.disk_usage('C:\\')
+        # Dynamically get system drive to avoid hardcoding C:
+        system_drive = str(Path.home().anchor) or 'C:\\'
+        disk = psutil.disk_usage(system_drive)
         return {
             "cpu_percent": cpu,
             "memory": {
@@ -248,9 +250,13 @@ def set_reminder(minutes: int, message: str) -> str:
         def callback():
             print(f"\n{COLOR_RED}{COLOR_BOLD}[⏰ REMINDER] Timer triggered: {message}{COLOR_RESET}\a")
             try:
-                from win10toast import ToastNotifier
-                toaster = ToastNotifier()
-                toaster.show_toast("Windows AI Automation Assistant", message, duration=10, threaded=True)
+                # Try win11toast first (supports Win10/11), fallback to plyer
+                try:
+                    from win11toast import toast as win_toast
+                    win_toast("Windows AI Automation Assistant", message)
+                except ImportError:
+                    from plyer import notification
+                    notification.notify(title="Windows AI Automation Assistant", message=message, timeout=10)
             except Exception:
                 pass
 

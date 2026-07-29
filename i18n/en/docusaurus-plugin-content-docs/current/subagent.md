@@ -4,7 +4,7 @@
 
 As a repository scales from a localized script into a distributed enterprise architecture, developers executing AI Pair Programming crash into a lethal physics barrier: **The Context Exhaustion Trap**. 
 
-Consider a scenario where you command the AI to execute a complex, cross-domain refactor spanning 5 microservices and 20 files. Even if you issue a perfectly constrained Prompt, the AI Agent must execute massive exploratory operations to parse the dependency graph. It will execute dozens of `grep` and `view_file` calls across thousands of lines of code.
+Consider a scenario where you command the AI to execute a complex, cross-domain refactor spanning 5 microservices and 20 files. Even if you issue a perfectly constrained Prompt, the AI Agent must execute massive exploratory operations to parse the dependency graph. It will execute dozens of `Grep` and `Read` calls across thousands of lines of code.
 
 The consequence is mathematically unavoidable: the active context window becomes violently polluted with thousands of tokens of temporary "read-only" noise. Within minutes, the core LLM succumbs to "Lost-in-the-Middle" syndrome. Its instruction-following fidelity craters, its logic execution spirals into hallucination, and your Token burn-rate explodes.
 
@@ -56,8 +56,8 @@ Multi-Agent topologies allow teams to execute ruthless Model Routing to optimize
 
 ```text
 Primary Orchestrator (Opus/GPT-4o) ➔ Complex synthesis, Matrix planning, Human alignment (High Latency, High Cost)
- ├── The Scout Subagent (Haiku/Flash) ➔ Bruteforce Read-Only AST traversing and regex matching (Low Latency, Micro-Cent Cost)
- └── The Auditor Subagent (Sonnet/Pro) ➔ Static vulnerability analysis and linting (Balanced Cost-to-Intelligence)
+ ├── The Scout Subagent (Haiku for Anthropic / Flash for Gemini) ➔ Bruteforce Read-Only AST traversing and regex matching (Low Latency, Micro-Cent Cost)
+ └── The Auditor Subagent (Sonnet for Anthropic / Pro for Gemini) ➔ Static vulnerability analysis and linting (Balanced Cost-to-Intelligence)
 ```
 By mapping the cognitive payload to the appropriate model tier, engineering teams effortlessly slash their AI infrastructural burn-rate by over 70%.
 
@@ -68,9 +68,9 @@ You are not required to architect complex Python orchestration layers; the IDE's
 
 | Native Subagent Signature | Target Model Tier | I/O Boundary Constraints | Trigger Vector / Autonomy Condition |
 |  |  |  |  |
-| **The Explorer** | Haiku / Flash | **Strict Read-Only** (Glob, Grep, View File) | Triggered by massive semantic search directives (e.g., *"Locate all instances of deprecated v1 API routing in `src/`."*) |
+| **The Explorer** | Haiku (Anthropic) or Flash (Gemini) | **Strict Read-Only** (Glob, Grep, View File) | Triggered by massive semantic search directives (e.g., *"Locate all instances of deprecated v1 API routing in `src/`."*) |
 | **The Planner** | Matches Orchestrator | **Strict Read-Only** (AST Analysis, Dependency mapping) | Engages when the IDE enters "Planning Mode" to synthesize a structural Implementation Matrix prior to code mutation. |
-| **The Generalist** | Sonnet / Pro | **Full Root Access** (Read/Write, Terminal Bash Execution) | Engages during massive cross-file refactoring operations requiring iterative compiler troubleshooting and self-healing loops. |
+| **The Generalist** | Sonnet (Anthropic) or Pro (Gemini) | **Full Root Access** (Read/Write, Terminal Bash Execution) | Engages during massive cross-file refactoring operations requiring iterative compiler troubleshooting and self-healing loops. |
 | **The Manual/Doc Agent** | Proprietary Specialized | **Zero Host Access** (RAG querying against CLI documentation) | Triggered when the user asks the IDE internal configuration questions (e.g., *"How do I mount an MCP server?"*) |
 
 When operating a terminal-based AI environment, if you observe the `[Dispatching Subagent...]` output streaming in the console, **do not abort.** This is the system autonomously isolating the context payload to protect your core execution thread.

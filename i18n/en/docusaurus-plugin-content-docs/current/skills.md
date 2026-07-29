@@ -88,7 +88,7 @@ All three systems scale AI capabilities, but their execution vectors are fundame
 
 Skills are governed by a strict scope hierarchy:
 
-* **Global (User-Level):** `~/.config/claude/skills/` or `~/.gemini/skills/` (Accessible across all local repositories)
+* **Global (User-Level):** `~/.claude/skills/` (Accessible across all local repositories)
 * **Local (Repository-Level):** `.agents/skills/` (Committed to Git; synchronized across the engineering team)
 
 Each Skill mandates an isolated sub-directory:

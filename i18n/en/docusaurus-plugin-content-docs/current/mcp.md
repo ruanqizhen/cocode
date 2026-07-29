@@ -93,9 +93,28 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import sqlite3 from "sqlite3";
+import path from "path";
 
-// 1. Bootstrapping the Physical Database
-const db = new sqlite3.Database("./local_users.db");
+// RECOMMENDED (new SDK >=1.10): Prefer McpServer + registerTool — more ergonomic and type-safe.
+// -------------------------------------------------------------
+// import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+// import { z } from "zod";
+// const server = new McpServer({ name: "sqlite-mcp-server", version: "1.0.0" });
+// server.registerTool("query_database", {
+//   title: "Query Database",
+//   description: "Executes a SELECT statement against the local user database. STRICTLY READ-ONLY.",
+//   inputSchema: { sql: z.string().describe("The raw SELECT SQL statement") },
+// }, async ({ sql }) => {
+//   // ... same hardened validation as below ...
+//   const rows = await dbAll(sql);
+//   return { content: [{ type: "text", text: JSON.stringify(rows, null, 2) }] };
+// });
+// -------------------------------------------------------------
+// The example below keeps the classic Server + setRequestHandler API for illustration.
+
+// 1. Bootstrapping the Physical Database (use absolute path to avoid CWD issues)
+const dbPath = path.resolve(process.cwd(), "local_users.db");
+const db = new sqlite3.Database(dbPath);
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT UNIQUE NOT NULL, role TEXT DEFAULT 'developer')`);
 });
@@ -124,14 +143,44 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 // 4. Architecting the Execution Logic & Security Gates
+// Hardened SQL guard — blocks empty, multi-statement, and dangerous keywords
+function validateSelectOnly(sql: unknown): string | null {
+  if (typeof sql !== "string" || !sql.trim()) {
+    return "FATAL ERROR: SQL must be a non-empty string.";
+  }
+  const trimmed = sql.trim();
+  const lower = trimmed.toLowerCase();
+
+  // Must start with SELECT (after stripping leading comments/whitespace)
+  const withoutLeadingComments = lower.replace(/^(--.*\n|\s|\/\*[\s\S]*?\*\/)*/, "").trim();
+  if (!withoutLeadingComments.startsWith("select")) {
+    return "FATAL ERROR: Only SELECT statements are permitted.";
+  }
+
+  // Block multi-statement: allow single trailing ';' but reject internal ';' + more SQL
+  const withoutTrailingSemi = trimmed.replace(/;\s*$/, "");
+  if (withoutTrailingSemi.includes(";")) {
+    return "FATAL ERROR: Multi-statement queries are prohibited.";
+  }
+
+  // Block dangerous keywords that could mutate or exfiltrate via SELECT bypass
+  const dangerousPattern = /\b(insert|update|delete|drop|alter|create|truncate|replace|pragma|attach|detach|vacuum|into\s+outfile|load_extension)\b/i;
+  if (dangerousPattern.test(lower)) {
+    return "FATAL ERROR: Dangerous keyword detected. Only pure SELECT is allowed.";
+  }
+
+  return null; // valid
+}
+
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
 
   if (name === "query_database") {
     const sql = args?.sql as string;
     // Security Gate: Brutally reject any mutating commands
-    if (!sql.toLowerCase().trim().startsWith("select")) {
-      return { content: [{ type: "text", text: "FATAL ERROR: Only SELECT statements are permitted." }], isError: true };
+    const validationError = validateSelectOnly(sql);
+    if (validationError) {
+      return { content: [{ type: "text", text: validationError }], isError: true };
     }
     return new Promise((resolve) => {
       db.all(sql, [], (err, rows) => {
@@ -144,6 +193,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 // 5. Binding the Stdio Transport Layer
+// NOTE: Top-level await requires ESM. Either set "type": "module" in package.json,
+// or wrap the bootstrap in an async IIFE: (async () => { ... })().catch(console.error);
 const transport = new StdioServerTransport();
 await server.connect(transport);
 console.error("[SYSTEM] SQLite MCP Server initialized and listening on stdio.");
@@ -154,7 +205,9 @@ console.error("[SYSTEM] SQLite MCP Server initialized and listening on stdio.");
 If your architecture utilizes Python, Anthropic provides the highly optimized `mcp` library:
 
 ```bash
-pip install mcp sqlite3
+pip install "mcp[cli]"
+# Note: sqlite3 is Python's built-in standard library (since Python 2.5) — no separate pip install needed.
+# The [cli] extra installs the MCP CLI tools for scaffolding and debugging.
 ```
 
 Architect `server.py`:
@@ -162,13 +215,23 @@ Architect `server.py`:
 ```python
 import sqlite3
 import json
+import re
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
+
+# NOTE: sqlite3 is Python's built-in standard library — no pip install needed.
+# Recommended install is: pip install "mcp[cli]" which includes the MCP CLI.
+# For JS/TS SDK, the new ergonomic API is McpServer + registerTool (see Node example above).
+
+# Use absolute path to avoid CWD ambiguity (mirrors path.resolve(process.cwd(), ...) in Node)
+DB_PATH = Path.cwd().resolve() / "local_users.db"
+# Alternative: DB_PATH = Path(__file__).parent.resolve() / "local_users.db"
 
 # Instantiate the FastMCP core
 mcp = FastMCP("sqlite-mcp-server")
 
 def init_db():
-    conn = sqlite3.connect("local_users.db")
+    conn = sqlite3.connect(str(DB_PATH))
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE, role TEXT DEFAULT 'developer')")
     conn.commit()
@@ -176,21 +239,49 @@ def init_db():
 
 init_db()
 
+# Hardened SQL guard — blocks empty, multi-statement, and dangerous keywords
+_DANGEROUS_RE = re.compile(
+    r"\b(insert|update|delete|drop|alter|create|truncate|replace|pragma|attach|detach|vacuum|into\s+outfile|load_extension)\b",
+    re.IGNORECASE
+)
+
+def validate_select_only(sql: str) -> str | None:
+    if not isinstance(sql, str) or not sql.strip():
+        return "FATAL ERROR: SQL must be a non-empty string."
+    trimmed = sql.strip()
+    lower = trimmed.lower()
+
+    # Strip leading comments/whitespace before checking SELECT
+    without_comments = re.sub(r"^(--.*\n|\s|/\*[\s\S]*?\*/)*", "", lower).strip()
+    if not without_comments.startswith("select"):
+        return "FATAL ERROR: Only SELECT read-only statements are permitted."
+
+    # Block multi-statement: allow single trailing ';' but reject internal ';'
+    without_trailing_semi = re.sub(r";\s*$", "", trimmed)
+    if ";" in without_trailing_semi:
+        return "FATAL ERROR: Multi-statement queries are prohibited."
+
+    if _DANGEROUS_RE.search(lower):
+        return "FATAL ERROR: Dangerous keyword detected. Only pure SELECT is allowed."
+
+    return None
+
 # Decorator binds the tool schema to the MCP router
 @mcp.tool()
 def query_database(sql: str) -> str:
     """Executes a SELECT statement against the local database. STRICTLY READ-ONLY."""
-    if not sql.lower().strip().startswith("select"):
-        return "FATAL ERROR: Only SELECT read-only statements are permitted."
+    err = validate_select_only(sql)
+    if err:
+        return err
     
     try:
-        conn = sqlite3.connect("local_users.db")
+        conn = sqlite3.connect(str(DB_PATH))
         cursor = conn.cursor()
         cursor.execute(sql)
         rows = cursor.fetchall()
         
         # Map column headers to the result array
-        columns = [description[0] for description in cursor.description]
+        columns = [description[0] for description in cursor.description] if cursor.description else []
         results = [dict(zip(columns, row)) for row in rows]
         
         conn.close()

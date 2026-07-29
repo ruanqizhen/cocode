@@ -50,9 +50,9 @@ Because the AI Agent now handles the grueling translation from logic to syntax, 
 
 Virtually all frontier AI platforms natively support zero-shot web application generation. You can execute these workflows on ChatGPT, Claude, Gemini, Meta AI, or DeepSeek. While the underlying intelligence models vary, for the scope of single-file web applications, any frontier model is vastly overqualified.
 
-*(Note: The examples in this chapter were originally validated on [Meta AI](https://meta.ai/) and Claude 3.5 Sonnet, utilizing their built-in interactive Canvas features for instant visual feedback).*
+*(Note: The examples in this chapter were originally validated on [Meta AI](https://meta.ai/) and Claude 3.5 Sonnet, utilizing their built-in interactive Canvas features for instant visual feedback. As of July 2026, major platforms have introduced rate limits and daily quotas, and Canvas/Artifacts features typically require login — please check the official quota pages. Prepare backup tools like Claude, ChatGPT, Gemini, and save critical code locally.)*
 
-When testing AI tools, normal conversational queries consume negligible compute. However, deploying software requires highly iterative, multi-turn prompting. Ensure you are using a tier (or an open-source model) that supports sustained message limits.
+When testing AI tools, normal conversational queries consume negligible compute. However, deploying software requires highly iterative, multi-turn prompting. Ensure you are using a tier that supports sustained limits and be aware of current rate restrictions.
 
 ### Bootstrapping a Game Engine
 

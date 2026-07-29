@@ -61,7 +61,7 @@ You are a world-class frontend engineer and UI/UX designer. Build a single-file 
 Output the complete, raw `index.html` code. Embed all CSS within a `<style>` block in the head, and all JS within a `<script>` block at the bottom of the body. Do not truncate the code.
 ```
 
-*(When conveying complex architectural requirements to AI, we heavily utilize Markdown formatting. For a deep dive into this format, refer to: [Appendix: Markdown Documentation](markdown))*
+*(When conveying complex architectural requirements to AI, we heavily utilize Markdown formatting. For a deep dive into this format, refer to: [Appendix: Markdown Documentation](./markdown.md))*
 
 If you desire a more complex, multi-module layout, use the following "Bento Grid" Prompt Template:
 
@@ -138,7 +138,7 @@ In GitHub, every discrete software project lives inside an isolated storage spac
 flowchart TD
     A[Click the '+' icon top right] --> B[Select 'New repository']
     B --> C[Name it EXACTLY: your-username.github.io]
-    C --> D[Set visibility to 'Public']
+    C --> D[Set visibility to 'Public' (recommended) - Private also works for Pages since 2023, but site itself is always public]
     D --> E[Check 'Add a README file']
     E --> F[Click 'Create repository']
     
@@ -150,7 +150,7 @@ Execute the following sequence:
 1. Log into GitHub. Click the **`+`** icon in the top right navigation bar and select **New repository**.
 2. **Repository name:** **PAY CLOSE ATTENTION!** You must name this repository precisely: `your-username.github.io` (e.g., if your GitHub handle is `tom`, you must enter `tom.github.io`).
 3. **Description:** Enter a brief descriptor (e.g., "My AI-architected personal portfolio").
-4. **Public/Private:** You **MUST select Public**. GitHub's free tier only allows Pages hosting for public repositories. If you select Private, the deployment will fail.
+4. **Public/Private:** For a personal homepage we recommend **Public** for simplicity. Note: as of 2023, GitHub Free accounts can enable Pages on both public *and* private repositories — the old restriction that "must be Public otherwise can't enable Pages" is outdated. In either case, the published site itself is always publicly accessible on the internet.
 5. **Initialize:** Check the box that says **Add a README file**. This is critical for initializing the Git branch architecture on the server.
 6. Scroll to the bottom and smash the green **Create repository** button.
 
@@ -186,9 +186,10 @@ This is the final configuration step. We are commanding GitHub's CI/CD pipeline 
 
 1. In your repository, click the ⚙️ **Settings** tab located on the far right of the top navigation bar.
 2. In the left-hand sidebar, scroll down to the **Code and automation** section and click on 🌐 **Pages**.
-3. Under the **Build and deployment** header, ensure the **Source** dropdown is set to **Deploy from a branch**.
-4. Directly below that, look at the **Branch** selector. It should currently display **`main`** (or `master` on older accounts), with `/ (root)` selected next to it. Because you checked "Add a README" during creation, GitHub usually pre-configures this. If the dropdown says `None`, click it and manually select **`main`**.
-5. Click the **Save** button.
+3. Under the **Build and deployment** header, look at the **Source** dropdown. In the new UI (late 2023+), the default is **GitHub Actions**, which uses a workflow file (e.g., `pages.yml`) to build and deploy. For the simplest zero-config setup, switch Source to **Deploy from a branch** if it is not already selected.
+   - **Option A — Deploy from a branch (beginner, recommended here):** Select Branch **`main`** (or `master` on older accounts) and folder `/ (root)`, then click **Save**. Because you checked "Add a README" during creation, GitHub usually pre-configures this. If the dropdown says `None`, manually select `main`.
+   - **Option B — GitHub Actions (current default):** Keep Source as GitHub Actions and add a Pages workflow. GitHub will suggest a `Static HTML` workflow that uploads your `index.html` as an artifact and deploys it. This is more powerful but requires a workflow file.
+4. Click the **Save** button (when using Deploy from a branch).
 
 ## Step 6: Acquiring the Production Link
 
@@ -227,4 +228,4 @@ While deploying code is highly rewarding, you must remain vigilant against these
 For reference, the author's personal portfolio was architected using this exact AI-driven methodology and iteratively refined over time:
 
 * **Live Production URL:** [https://qizhen.xyz/](https://qizhen.xyz/)
-* **Raw Repository Source Code:** [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen)
+* **Raw Repository Source Code:** [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen) — Note: this is GitHub's special **Profile README** repository (a repo whose name equals your username, used to display a README on your profile page). It is a different concept from a Pages user site. For a clean user site URL like `https://<username>.github.io/`, you should still create a repository named exactly `<username>.github.io` as described in Step 3 above.

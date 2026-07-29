@@ -34,7 +34,7 @@ The empirical result? Method B executes significantly faster and yields higher-q
 In 2025, elite developer Geoffrey Huntley generated an entire, production-ready programming language repository using a single, primitive line of Bash script (racking up $297 in API fees in the process):
 
 ```bash
-while :; do cat PROMPT.md | claude; done
+while :; do cat PROMPT.md | claude -p --dangerously-skip-permissions "Execute the instructions in PROMPT.md and update progress in progress.md"; done
 ```
 
 This outrageously crude construct—dubbed the "Ralph Loop"—is actually a stroke of architectural genius:
@@ -61,7 +61,7 @@ This proves an iron law of the new era: Provided an Agent possesses a mathematic
 
 To design an indestructible Loop that won't spiral out of control and drain thousands of API Tokens in an infinite hallucination, you must fuse the following architectural primitives:
 
-1. **Automations (The Heartbeat):** The pacing mechanism of the Loop. Executed via `/loop` CLI commands, Cron jobs, or Webhooks. (e.g., commanding an Agent: `/loop 5m babysit all my PRs`—forcing it to scan and auto-fix Pull Requests every 5 minutes).
+1. **Automations (The Heartbeat):** The pacing mechanism of the Loop. Executed via custom scripts, Cron jobs, or Webhooks. (e.g., using a scheduled script that runs `claude -p "babysit all my PRs"` to scan and auto-fix Pull Requests every 5 minutes).
 2. **Worktrees (Parallel Sandboxing):** Solves Git collision conflicts. Forces parallel Agents to execute within isolated Git Worktree directories, sharing the commit history but physically isolated from each other's live file mutations.
 3. **Skills (Guardrails):** System Prompts that permanently encode domain expertise and absolute operational boundaries (e.g., *"NEVER mutate the production database credentials"*).
 4. **Connectors / MCP:** The API tentacles that allow the Loop to interface with the physical world (Jira boards, Slack webhooks, AWS APIs).
@@ -101,11 +101,13 @@ We will utilize the Agent's multi-session capabilities to construct `scripts/com
 
 ```bash
 #!/bin/bash
-# 1. The 'Maker' Agent executes the aggressive compilation logic
-claude "@compile.md" --worktree=worktree/maker
+# 1. The 'Maker' Agent executes the aggressive compilation logic in an isolated worktree
+git worktree add worktree/maker -b maker-task
+claude -p "@compile.md" --dangerously-skip-permissions
 
-# 2. The isolated 'Verifier' Agent executes a hostile audit
-claude "Strictly audit the new Wiki entries against the architectural guidelines in CLAUDE.md. Output a terminal list of detected hallucinations or broken links." --worktree=worktree/verifier
+# 2. The isolated 'Verifier' Agent executes a hostile audit in a separate worktree
+git worktree add worktree/verifier -b verifier-task
+(cd worktree/verifier && claude -p "Strictly audit the new Wiki entries against the architectural guidelines in CLAUDE.md. Output a terminal list of detected hallucinations or broken links.")
 ```
 
 ### 4. Deploying the Automated Heartbeat
@@ -114,10 +116,10 @@ Configure a Linux Crontab to autonomously trigger the pipeline at 6:03 AM every 
 
 ```bash
 # Manual CLI execution for testing:
-claude "/loop run triage then compile then briefing --worktree=worktree"
+./scripts/compile-loop.sh
 
 # Production Crontab scheduling:
-3 6 * * * cd /absolute/path/knowledge-base && claude "/loop run triage then compile then briefing --worktree=worktree" >> log/cron-run.log 2>&1
+3 6 * * * cd /home/user/knowledge-base && ./scripts/compile-loop.sh >> log/cron-run.log 2>&1
 ```
 
 In a real-world production test, this exact Loop automatically filtered 200+ raw articles and synthesized 50+ core wiki concepts over 2 months. The human architect spent a total of exactly 3 minutes per day simply reading the generated Briefing report over coffee.

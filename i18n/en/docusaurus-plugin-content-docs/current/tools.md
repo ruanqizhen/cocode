@@ -21,7 +21,7 @@ AI Models (e.g., Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, DeepSeek-Coder) are 
 AI Toolchains (e.g., Cursor, GitHub Copilot, Claude Code, Antigravity) are the localized application architectures built around these models. They act as the "Executive Torso," providing the model with I/O access to the physical world. The Toolchain layer executes the following high-frequency engineering tasks:
 
 * **Context Aggregation:** Autonomously traversing your local codebase, indexing topological dependencies, and parsing Abstract Syntax Trees (AST).
-* **Prompt Compilation:** Packaging your natural language intent, the AST context, local stack traces, and global `.cursorrules` into a mathematically structured payload to route to the Model API.
+* **Prompt Compilation:** Packaging your natural language intent, the AST context, local stack traces, and global Cursor rules (`.cursor/rules/` — `.cursorrules` is legacy) into a mathematically structured payload to route to the Model API.
 * **Kinetic Execution:** Ingesting the Model's output and translating it into physical OS commands (e.g., executing Git mutations, running Vitest, rewriting specific line ranges).
 * **Telemetry & UI:** Rendering Git Diff visualizations, exposing side-bar chat interfaces, and enforcing human-in-the-loop permission gateways.
 
@@ -75,7 +75,7 @@ Mapping the standard Agent components to our daily IDE toolchains:
 | **LLM (The Brain)** | The routing to frontier APIs: Claude 3.5 Sonnet, GPT-4o, DeepSeek-R1. |
 | **Tools/Actuators (Kinetic I/O)** | Filesystem read/write APIs, Bash execution privileges, AST/Regex scrapers, Linter integrations. |
 | **Short-Term Memory** | The active chat session context window, dynamically pruned via RAG. |
-| **Long-Term Memory** | Global Configuration Files (`.cursorrules`, `CLAUDE.md`, `ARCHITECTURE.md`). |
+| **Long-Term Memory** | Global Configuration Files (`.cursor/rules/` (`.cursorrules` is legacy), `CLAUDE.md`, `ARCHITECTURE.md`). |
 | **Planning Engine** | The IDE's "Plan Mode" (Forcing the AI to output a Markdown architectural blueprint prior to mutating physical files). |
 | **Perception Engine** | Full-repository vector embeddings, Dependency Graph traversal. |
 | **Evaluation Engine** | CI/CD integrations, automated Test Runners (Jest/Pytest), Compiler stdout streams. |
@@ -209,7 +209,7 @@ How do you optimize this arsenal? Elite engineering organizations deploy a multi
 * **Tier 2: Velocity & Context Volume (Medium Cost)**
   * Google Gemini Series (1.5 Pro) ➔ Unmatched 2M+ Token Context window for full-repo ingestion.
 * **Tier 3: The Economic Floor (Hyper-Low Cost)**
-  * DeepSeek Series (Coder-V2 / R1) ➔ Delivers Tier-1 engineering capabilities at a fraction of a cent per million tokens. The absolute king of brute-force economic scaling.
+  * DeepSeek Series (DeepSeek-V3 / R1) ➔ Delivers Tier-1 engineering capabilities at a fraction of a cent per million tokens. The absolute king of brute-force economic scaling.
 
 ### The Combined-Arms Engineering Strategy
 
@@ -221,5 +221,5 @@ How do you optimize this arsenal? Elite engineering organizations deploy a multi
 ## The Future Trajectory of Engineering AI
 
 1. **The Harness Eclipses the LLM:** Do not obsess over a model's raw benchmark scores. An elite IDE "Harness" (with hyper-optimized RAG and AST parsing) running a mid-tier model will physically destroy a Tier-1 model running inside a poorly-engineered chat interface.
-2. **Models Rotate, Toolchains Remain:** Foundation Models iterate and obsolesce every 6 months. However, your `.cursorrules`, your IDE muscle memory, and your team's custom Agent configurations (`AGENTS.md`) are permanent operational assets. Anchor your workflow to the Toolchain ecosystem, not the specific Model API.
+2. **Models Rotate, Toolchains Remain:** Foundation Models iterate and obsolesce every 6 months. However, your Cursor rules (`.cursor/rules/`, legacy `.cursorrules`), your IDE muscle memory, and your team's custom Agent configurations (`AGENTS.md`) are permanent operational assets. Anchor your workflow to the Toolchain ecosystem, not the specific Model API.
 3. **Autonomous API Routing is the Endgame:** The ultimate evolution of the IDE is the "Intelligent Dispatcher." The toolchain will autonomously benchmark your Prompt and instantly route simple CSS tweaks to a hyper-cheap 8B model, while routing a catastrophic database race-condition to an expensive reasoning model—optimizing your billing latency completely invisibly.

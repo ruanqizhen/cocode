@@ -53,7 +53,7 @@ Cursor embodies the classic "AI-native IDE" philosophy. It relies heavily on exp
 
 As a rogue Agent operating entirely within the terminal, Claude Code eschews fancy UI panels altogether. It delegates the power of context collection almost entirely to the underlying LLM:
 
-* **On-Demand Perception:** When you issue a task, Claude Code refuses to execute a blind, full-repo RAG dump. Instead, it utilizes its suite of integrated tools—like `grep_search`, `locate_files`, and `view_file`—to actively scavenge through your local filesystem like a veteran UNIX hacker, autonomously deciding which files to ingest into its active context window.
+* **On-Demand Perception:** When you issue a task, Claude Code refuses to execute a blind, full-repo RAG dump. Instead, it utilizes its suite of integrated tools—like `Grep`, `Glob`, `Read`, and `Agent`—to actively scavenge through your local filesystem like a veteran UNIX hacker, autonomously deciding which files to ingest into its active context window.
 * **The Philosophy:** Humans are relieved of the burden of `@`-tagging files. You simply declare the macro-objective, and the Agent autonomously "scouts" the terminal to assemble its own context.
 
 ### 3. Google Antigravity: "Omniscience & Native Indexing" via Ultra-Long Context
@@ -185,7 +185,7 @@ In prolonged human-machine pair programming, there is a silent, lethal phenomeno
 
 In daily, high-intensity development, the single most effective habit to combat Context Rot is this: **Do not age and die in a single session.** The millisecond you sense the AI misunderstanding instructions or slowing down its reasoning, immediately execute a hard reset and start a pristine session.
 
-* **In Cursor:** Ruthlessly press `Ctrl/Cmd + N` to kill the current Chat. Open a fresh window, `@` tag the specific files you just finished modifying, and establish a clean baseline: *"This is the finalized code we just wrote. Based strictly on this state, let's implement the login interface."*
+* **In Cursor:** Ruthlessly press `Ctrl/Cmd + L` to start a new Chat (or `Ctrl/Cmd + K` for inline Chat). Open a fresh window, `@` tag the specific files you just finished modifying, and establish a clean baseline: *"This is the finalized code we just wrote. Based strictly on this state, let's implement the login interface."* — Note: `Ctrl/Cmd + N` in Cursor creates a new file, not a new chat.
 * **In Claude Code:** Type `/compact` directly into the terminal to force the agent to violently prune its active context and summarize history. Alternatively, type `/exit` to kill the process entirely, then type `claude` to boot a completely clean instance.
 * **In Google Antigravity:** Utilize the Tab isolation mechanics to incinerate the current virtual reasoning sandbox with a single click, then remount your core foundational context into a fresh environment.
 
@@ -207,9 +207,9 @@ Maintain the following three standard, machine-readable Markdown documents at th
 
 Depending on your team's weapon of choice, configure the corresponding rule declaration files in your project root. **Crucially: Do not write vague, emotionally colored prose.** These must be concrete, conditional, and strictly verifiable operational instructions:
 
-* **Cursor:** Maintain a `.cursorrules` file.
-* **Claude Code:** Maintain a `.claudecode.json` file, or inject system-level instructions into your project description.
-* **Google Antigravity:** Maintain a `.antigravity/rules.json` workspace specification.
+* **Cursor (Modern):** Maintain modular rules under `.cursor/rules/*.mdc` (e.g., `.cursor/rules/architecture.mdc`, `.cursor/rules/testing.mdc`), each with frontmatter (`description`, `globs`) for scoped activation.
+* **Cursor (Legacy):** The older `.cursorrules` file at the project root still works but is considered **Legacy**; prefer migrating to `.cursor/rules/*.mdc`.
+* **Claude Code:** Maintain a `CLAUDE.md` at the project root for project-wide instructions (auto-injected into context), and use `.claude/settings.json` for permissions, hooks, and environment configuration.
 
 > 🟢 **Example of a Highly Executable Rule:**
 > *"When handling API interface errors, you are strictly forbidden from utilizing local `try-catch` blocks to swallow the error within the controller. You must explicitly throw an `AppError`, or delegate it to the global error interceptor via `next(error)`. Furthermore, anytime a core business logic file is mutated, you must autonomously execute `npm run test` to verify system stability."*

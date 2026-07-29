@@ -129,7 +129,7 @@ A standard system-level Agent typically utilizes atomic tools with strictly defi
 
 ### Automated Code Generation Master Prompt
 
-In actual development, we can use a highly structured, advanced Prompt to instruct the large model to generate the complete, production-grade source code for the Windows System Command Assistant in a single pass. Because this prompt includes detailed instructions, it is quite lengthy. We have placed it separately in the [Appendix](ai_agent_prompt) for your convenience.
+In actual development, we can use a highly structured, advanced Prompt to instruct the large model to generate the complete, production-grade source code for the Windows System Command Assistant in a single pass. Because this prompt includes detailed instructions, it is quite lengthy. We have placed it separately in the [Appendix](./ai_agent_prompt.md) for your convenience.
 
 Don't be intimidated by the length of the prompt; it was actually generated with the help of AI! You can provide initial, vague requirements to an AI and ask it to draft a detailed prompt. Then, based on its output, you refine and optimize it. This iterative process continues until you are satisfied with the final prompt.
 
@@ -146,14 +146,18 @@ If you aren't familiar with Python yet, follow these simple steps to run this AI
 2. Double-click the installer. **CRUCIAL: At the bottom of the installation interface, ensure you check the box that says "Add python.exe to PATH"** (this adds Python to your system environment variables), then click "Install Now".
 
 #### 2. Prepare the Code File
-Copy the AI-generated code into a text file and save it as `win_agent.py`. We have provided a copy of the final code in the appendix: [AI Agent Complete Source Code](ai_agent_code). You can simply copy it, create a new text file named `win_agent.py` on your computer, paste the code inside, and save it.
+Copy the AI-generated code into a text file and save it as `win_agent.py`. We have provided a copy of the final code in the appendix: [AI Agent Complete Source Code](./ai_agent_code.md). You can simply copy it, create a new text file named `win_agent.py` on your computer, paste the code inside, and save it.
 
 #### 3. Install Dependency Libraries
 Open a command-line interface (such as PowerShell or CMD) and run the following command to install the required third-party libraries:
 ```bash
-pip install openai psutil win10toast
+pip install openai psutil
+# Optional: Windows notification support (win10toast is discontinued and incompatible with Python 3.10+, use alternatives)
+pip install win11toast
+# or
+pip install plyer
 ```
-*(Note: `win10toast` is used for triggering native Windows system notifications. If you encounter network or compatibility issues during installation, this dependency isn't strictly necessary; skipping it will not break the core functionality of the Agent.)*
+*(Note: `win11toast` / `plyer` is used for triggering native Windows system notifications. The legacy `win10toast` has been discontinued since 2020 and fails on Python 3.10+ — do not use it. If you encounter network or compatibility issues, this notification dependency is optional; skipping it will not break core Agent functionality.)*
 
 #### 4. Configure Your API Key and Run
 Because this Agent relies on a large language model to function, you will need to obtain a DeepSeek API Key.

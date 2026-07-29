@@ -76,21 +76,16 @@ jobs:
           fetch-depth: 0
 
       - name: Run AI Reviewer
-        uses: coderabbitai/ai-pr-reviewer@latest
+        uses: coderabbitai/openai-pr-reviewer@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           debug: false
-          system_message: |
-            You are a ruthlessly demanding senior systems architect.
-            Analyze the Git Diff of this Pull Request, focusing strictly on:
-
-            1. Are there any hardcoded API Keys, Secrets, or credentials?
-            2. Are there N+1 query vulnerabilities or missing database transactions?
-            3. Are there swallowed exceptions or implicit type-casting risks?
-
-            Provide your feedback as inline GitHub comments.
+          openai_light_model: gpt-4o-mini
+          openai_heavy_model: gpt-4o
+          # To customize review instructions, configure `.github/coderabbitai.yaml`
+          # `system_message` is not a valid input — use repository config file instead
 ```
 
 ### The Local Audit System Prompt

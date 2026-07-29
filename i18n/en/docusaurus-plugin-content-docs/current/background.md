@@ -167,9 +167,7 @@ Mathematically, any complex real-world problem can be abstracted into a super-fu
 
 To solve this, deep learning utilizes a technique akin to high-dimensional series decomposition—it breaks down an incomprehensibly complex function into the linear and non-linear superpositions of trillions of extremely simple, basic functions.
 
-In an LLM, the role of these "fundamental building blocks" is typically played by the brutally simple ReLU (Rectified Linear Unit) function, or its modern variants like SwiGLU.
-
-$$\text{ReLU}(x) = \max(0, x)$$
+In an LLM, the role of these "fundamental building blocks" is typically played by simple non-linear activation units, such as ReLU (Rectified Linear Unit, $\text{ReLU}(x) = \max(0, x)$), GELU, Swish, and their gated variants like SwiGLU, GEGLU, etc. SwiGLU is not a direct variant of ReLU but a Swish-Gated Linear Unit based on Swish.
 
 ```mermaid
 graph LR

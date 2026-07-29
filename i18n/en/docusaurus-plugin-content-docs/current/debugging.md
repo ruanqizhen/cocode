@@ -110,14 +110,15 @@ While AI often faceplants when debugging complex proprietary business logic, you
 // Classic "Read-Modify-Write" Dirty Read Vulnerability
 export async function createOrder(userId: string, totalPrice: number) {
   const wallet = await prisma.wallet.findUnique({ where: { userId } });
-  if (!wallet || wallet.balance < totalPrice) throw new Error("Insufficient balance");
+  // ⚠️ FIX: Prisma Decimal cannot be compared with < directly. Use Decimal methods.
+  if (!wallet || wallet.balance.lt(totalPrice)) throw new Error("Insufficient balance");
 
   const newOrder = await prisma.order.create({ /* ... */ });
 
   // ❌ DIRTY WRITE RISK: We are blindly overriding the database with a stale balance value read into Node's memory milliseconds ago.
   await prisma.wallet.update({
     where: { userId },
-    data: { balance: wallet.balance - totalPrice } 
+    data: { balance: wallet.balance.sub(totalPrice) } 
   });
 }
 ```
@@ -132,7 +133,8 @@ export async function createOrder(userId: string, totalPrice: number) {
   return await prisma.$transaction(async (tx) => {
     // 1. Utilize SELECT FOR UPDATE to enforce a row-level database lock
     const wallet = await tx.$queryRaw<any[]>`SELECT * FROM "Wallet" WHERE "userId" = ${userId} FOR UPDATE`;
-    if (!wallet[0] || wallet[0].balance < totalPrice) throw new Error("Insufficient balance");
+    // Raw query returns plain number/string, but if using Decimal type, use .lt() — here coerce to Number for safety
+    if (!wallet[0] || Number(wallet[0].balance) < totalPrice) throw new Error("Insufficient balance");
 
     const newOrder = await tx.order.create({ /* ... */ });
 
@@ -165,23 +167,31 @@ app.use((req, res, next) => {
 **Cyber Yellow Duck Diagnostic Deduction:**
 The AI instantly identifies this as a textbook *"Memory leak caused by an event listener closure escape and static array reference retention."* It proceeds to provide an advanced architectural solution that leverages the V8 engine's native Garbage Collection (GC) mechanics.
 
-**The AI's Elegant Solution (WeakMap References):**
+**The AI's Elegant Solution (Map with Explicit Cleanup — WeakMap Loses Iteration):**
 
 ```typescript
 import { Request, Response, NextFunction } from 'express';
 
-// ✅ Utilize a WeakMap to strictly associate metadata with the Request object instance.
-// When the 'req' object's lifecycle ends and it is destroyed by Express, the V8 Garbage Collector 
-// will automatically nuke the associated metadata inside the WeakMap.
-const requestMetadata = new WeakMap<Request, { timestamp: number }>();
+// ✅ Use Map with explicit cleanup so we retain iteration ability for monitoring.
+// WeakMap would auto-GC but cannot be iterated (no .size, no for...of), losing observability.
+// Trade-off: Map requires manual delete to avoid leak.
+const pendingRequests = new Map<string, { req: Request; timestamp: number }>();
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  requestMetadata.set(req, { timestamp: Date.now() });
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  pendingRequests.set(id, { req, timestamp: Date.now() });
 
   res.on('finish', () => {
-    // Because we used a WeakMap, there is absolutely no need to manually delete the reference.
-    // This physically eliminates the possibility of a memory leak caused by human omission.
+    pendingRequests.delete(id); // explicit cleanup prevents leak, retains iteration
+  });
+  res.on('close', () => {
+    pendingRequests.delete(id);
   });
   next();
 });
+
+// Example monitoring that WeakMap cannot support:
+setInterval(() => {
+  console.log(`Current pending: ${pendingRequests.size}`);
+}, 10000);
 ```

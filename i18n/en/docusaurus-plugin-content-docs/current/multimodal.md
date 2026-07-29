@@ -2,7 +2,7 @@
 
 > "A picture is worth a thousand words." — English Idiom
 
-Historically, Large Language Models were strictly confined to processing text. When the author first drafted this book, models like DeepSeek were entirely blind; they could read source code, but they could not *see* a user interface. Today, frontier models have evolved into **Multimodal Architectures**, capable of processing text, images, audio, and video simultaneously. Google Gemini is a native multimodal model. Consequently, when generating illustrations for this book, we didn't require external design software; we simply requested in the Google Antigravity console: *"Generate beautiful architectural diagrams for this chapter,"* and the system executed it flawlessly.
+Some early models supported only text, but as technology evolved, mainstream models have become fully multimodal. Take DeepSeek as an example: early versions were text-only, but since DeepSeek-VL / VL2 (from 2024) it supports vision, and as of 2026 major models (Claude, Gemini, GPT-4o/5, DeepSeek-V3, etc.) all have multimodal capabilities. Google Gemini itself is a native multimodal model, so when generating illustrations for this book, we didn't require external design software; we simply requested in the Google Antigravity console: *"Generate beautiful architectural diagrams for this chapter,"* and the system executed it flawlessly.
 
 In the domain of software engineering, the most lethal application of multimodality is not generating art—it is **Visual Debugging**. 
 
@@ -22,10 +22,10 @@ At the absolute frontier of AI engineering, tools like Claude Code and Google An
 ├───────────────────────────────────────┬────────────────────────────────┤
 │       Claude Code (Passive Vision)    │Google Antigravity (Active Vision)│
 ├───────────────────────────────────────┼────────────────────────────────┤
-│  * Strictly dependent on human devs   │  * Integrates a headless Browser│
-│    injecting image payloads manually. │    Subagent to acquire vision. │
-│  * Features instant clipboard parsing │  * Autonomously synthesizes rich│
-│    and Figma Design Bundle Handoff.   │    media artifacts (screenshots).│
+│  * Relies on devs manually feeding    │  * Integrates a headless Browser│
+│    images (paste/drag).               │    Subagent to acquire vision. │
+│  * Features instant clipboard paste   │  * Autonomously synthesizes rich│
+│    and drag-and-drop image import.    │    media artifacts (screenshots).│
 │  * A ruthless "See Image -> Write    │  * An autonomous QA Engineer    │
 │    Code" execution engine.            │    capable of visual self-healing.│
 └───────────────────────────────────────┴────────────────────────────────┘
@@ -33,10 +33,10 @@ At the absolute frontier of AI engineering, tools like Claude Code and Google An
 
 ### Claude Code: Passive, Targeted Vision
 
-While Claude Code operates as a hardcore CLI tool inside your terminal, its underlying Harness framework is equipped with a highly optimized image-processing pipeline. It ingests human visual data via two primary vectors:
+While Claude Code operates as a hardcore CLI tool inside your terminal, its underlying Harness framework is equipped with a lightweight image-processing pipeline. It ingests human visual data via two primary vectors:
 
-* **Clipboard Injection:** When you spot a catastrophic UI rendering defect or a cryptic error popup, simply screenshot it. Press `Cmd + V` (or `Ctrl + V`) directly inside the terminal. The CLI Harness instantly encodes the image, tags it with a `[image]` flag, and injects it directly into the context window.
-* **Figma Handoff Integration:** Through deep integration with design ecosystems, a complete asset bundle exported from Figma can be piped into the terminal via a single bash command. The AI instantly gains a pixel-perfect, global map of the UI architecture.
+* **Clipboard Injection:** When you spot a catastrophic UI rendering defect or a cryptic error popup, simply screenshot it. Press `Cmd + V` (or `Ctrl + V`) directly inside the terminal, or drag an image file / use `/image` to import. The CLI Harness encodes the image and injects it into the context window.
+* **Design Asset Import:** Drag screenshots or Figma-exported assets into the terminal or reference them via file path. The model then gains pixel-level context for precise UI reconstruction.
 
 ### Google Antigravity: Active Autonomous Vision
 

@@ -80,7 +80,7 @@ Execute the following payload sequentially. **Do not** batch these prompts into 
 #### Phase 0: System Initialization
 ```text
 Architect a 3D Low-Poly Space Shooter within a single-file HTML payload.
-- Inject the `Three.js` dependency via an ESM importmap CDN.
+- Inject the Three.js dependency via an ESM importmap CDN, with es-module-shims compatibility layer first: <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script> then <script type="importmap"> import three.
 - Instantiate the Player Mesh at the bottom-center of the viewport. The Mesh automatically translates positively on the Z-axis.
 - The Camera Rig must follow the Player on a delayed interpolation curve (Chase Cam).
 - Inject a deep-space Skybox and a neon wireframe ground-plane.
@@ -204,9 +204,11 @@ The following heuristics will prevent 90% of the catastrophic failures encounter
 
 ### 1. Weaponize "Tailwind CSS" for Instant UI Polish
 
-If you command an AI to generate a web app without layout constraints, it defaults to the horrific, legacy 1990s HTML aesthetic (Times New Roman, raw blue hyperlinks). Always append this global constraint to your prompt: *"You MUST utilize the Tailwind CSS CDN to architect the UI. Enforce an aggressive, enterprise-grade Dark Mode. Inject smooth CSS `transform` and `transition` states on all interactive nodes."*
+If you command an AI to generate a web app without layout constraints, it defaults to the horrific, legacy 1990s HTML aesthetic (Times New Roman, raw blue hyperlinks). Always append this global constraint to your prompt: *"You MUST utilize Tailwind CSS v4 (via `<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>`) or v3 via `https://cdn.tailwindcss.com` to architect the UI. Enforce an aggressive, enterprise-grade Dark Mode. Inject smooth CSS `transform` and `transition` states on all interactive nodes."*
 
 Because LLMs have ingested millions of React/Tailwind repositories, this single sentence forces the AI to instantly upgrade the visual architecture, outputting a highly polished, Silicon Valley-grade interface.
+
+> **Note:** Tailwind v3 CDN is `https://cdn.tailwindcss.com`, v4 recommended `https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4`; the old CDN may fail on v4. If the model still outputs the legacy import, replace manually.
 
 ### 2. Sever Backend Dependencies in V1
 

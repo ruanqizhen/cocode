@@ -83,9 +83,9 @@ A task engineered perfectly into the "Sweet Spot" must satisfy these three axiom
 
 ```mermaid
 graph TD
-    A[Task Volumetric Scale] --> B(Micro-Task: < 15 mins)
-    A --> C((The Sweet Spot: 30 mins - 2 hrs))
-    A --> D(Macro-Task: > 2 hrs)
+    A[Task Volumetric Scale] --> B("Micro-Task: < 15 mins")
+    A --> C("The Sweet Spot: 30 mins - 2 hrs")
+    A --> D("Macro-Task: > 2 hrs")
     
     B --> B1["Overhead > Velocity<br/>(Severe Context Fragmentation)"]
     C --> C1["Optimal 40% Context<br/>(High Cohesion / Absolute Verification)"]
@@ -161,6 +161,33 @@ graph TD
     style T3 fill:#f3e8ff,stroke:#a855f7,stroke-width:2px
 ```
 *Figure: The Execution Matrix. Node T1 mutates the database; it blocks the entire pipeline. Nodes T2a/b/c possess zero file overlap and execute in parallel. Node T3 is the integration convergence point.*
+
+## Tasks API: Native Engineering Task Tracking
+
+In 2026, frontier tools represented by Claude Code v2.1+ introduced a native **Tasks API**. It allows the task list to be managed as standalone files with explicit acceptance criteria and automatically detects dependencies. The dependency metadata uses an array format like `blockedBy: ["task-id-3"]` (array of task IDs, not free-form descriptions).
+
+The standard workflow for cross-session tracking with Tasks API in Claude Code (Tasks is an experimental/preview feature, API may change — always refer to the latest official docs):
+
+```bash
+# 1. Create a structured task list (inside Claude Code interactive session)
+# After entering claude interactive mode:
+ /plan Generate task list from docs/specs/email-digest.md, each task including description, acceptance criteria, dependencies and parallelization
+
+# Or non-interactive mode
+claude -p "Generate task list from docs/specs/email-digest.md, each task including description, acceptance criteria, dependencies"
+
+# 2. Task list files are typically located in .claude/tasks/ directory, auto-discovered by Claude Code
+# If you need to specify a task list, use --task-list (subject to latest official CLI)
+claude --task-list email-digest-2026-06 -p "Continue with the next unblocked unfinished task"
+
+# 3. Continue execution in a brand new session
+# Claude Code reads the task list and starts from unblocked tasks
+
+# 4. View current progress and blocking status in real time (inside interactive session)
+# /tasks
+```
+
+> **Note:** `claude "/plan ..."`, `claude "/work"`, `claude "/tasks"` are NOT valid CLI commands; `/plan`, `/tasks` etc. are slash commands inside the Claude Code interactive session. The `CLAUDE_CODE_TASK_LIST_ID` environment variable pattern is not stably documented in official public docs — prefer task files under `.claude/tasks/<id>.json`.
 
 ## Core Template Standardization
 
@@ -245,7 +272,8 @@ Architect a high-performance web editor supporting real-time Markdown rendering 
 
 We now command the AI to generate the technical matrix. **Code generation is strictly disabled.**
 
-* In Claude Code CLI: `claude "Ingest the provided Specification. You are restricted to PLAN_MODE. Code mutation is forbidden. Synthesize a 12-node implementation matrix adhering to the defined architecture."`
+* In Claude Code interactive session: use the slash command `/plan` — e.g., `/plan Ingest the provided Specification. You are restricted to planning mode, code mutation is forbidden. Synthesize a 12-node implementation matrix adhering to the defined architecture.`
+* Or non-interactive mode: `claude -p "Ingest the provided Specification. You are restricted to planning mode, code mutation is forbidden. Synthesize a 12-node implementation matrix adhering to the defined architecture."` — task files are stored under `.claude/tasks/` directory.
 
 The Agent computes the constraints and outputs a highly rigorous topology:
 

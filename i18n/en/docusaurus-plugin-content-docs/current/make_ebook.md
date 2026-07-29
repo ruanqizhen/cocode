@@ -187,7 +187,7 @@ git push -u origin main
 
 #### Step 2: Bind the Cloudflare Edge
 
-Authenticate into the Cloudflare dashboard. Navigate to **Workers & Pages -> Create application -> Pages -> Connect to Git**. Select your pristine `vanish-book` repository.
+Authenticate into the Cloudflare dashboard. Navigate to **Workers & Pages -> Create application -> Pages -> Connect to Git**. Select your pristine `vanish-book` repository. (Note: In the new Cloudflare UI the wording is **Create / Connect to Git**, the legacy “Create application” label has been updated.)
 
 #### Step 3: Define the Build Contract
 

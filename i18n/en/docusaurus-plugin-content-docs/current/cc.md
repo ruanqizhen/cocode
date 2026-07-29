@@ -40,8 +40,11 @@ Claude Code is built on Node.js, meaning a local Node environment is required to
 :::
 
 ```bash
-# Cross-platform, global one-click installation
-npm install -g @anthropic-ai/claude-code 
+# Official recommended (preferred)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Or via npm (alternative, requires Node.js 18+)
+npm install -g @anthropic-ai/claude-code
 
 # Awaken the agent directly inside your project root
 cd my-backend-project
@@ -61,19 +64,21 @@ claude -p "Perform a deep-dive analysis on the project's permission verification
 This is the feature that makes veteran UNIX hackers rejoice. Claude Code can be seamlessly chained into standard Linux pipelines to filter, distill, and react to dynamic context in real-time:
 
 ```bash
-# Dynamically tail live log streams; if an exception fires, force the AI to instantly analyze and suggest a fix
-tail -f app.log | claude -p "If you detect unknown exceptions, immediately extract the stack trace and provide potential patches."
+# Analyze recent log snapshot (Note: tail -f never ends and would hang -p mode; use tail -n instead)
+tail -n 200 app.log | claude -p "If you detect unknown exceptions, immediately extract the stack trace and provide potential patches."
 
 # Pipe historical crash dumps directly into the agent for fully automated Root Cause Analysis (RCA)
 cat crash-error.log | claude -p "Analyze the root cause of these crashes; verify if they correlate with our Redis connection pool overflowing."
 ```
+
+> **⚠️ Warning:** `claude -p` reads stdin until EOF; `tail -f` never terminates and will cause the command to hang indefinitely. For streaming monitoring, use `tail -n` truncation or sample periodically with a script.
 
 ### Under the Hood: Proprietary "Black Tech" Mechanisms
 
 1. **`CLAUDE.md` (The Digital Onboarding Guide)**: This file acts as the absolute anchor for Claude Code's context engineering. By maintaining this markdown file in your project root, you establish your repository's quirky rules, build commands, and strict red lines. It acts as an onboarding document for a newly hired senior engineer; Claude Code ingests and adheres to these rules before taking any action.
 2. **Extended Thinking (The Reasoning Chain)**: When confronting bizarre architectural deadlocks, Claude Code engages deep reasoning mode. You can watch its "internal monologue" unfold live in the terminal—dense, high-purity technical self-reflection stripped of conversational fluff.
 3. **Auto-Compact (Dynamic Context Pruning)**: During marathon terminal sessions, your context window will eventually hit 95% capacity. When this happens, the tool's underlying harness instantly triggers a lightweight background model. This model compresses and summarizes the core intent of earlier dialogue and expired log data, aggressively pruning the active token footprint back down to a safe operational range.
-4. **Sandbox Defense Lines**: Built entirely atop Linux Namespaces and rigorous isolation mechanics, Claude Code operates safely. When it attempts to execute dangerous local commands or read sensitive environment variables, it hits permission fences. It will even implement network-level blockages to strictly prevent the LLM from generating destructive privilege escalation attacks.
+4. **Sandbox Defense Lines**: Built on platform-native isolation mechanisms (macOS uses Seatbelt / sandbox-exec, Linux uses Namespace / cgroups, Windows uses ACL access control) with permission confirmation and fence isolation for dangerous commands, highly sensitive files, and environment variables, supporting configurable network access policies to strictly prevent the LLM from generating destructive privilege escalation attacks.
 
 ### Usage Costs
 
@@ -135,9 +140,9 @@ Antigravity is deeply integrated with Google's native Chrome engine. Once an age
 
 In our previous chapter covering future trends, we posited a highly disruptive thesis: *"The Models are the disposable foot soldiers; the Tooling Harness is the iron-clad fortress."*
 
-To practically demonstrate this thesis, we are going to get our hands dirty. While Claude Code officially locks its ecosystem to Anthropic's proprietary models, DeepSeek recently launched an API endpoint perfectly compliant with the Anthropic protocol format.
+To practically demonstrate this thesis, we are going to get our hands dirty. While Claude Code officially locks its ecosystem to Anthropic's proprietary models, the community has verified that requests can be routed to a compatible proxy layer via environment variables. DeepSeek officially promotes its OpenAI-compatible interface (`https://api.deepseek.com`), while Anthropic compatibility requires a third-party proxy (such as LiteLLM Proxy or a community Claude-to-OpenAI forwarding layer) or a proxy endpoint that supports Anthropic format passthrough.
 
-This means we can use environment variable spoofing to surgically graft Claude Code—the world-class, terminal-controlling "Harness"—directly onto the immensely cost-effective DeepSeek "Brain," effectively slashing our API costs to a mere fraction of standard Western vendors.
+This means we can use environment variable spoofing to surgically graft Claude Code—the world-class, terminal-controlling "Harness"—directly onto the immensely cost-effective DeepSeek "Brain," effectively slashing our API costs to a mere fraction of standard Western vendors. Note: this is an unofficial usage and compatibility may change with versions.
 
 Here is the complete, production-grade configuration pipeline required to pull off this heist.
 
@@ -148,41 +153,47 @@ Here is the complete, production-grade configuration pipeline required to pull o
 
 ### Step 1: Global Installation of Claude Code
 
-Execute the official installation command in your host terminal (if previously installed, update it now to ensure protocol compatibility):
+Execute the official installation command in your host terminal (official native script is preferred, npm is alternative):
 
 ```bash
+# Official recommended (preferred)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Or via npm (alternative, requires Node.js 18+)
 npm install -g @anthropic-ai/claude-code
 ```
 
 ### Step 2: Environment Variable Hijacking
 
-We must leverage OS environment variables to stealthily route Claude Code's network traffic to DeepSeek's relay servers, spoofing the model identifier at the exact millisecond the payload fires.
+We must leverage OS environment variables to route Claude Code's network traffic to a compatible proxy layer, specifying the model identifier at request time.
+
+> **⚠️ Important:** `https://api.deepseek.com/anthropic` is NOT an official stable Anthropic-compatible endpoint provided by DeepSeek. You must replace it with your own LiteLLM Proxy, Claude-to-OpenAI forwarding proxy, or other community-verified compatible layer address. The official DeepSeek endpoint `https://api.deepseek.com` primarily promotes OpenAI format. The example below uses a placeholder compatible proxy address — **please replace it with a real available proxy address** and use real DeepSeek model IDs (e.g., `deepseek-chat`, `deepseek-reasoner`).
 
 #### 🍏 macOS / Linux Users (Profile Injection)
 
-Open your `~/.zshrc` or `~/.bashrc` and append this "core-swapping matrix" to the bottom of the file:
+Open your `~/.zshrc` or `~/.bashrc` and append this configuration to the bottom of the file (**replace proxy address and model with real available values**):
 
 ```bash
 # =====================================================================
-# CLAUDE CODE <-> DEEPSEEK EXTRACTION TUNNEL
+# CLAUDE CODE + DEEPSEEK (via compatible proxy)
+# Note: ANTHROPIC_BASE_URL must point to an Anthropic-compatible proxy, not the official DeepSeek endpoint directly
 # =====================================================================
-# 1. Hijack the base gateway routing, connecting directly to DeepSeek's Anthropic-compliant endpoint
-export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+# 1. Hijack base gateway routing, pointing to compatible proxy (example address, replace with real proxy)
+export ANTHROPIC_BASE_URL=https://your-compatible-proxy.example.com/anthropic
 
-# 2. Inject your DeepSeek key, spoofing the Anthropic authentication token
+# 2. Inject your DeepSeek key (forwarded by proxy layer)
 export ANTHROPIC_AUTH_TOKEN="YOUR_DEEPSEEK_API_KEY_XXXXXXXX"
 
-# 3. Force full-module model spoofing (The Core Hijack Layer)
-export ANTHROPIC_MODEL=deepseek-v4-pro[1m]
-export ANTHROPIC_DEFAULT_OPUS_MODEL=deepseek-v4-pro[1m]
-export ANTHROPIC_DEFAULT_SONNET_MODEL=deepseek-v4-pro[1m]
+# 3. Model mapping (must use DeepSeek official real model IDs, [1m] suffix syntax not supported)
+export ANTHROPIC_MODEL="deepseek-chat"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-chat"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-chat"
 
-# 4. Route lightweight sub-agent tasks to the blazing-fast Flash model
-export ANTHROPIC_DEFAULT_HAIKU_MODEL=deepseek-v4-flash
-export CLAUDE_CODE_SUBAGENT_MODEL=deepseek-v4-flash
+# 4. Route lightweight sub-agent tasks to cost-effective model
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-chat"
+export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-chat"
 
-# 5. Maximize reasoning depth and disable API timeout constraints
-export CLAUDE_CODE_EFFORT_LEVEL=max
+# 5. Increase API timeout if needed
 export API_TIMEOUT_MS=600000
 ```
 
@@ -193,14 +204,14 @@ Save the file and run `source ~/.zshrc` to apply the magic instantly.
 If you operate in a Windows environment via Git Bash or PowerShell, execute the following script to permanently register the user-level system variables:
 
 ```powershell
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "https://api.deepseek.com/anthropic", "User")
+# Note: Replace BASE_URL with a real Anthropic-compatible proxy address
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "https://your-compatible-proxy.example.com/anthropic", "User")
 [System.Environment]::SetEnvironmentVariable("ANTHROPIC_AUTH_TOKEN", "YOUR_DEEPSEEK_API_KEY_XXXXXX", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_OPUS_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_SONNET_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_HAIKU_MODEL", "deepseek-v4-flash", "User")
-[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_SUBAGENT_MODEL", "deepseek-v4-flash", "User")
-[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_EFFORT_LEVEL", "max", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_OPUS_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_SONNET_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_HAIKU_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_SUBAGENT_MODEL", "deepseek-chat", "User")
 ```
 
 After execution, spawn a completely new PowerShell window for the variables to take effect.
@@ -221,6 +232,9 @@ While this hacker-style "bait-and-switch" elegantly slashes your API token bill 
 
 1. **Loss of Native Extended Thinking**: Claude Code is intricately tuned to parse the exact formatting of Claude's native `<thinking>` blocks. Even using the compatible endpoint, DeepSeek's internal reasoning chains may be truncated or improperly parsed by the harness. During exceptionally complex, multi-stage architectural reasoning, you may notice occasional semantic drift or "intelligence degradation."
 2. **Prompt Caching Overhead**: Claude Code heavily exploits Anthropic's native `cache_control` headers to achieve lightning-fast Time to First Token (TTFT) during massive, codebase-wide sessions. When spoofing the DeepSeek endpoint, if the relay's cache management isn't perfectly seamless, the latency after you press 'Enter' will stretch noticeably as the session history bloats.
-3. **The Escape Hatch**: If, during a massive, high-pressure system refactor, you realize the DeepSeek model has fallen into an irrecoverable logic loop regarding a niche framework, don't panic. Simply execute `unset ANTHROPIC_BASE_URL` in your terminal. This purges the hijacked routing variable; Claude Code will instantly revert to its true form, seamlessly reconnecting to Anthropic's premium, high-speed servers.
+3. **The Escape Hatch**: If, during a massive, high-pressure system refactor, you realize the DeepSeek model has fallen into an irrecoverable logic loop regarding a niche framework, don't panic.
+   * macOS/Linux (temporary): `unset ANTHROPIC_BASE_URL` — this only affects the current shell; you must also remove the persistent `export` lines from `~/.zshrc` / `~/.bashrc`.
+   * macOS/Linux (permanent): Delete the `export` lines added above from `~/.zshrc` / `~/.bashrc` and run `source ~/.zshrc`.
+   * Windows: Execute `[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", $null, "User")` to delete the user-level variable, and remove the other related variables from the System Environment Variables settings panel, then restart your terminal. Claude Code will instantly revert to its true form, seamlessly reconnecting to Anthropic's premium, high-speed servers.
 
 DeepSeek's raw intelligence might occasionally trail Anthropic's flagship models, but it is undeniably, spectacularly cheap. This is the exact configuration the author utilizes at home. Whenever the Google Antigravity Pro tier limits are exhausted, this Claude Code + DeepSeek chimera is immediately deployed as the ultimate, cost-effective substitute.
