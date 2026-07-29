@@ -75,10 +75,10 @@ AI 编程工具（如 Cursor、GitHub Copilot、Claude Code、Google Antigravity
 
 | Agent 通用组件架构 | 在 AI 编程工具中的具体实现 |
 | --- | --- |
-| **LLM（智力大脑）** | 底层接入的 Claude 3.5 Sonnet、OpenAI o1/o3、DeepSeek-R1 等前沿大模型 |
-| **Tools Messengers（动作手脚）** | 文件系统读写 API、终端命令行执行器、代码库语义搜索器、内置浏览器、Linter 静态检查工具 |
+| **LLM（智力大脑）** | 底层接入的 Claude 4 Sonnet / Opus 4、OpenAI o3/o4-mini、DeepSeek-V3/R1、Gemini 2.5 Pro 等前沿大模型 |
+| **Tools / Tool Use（动作手脚）** | 文件系统读写 API、终端命令行执行器、代码库语义搜索器、内置浏览器、Linter 静态检查工具 |
 | **短期记忆（Memory）** | 实时对话历史、当前被裁剪和拼接的上下文窗口（Context Window） |
-| **长期记忆（Knowledge）** | 项目全局配置文件（如 `.cursorrules`、`AGENTS.md`）、企业内部架构文档 |
+| **长期记忆（Knowledge）** | 项目全局配置文件（如 `.cursor/rules/*.mdc`、`.cursorrules` Legacy、`AGENTS.md`、`CLAUDE.md`）、企业内部架构文档 |
 | **规划能力（Planning）** | 工具内置的“Plan Mode”（在动手改代码前，先强制生成多步骤技术拆解方案） |
 | **感知能力（Perception）** | 全库向量索引、依赖树解析、抽象语法树（AST）动态分析 |
 | **评估能力（Evaluation）** | 自动化测试框架（如 Jest、Pytest）、代码编译器报错拦截 |
@@ -235,16 +235,16 @@ flowchart TD
 在当前的市场格局下，不同工具与背后模型的搭配呈现出明确的梯度特征：
 
 * **顶级推理/性能标杆 (高资费/固定月费)**
-* Anthropic Claude 系列 (Sonnet / Opus) ➔ 编程逻辑与高级推理性能最强
-* OpenAI 推理系列 (o1 / o3) ➔ 算法推演与长时思考能力顶尖
+* Anthropic Claude 系列 (Claude 4 Sonnet / Opus 4 / 4.1) ➔ 编程逻辑与高级推理性能最强
+* OpenAI 推理系列 (o3 / o4-mini) ➔ 算法推演与长时思考能力顶尖
 
 
 * **中端性价比均衡 (中等资费)**
-* Google Gemini 系列 (Pro / Flash) ➔ 超长上下文容纳力与慷慨的免费额度
+* Google Gemini 系列 (2.5 Pro / 2.5 Flash) ➔ 超长上下文容纳力与慷慨的免费额度
 
 
 * **绝对价格底线 (极低成本/地板价)**
-* DeepSeek 系列 (V4 / R1) ➔ 以极低的地板价成本提供媲美第一梯队的惊人编码表现
+* DeepSeek 系列 (V3 / R1) ➔ 以极低的地板价成本提供媲美第一梯队的惊人编码表现
 
 
 

@@ -160,11 +160,13 @@ CLAUDE.md 会被频繁加载，过长会稀释上下文。
 
 ### 隐藏技巧
 
-HTML 注释不会进入模型上下文：
+HTML 注释可存放仅人类阅读的备注：
 
 ```html
-<!-- 仅人类维护备注 -->
+<!-- 仅人类维护备注：此处规则需与架构组确认 -->
 ```
+
+> 实际会被加载并占用少量 Token，但模型通常会忽略其指令语义，适合存放简短的维护说明，避免写过长。
 
 
 
@@ -184,12 +186,17 @@ HTML 注释不会进入模型上下文：
 
 ### .claude/rules 路径规则
 
-```yaml
-paths:
-  - "src/api/*.ts"
+```markdown
+---
+paths: ["src/api/**/*.ts"]
+---
+
+# API 规则
+- DB 只能在 repository 层操作
+- 所有 API 必须经过认证中间件
 ```
 
-作用：按文件触发加载规则
+文件置于 `.claude/rules/api.md`，作用：当编辑匹配路径的文件时自动加载该规则。
 
 
 
@@ -240,11 +247,18 @@ Claude Code 会自动记录协作经验。
 ### 存储结构
 
 ```text
-~/.claude/projects/<project>/memory/
-├── MEMORY.md
-├── build-commands.md
-└── debugging.md
+# 项目本地记忆（路径中的项目名经编码，实际为 ~/.claude/projects/-{encoded-path}/）
+~/.claude/projects/<encoded-project-path>/
+├── memory/          # 对话摘要与经验存储
+└── ...
+
+# 用户全局记忆
+~/.claude/
+├── CLAUDE.md (全局)
+└── memory/ (如适用)
 ```
+
+> **注意：** 具体文件布局可能随版本迭代变化，请以 `claude /memory` 或官方文档为准。旧版示例中的 `MEMORY.md` / `build-commands.md` / `debugging.md` 分文件已过时，当前多为聚合存储。
 
 
 

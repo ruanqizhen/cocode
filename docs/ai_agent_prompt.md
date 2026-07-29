@@ -215,7 +215,8 @@ PROTECTED_PROCESSES = {
 **实现要点**：
 - 使用 `threading.Timer(minutes * 60, callback)` 在后台计时
 - `callback` 函数打印醒目提醒（使用 ANSI 颜色代码，或 `\a` 响铃符）
-- 尝试 `import win10toast`，可用时弹出 Windows 通知气泡；不可用时仅打印到控制台（优雅降级，不抛异常）
+- 尝试 `import win11toast` 或 `from plyer import notification`，可用时弹出 Windows 通知气泡；不可用时仅打印到控制台（优雅降级，不抛异常）
+  > 旧版 `win10toast` 已停止维护（Python 3.10+ 不兼容），推荐 `win11toast` 或 `plyer`
 - 立即返回 `"提醒已设置：将在 {minutes} 分钟后（{预计时间}）提醒您：{message}"`（非阻塞，立即返回）
 - `message` 长度限制：不超过 200 字符（网关层校验）
 ---
@@ -296,7 +297,7 @@ def dispatch_tool(func_name: str, args: dict) -> str:
 ```python
 """
 win_agent.py — Windows AI 系统命令助手
-依赖: pip install openai psutil win10toast（win10toast 为可选）
+依赖: pip install openai psutil （可选通知：pip install win11toast 或 plyer，win10toast 已停止维护，Python 3.10+ 不兼容）
 环境变量:
     DEEPSEEK_API_KEY  （必需）
     DEEPSEEK_BASE_URL （可选，默认 https://api.deepseek.com）

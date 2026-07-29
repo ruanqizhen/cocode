@@ -99,8 +99,10 @@ AI 只读取每个 Skill 顶部的 YAML 元数据（如 `name` 和 `description`
 
 Skill 分为两种作用域：
 
-* 用户级（全局技能）：`~/.config/claude/skills/` 或 `~/.claude/skills/`
-* 项目级（推荐）：`.claude/skills/`（随 Git 提交）
+* 用户级（全局技能）：`~/.claude/skills/`（个人所有项目生效）
+* 项目级（推荐）：`.claude/skills/`（随 Git 提交，团队共享）
+
+> **注意：** `~/.config/claude/skills/` 不是 Claude Code 的官方路径，仅 `~/.claude/skills/` 和 `.claude/skills/` 会被识别。
 
 每个 Skill 是一个独立文件夹：
 

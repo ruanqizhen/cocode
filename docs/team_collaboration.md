@@ -52,9 +52,9 @@ AI 编程引入了一个全新变量：每个开发者的 Prompt 习惯、对 AI
 ```plaintext
 project-root/
 ├── CLAUDE.md              # 项目级全局规则（声明架构意图、安全禁忌，对全员及AI生效）
-├── .cursorrules           # 针对 IDE 的强力校验规则与 Prompt 约束
-├── AGENTS.md              # 针对高权限自主 Agent（如 Cline/Aider）的防越权边界限制
-├── .ai-skills/            # 团队共享的指令库（沉淀好的 Agent 自动化测试/审查工作流）
+├── .cursor/rules/         # Cursor 新版规则目录（.mdc 文件，旧版 .cursorrules 已 Legacy）
+├── AGENTS.md              # 跨工具通用规则入口，针对高权限自主 Agent 的边界限制
+├── .claude/skills/        # 团队共享的 Skills 指令库（原 .ai-skills/，统一命名）
 ├── docs/
 │   ├── ARCHITECTURE.md    # 团队架构全景图（微服务边界、数据流向、公共 API 路由定义）
 │   └── PRODUCT.md         # 产品决策日志（只写 3 行：为什么当初没做 A 而是做了 B）
@@ -64,7 +64,7 @@ project-root/
 
 规则文件最怕“过期”。过期的规则会让 AI 持续生成带有历史毒性的幻觉代码。我们必须将更新规则作为代码合并的硬性卡点（DoD）：
 
-> 当项目新增了核心公共模块，或重构了基础组件后，负责该模块的开发者必须同步更新根目录的 `ARCHITECTURE.md` 与 `.cursorrules`。只有这样，下一个接手的人在唤醒 AI 时，才能拿到最新的世界观。
+> 当项目新增了核心公共模块，或重构了基础组件后，负责该模块的开发者必须同步更新根目录的 `ARCHITECTURE.md` 与 `CLAUDE.md` / `.cursor/rules/`。只有这样，下一个接手的人在唤醒 AI 时，才能拿到最新的世界观。
 
 ## 部署拦截防线
 
@@ -107,11 +107,13 @@ jobs:
 
       - name: 3. 安全漏洞与依赖包扫描 (SAST & SCA)
         # 极度重要：拦截 AI 幻觉引入的不存在包或带有 CVE 漏洞的旧依赖
+        # npm audit 默认高危会返回非零退出码，需确保 lockfile 存在
         run: npm audit --audit-level=high
 
       - name: 4. 运行单元测试并强制覆盖率 (Coverage > 80%)
         # 要求 AI 必须同步生成断言测试，低于 80% 机器直接打回
-        run: npx vitest run --coverage --coverage.thresholds.lines=80
+        # vitest 覆盖率阈值应在 vitest.config.ts 中配置 coverage.thresholds
+        run: npx vitest run --coverage
 ```
 
 只有当上述所有卡点亮起绿灯时，这份 AI 混编的代码才配进入人类 Reviewer 的视野。 此时，人类不再需要去抠语法错误，只需关注一件事：“验收卡满足了吗？系统架构被破坏了吗？”

@@ -58,7 +58,7 @@ Cursor 代表了经典的“AI 原生 IDE”流派，它高度依赖用户的视
 
 作为完全运行在终端的 Agent 异类，Claude Code 没有花哨的 UI 面板，它将上下文的收集权几乎完全交给了模型自己：
 
-* 按需感知：当你提出一个任务时，Claude Code 不会盲目去做全库 RAG，而是通过其集成的 `grep_search`（全局搜索）、`locate_files`（定位文件）和 `view_file`（查看文件）等专属工具，像一个真正的人类极客一样，在你的终端里翻阅代码，自己决定把哪些文件加入当前的上下文。
+* 按需感知：当你提出一个任务时，Claude Code 不会盲目去做全库 RAG，而是自主调用其工具集（如 `Grep` 全局搜索、`Glob` 文件定位、`Read` 文件读取、`Agent` 子代理探索等），像一个真正的人类极客一样，在你的终端里翻阅代码，自己决定把哪些文件加入当前的上下文。
 * 特点：无需人类费心去 `@` 文件。你只需要说出目标，它会自己在终端里把相关的上下文“侦察”出来。
 
 ### 3. Google Antigravity：基于超级长文本的“全量常驻与原生索引”
@@ -201,8 +201,8 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
 在日常高频开发中，对抗上下文腐烂最朴素、最高效的习惯就是“不要在一个会话里养老”。一旦发现 AI 开始出现理解偏差或反应变慢的苗头，毫不犹豫地开启一个全新的、干净的会话！
 
-* 在 Cursor 中：果断按下 `Ctrl/Cmd + N`，关闭老 Chat，在新窗口中直接 `@register.ts` 喂入切片状态：“这是刚才写好的最新代码，我们在这个基础上开发下一个登录接口。”
-* 在 Claude Code 中：在终端直接输入 `/compact` 强制触发音轨剪枝与历史摘要，或者直接输入 `/exit` 退出，重新敲击 `claude` 开启干净的进程。
+* 在 Cursor 中：点击 New Chat 或按下 `Cmd/Ctrl + L`（或 `Cmd/Ctrl + K` 唤起 Composer），关闭老对话，在新窗口中直接 `@register.ts` 喂入切片状态：“这是刚才写好的最新代码，我们在这个基础上开发下一个登录接口。”（注意：`Ctrl/Cmd + N` 是新建文件/窗口，并非新建 Chat）。
+* 在 Claude Code 中：在终端直接输入 `/compact` 强制触发上下文压缩与历史摘要，或者输入 `/clear` 清空对话，重新开启干净的进程。
 * 在 Google Antigravity 中：利用其 Tab 隔离机制，一键清空当前的虚拟推理会话沙盒，重新一键挂载基础上下文。
 
 
@@ -224,9 +224,9 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
 根据你团队选用的主流兵器，在根目录下配置对应的规则声明文件。记住，不要写成含糊、带有感性色彩的散文，必须是具体的、条件触发的、可验证的操作指令：
 
-* 如果你使用 Cursor：创建 `.cursorrules` 文件。
-* 如果你使用 Claude Code：创建 `.claudecode.json` 或在项目说明中配置系统级说明。
-* 如果你使用 Google Antigravity：创建 `.antigravity/rules.json` 工作区规范。
+* 如果你使用 Cursor：创建 `.cursor/rules/*.mdc` 规则文件（新版规范，旧版 `.cursorrules` 已标注为 Legacy 仍兼容）。
+* 如果你使用 Claude Code：创建项目根目录 `CLAUDE.md` 全局宪法，以及 `.claude/settings.json` 或 `.claude/settings.local.json` 本地配置；子目录可使用 `CLAUDE.md` 覆盖。
+* 如果你使用 Google Antigravity：参考官方最新文档配置工作区规则（AGENTS.md 为跨工具通用入口）。
 
 > 🟢 高可执行力规则示例：
 > “当需要处理接口报错时，禁止在当前函数中使用局部 `try-catch` 块拦截。必须显式抛出 `AppError`，或通过 `next(error)` 传递给全局错误拦截器。每次修改业务逻辑文件后，必须自动运行 `npm run test` 进行可用性对齐。”

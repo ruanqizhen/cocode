@@ -22,7 +22,7 @@ API 交互通常采用**对话历史数组**的形式。数组中的每一条消
 
 ### 超参数（Hyperparameters）
 
-* **`temperature`（温度值）**：控制输出的随机性与创造力。取值通常在 `0.0` 到 `2.0` 之间。
+* **`temperature`（温度值）**：控制输出的随机性与创造力，不同厂商支持范围不同：OpenAI 为 `0.0`–`2.0`，Anthropic Claude 和 DeepSeek 为 `0.0`–`1.0`。
 * 对于**编写代码、数据提取、格式化转换**等需要极度精准的场景，请务必将其设为 **`0.0` 或极低值（如 `0.1`）**，以确保输出稳定、逻辑严密。
 * 对于文案创作、头脑风暴，可以设为 `0.7` 或更高。
 
@@ -53,6 +53,8 @@ API 交互通常采用**对话历史数组**的形式。数组中的每一条消
 
 此时，你的本地代码解析器就可以闭着眼睛解析这段 JSON，在零人工干预的情况下精准地将原有代码替换掉。
 
+> **如何开启 JSON Mode：** 不同厂商实现方式不同。OpenAI 需在请求中设置 `response_format={"type":"json_schema","json_schema":{...}}` 或 `{"type":"json_object"}`；Anthropic 可通过 Tool Use 返回结构化数据或在新版 SDK 中设置结构化输出；Google Gemini 需在 `GenerateContentConfig` 中配置 `response_mime_type="application/json"` 和 `response_schema`。否则仅描述期望格式，大模型仍可能输出解释性废话。
+
 ### 工具调用 (Tool Use / Function Calling)
 
 这是智能体（Agent）的核心灵魂，也是 Cline、Windsurf 等工具能够“自主操控电脑”的底层原理。
@@ -61,7 +63,7 @@ API 交互通常采用**对话历史数组**的形式。数组中的每一条消
 
 1. **开发者“赋能”**：你在调用 API 时，在参数中向 AI 声明：“亲爱的模型，我这里有两个本地工具供你调度：一个是 `read_file(path)`，一个是 `run_command(cmd)`。我把它们的参数格式和用途都解释给你听。”
 2. **AI“做决定”**：AI 读完后，发现你的要求是“帮我把当前目录下所有 `.js` 文件的第一行加上版权声明”。AI 分析后认为需要先读取文件，于是它**不返回普通文本**，而是返回一个特殊的“调用申请”：*“我想调用 `run_command` 工具，参数是 `ls`。”*
-3. **人类/程序“代为跑腿”**：你的本地包装程序截获了这个“调用申请”，在你的电脑上安全地运行了 `ls` 命令，捕获了输出（比如得到了 `index.js` 和 `utils.js`），然后**将运行结果作为一条新的 `user` 消息再次发给 AI**。
+3. **人类/程序“代为跑腿”**：你的本地包装程序截获了这个“调用申请”，在你的电脑上安全地运行了 `ls` 命令，捕获了输出（比如得到了 `index.js` 和 `utils.js`），然后**将运行结果作为特定角色的 tool 消息返还给 AI**（OpenAI 需用 `role: "tool"` + `tool_call_id`，Anthropic 需在 `user` 消息中放入 `tool_result` 内容块，Google 需用 `role: "tool"` 的 `functionResponse`）。
 4. **AI“继续决策”**：AI 拿到了运行结果，接着发起下一次调用申请（比如调用 `read_file` 读取 `index.js`），循环往复，直到最终完成任务。
 
 ```mermaid
@@ -138,7 +140,7 @@ from openai import OpenAI
 client = OpenAI()
 
 response = client.chat.completions.create(
-    model="gpt-5.4-mini",
+    model="gpt-4o-mini",
     temperature=0.0,
     messages=[
         {"role": "system", "content": "你是一位精通算法的资深教练。"},
@@ -160,7 +162,7 @@ import OpenAI from "openai";
 const openai = new OpenAI();
 
 const response = await openai.chat.completions.create({
-  model: "gpt-5.4-mini",
+  model: "gpt-4o-mini",
   temperature: 0.0,
   messages: [
     { role: "system", content: "你是一位精通算法的资深教练。" },
@@ -171,6 +173,7 @@ const response = await openai.chat.completions.create({
 console.log(response.choices[0].message.content);
 
 ```
+> **注意：** 上述 Node.js 示例使用了顶层 `await`，需在 `package.json` 中设置 `"type": "module"` 或使用 `.mjs` 扩展名，或包裹在 `(async () => { ... })()` 异步函数中。
 
 ---
 
@@ -187,7 +190,7 @@ from anthropic import Anthropic
 client = Anthropic() # 默认读取 ANTHROPIC_API_KEY
 
 message = client.messages.create(
-    model="claude-3-5-sonnet-latest", 
+    model="claude-sonnet-4-0", 
     max_tokens=2048,
     temperature=0.0,
     system="你是一位严苛的软件安全审计专家。",
@@ -240,13 +243,14 @@ import os
 from openai import OpenAI
 
 # 实例化 client 并直接指向 DeepSeek 官方端点
+# DeepSeek 官方 base_url 为 https://api.deepseek.com，SDK 会自动拼接 /v1
 client = OpenAI(
-    base_url="https://api.deepseek.com/v1",
+    base_url="https://api.deepseek.com",
     api_key=os.environ.get("DEEPSEEK_API_KEY")
 )
 
 response = client.chat.completions.create(
-    model="deepseek-v4-flash",  
+    model="deepseek-chat",  
     temperature=0.0,
     messages=[
         {"role": "system", "content": "你是一位极致精简的极客导师，不吐废话。"},

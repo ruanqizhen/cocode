@@ -100,8 +100,10 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import sqlite3 from "sqlite3";
 
-// 1. 初始化数据库
-const db = new sqlite3.Database("./local_users.db");
+// 1. 初始化数据库（建议使用绝对路径，避免 cwd 不确定导致找不到文件）
+import path from "path";
+const dbPath = path.resolve(process.cwd(), "local_users.db");
+const db = new sqlite3.Database(dbPath);
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT UNIQUE NOT NULL, role TEXT DEFAULT 'developer')`);
 });
@@ -130,9 +132,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
 
   if (name === "query_database") {
-    const sql = args?.sql as string;
-    if (!sql.toLowerCase().trim().startsWith("select")) {
-      return { content: [{ type: "text", text: "错误: 仅允许执行 SELECT 语句。" }], isError: true };
+    // 空值校验
+    if (typeof args?.sql !== 'string' || !args.sql.trim()) {
+      return { content: [{ type: "text", text: "缺少 sql 参数或参数为空。" }], isError: true };
+    }
+    const sql = args.sql as string;
+    // 仅允许 SELECT（注意：生产环境需更严格的防注入，仅作示例；单分号多语句需拦截）
+    const trimmed = sql.toLowerCase().trim();
+    if (!trimmed.startsWith("select") || /;\s*(drop|delete|update|insert|alter|create)\s/i.test(sql)) {
+      return { content: [{ type: "text", text: "错误: 仅允许执行单条 SELECT 语句，禁止多语句及危险关键字。" }], isError: true };
     }
     return new Promise((resolve) => {
       db.all(sql, [], (err, rows) => {
@@ -145,9 +153,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 // 5. 启动服务 (Stdio)
+// 注意：Node.js 示例使用顶层 await，需在 package.json 设置 "type": "module" 或使用 tsx 运行时
+// 若为 CommonJS，请包在 async IIFE 中：(async () => { const transport = ...; await server.connect(transport); })();
 const transport = new StdioServerTransport();
 await server.connect(transport);
 console.error("SQLite MCP Server 已启动！");
+
+// > 提示：新版 MCP SDK 推荐使用高层 McpServer + registerTool API：
+// > import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+// > const server = new McpServer({name:"sqlite-mcp-server", version:"1.0.0"});
+// > server.registerTool("query_database", {description:"...", inputSchema:{sql:z.string()}}, async ({sql})=>({...}));
 
 ```
 
@@ -156,9 +171,10 @@ console.error("SQLite MCP Server 已启动！");
 如果你偏好 Python 生态，可以使用官方提供的 `mcp` 库：
 
 ```bash
-pip install mcp sqlite3
+pip install "mcp[cli]"
 
 ```
+> **注意：** `sqlite3` 是 Python 标准库内置模块，无需通过 pip 单独安装。
 
 编写 `server.py`：
 

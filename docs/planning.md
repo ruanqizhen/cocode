@@ -80,9 +80,9 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    A[任务粒度选择] --> B(过细任务 < 15分钟)
-    A --> C((甜蜜区间 30分钟 - 2小时))
-    A --> D(过大任务 > 2小时)
+    A[任务粒度选择] --> B("过细任务 < 15分钟")
+    A --> C(("甜蜜区间 30分钟 - 2小时"))
+    A --> D("过大任务 > 2小时")
     
     B --> B1["协调开销 > 收益<br/>(上下文碎片化/频繁交互)"]
     C --> C1["40% 上下文法则<br/>(稳定高质输出 / 明确完成信号)"]
@@ -158,24 +158,30 @@ graph TD
 
 ## Tasks API：原生的工程化任务追踪
 
-在 2026 年，以 Claude Code v2.1+ 为代表的前沿工具引入了原生的 **Tasks API**。它允许把任务列表作为独立的、带有明确验收标准的文件进行管理，并自动识别依赖关系。当系统识别到“先实现 API 路由，再添加前端调用”这类描述后，会自动在前端任务上标注 `blockedBy: "API 路由"`。
+在 2026 年，以 Claude Code v2.1+ 为代表的前沿工具引入了原生的 **Tasks API**。它允许把任务列表作为独立的、带有明确验收标准的文件进行管理，并自动识别依赖关系。系统会在任务元数据中标注依赖关系，例如 `blockedBy: ["task-id-3"]`（任务 ID 数组，而非中文描述）。
 
-以下是在 Claude Code 中使用 Tasks API 进行跨 Session 追踪的标准工作流：
+以下是在 Claude Code 中使用 Tasks API 进行跨 Session 追踪的标准工作流（Tasks 为实验性/预览功能，API 可能变动，请以官方最新文档为准）：
 
 ```bash
-# 1. 创建结构化任务列表（从 Spec 需求文件自动解析并生成）
-claude "/plan 按照 docs/specs/email-digest.md 生成任务列表，每个任务包含描述、验收标准、依赖关系及可否并行"
+# 1. 创建结构化任务列表（在 Claude Code 交互会话内）
+# 进入 claude 交互后执行：
+/plan 按照 docs/specs/email-digest.md 生成任务列表，每个任务包含描述、验收标准、依赖关系及可否并行
 
-# 2. 导出任务列表 ID 以便跨 Session 或团队协作共享
-export CLAUDE_CODE_TASK_LIST_ID="email-digest-2026-06"
+# 或非交互模式
+claude -p "按照 docs/specs/email-digest.md 生成任务列表，每个任务包含描述、验收标准、依赖关系"
+
+# 2. 任务列表文件通常位于 .claude/tasks/ 目录，Claude Code 会自动发现
+# 如需指定任务列表，可使用 --task-list 参数（以官方最新 CLI 为准）
+claude --task-list email-digest-2026-06 -p "继续执行下一个未完成且无阻塞的任务"
 
 # 3. 在全新的 Session 中继续执行任务
-# Claude Code 会自动读取任务列表，并从当前未被阻塞（unblocked）的任务开始执行
-claude "/work 继续执行任务列表，从下一个未完成且无阻塞的任务开始"
+# Claude Code 会读取任务列表，并从未被阻塞（unblocked）的任务开始执行
 
-# 4. 实时查看当前任务进度与阻塞状态
-claude "/tasks"
+# 4. 实时查看当前任务进度与阻塞状态（交互会话内）
+# /tasks
 ```
+
+> **注意：** `claude "/plan ..."`、`claude "/work"`、`claude "/tasks"` 并非有效的 CLI 命令；`/plan`、`/tasks` 等是 Claude Code 交互会话内的斜杠命令。`CLAUDE_CODE_TASK_LIST_ID` 环境变量用法未在官方公开文档中稳定存在，请优先使用文件系统中的 `.claude/tasks/<id>.json`。
 
 
 ## 核心模板规范

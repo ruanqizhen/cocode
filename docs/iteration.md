@@ -71,7 +71,7 @@ Web 环境下的数字资产是“活”的。面对大模型超凡的生成速�
 
 一本能吸引 18-35 岁硬核读者的电子书，必须具备顶级的视觉冲击力。我们利用 AI 帮我们完成从“设计图纸”到“前端嵌入”的闭环。
 
-1. 生成设计提示词（Midjourney/DALL-E 4）：
+1. 生成设计提示词（Midjourney/DALL-E 3 / GPT Image）：
 我们对 AI 说：*“基于《消散的终点》这种都市外卖员、克苏鲁、规则入侵的风格，为我生成一段用于 AI 绘图工具的英文黄金提示词。”*
 > AI 产出：*“An urban cyberpunk cyberpunk street, a Chinese delivery rider standing under giant glowing eldritch neon signs, rule-怪谈 horror atmosphere, hyper-detailed, neon green and deep black twilight, 8k resolution, book cover composition --ar 3:4”*
 
@@ -124,7 +124,7 @@ export const CollapsiblePreface = () => {
 | :--- | :--- | :---: |
 | 三体文明第一观测员 | “在这个故事里，人类竟然试图用代码和外卖订单去对抗高维叙事规则。这完全不是虫子的行为。建议立刻对其发射二向箔，以示最高敬意。” | ⭐⭐⭐⭐⭐ |
 | 朝阳区外卖大联盟 | “肖山同志的遭遇完美解释了为什么我们有时候送单会超时。这不是由于交通堵塞，而是因为配送系统被旧日支配者热更新了。同行必读！” | ⭐⭐⭐⭐⭐ |
-| 匿名高维克苏鲁代理 | “文字的触手隐藏在 Docusaurus 的每个 HTML 标签后面。当我读到第 15 章时，我的不可名状感知力直接触发了浏览器的 `LocalStorage` 溢出。” | ⭐⭐⭐⭐✨ |
+| 匿名高维克苏鲁代理 | “文字的触手隐藏在 Docusaurus 的每个 HTML 标签后面。当我读到第 15 章时，我的不可名状感知力直接触发了浏览器的 `localStorage` 溢出。” | ⭐⭐⭐⭐✨ |
 | 传统文学考据专家 | “胡闹！这根本不是传统类型学小说的写法！但在有了全自动 CI/CD 自动部署后，它更新和自我修正的速度让我怀疑作者根本不是人类。” | ⭐⭐⭐⭐⭐ |
 
 ```
@@ -170,7 +170,7 @@ describe('countChineseWords 核心契约测试', () => {
   });
 
   it('在中英文混合且包含 Markdown 符号时应当精准剔除噪声', () => {
-    expect(countChineseWords('# Hello 这是一个 强设定 网文')).toBe(8);
+    expect(countChineseWords('# Hello 这是一个 强设定 网文')).toBe(9);
   });
 
   it('遇到纯英文、空格或空字符串时应当优雅返回 0', () => {

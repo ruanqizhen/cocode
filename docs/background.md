@@ -175,10 +175,7 @@ graph LR
 
 为了解决这个问题，现代深度学习采用了类似于高维级数分解的方法——将一个无法直视的复杂函数拆解为数十亿、上万亿个极其简单的基础函数的线性与非线性叠加。
 
-在大语言模型中，这个扮演“底层积木”的角色通常是极其简单的 ReLU（线性整流函数）或者是其变体（如 SwiGLU）。
-
-
-$$\text{ReLU}(x) = \max(0, x)$$
+在大语言模型中，扮演“底层积木”的角色通常是简单的非线性激活单元，如 ReLU（线性整流函数，$\text{ReLU}(x) = \max(0, x)$）、GELU、Swish 及其门控变体如 SwiGLU、GEGLU 等。SwiGLU 并非 ReLU 的直接变体，而是基于 Swish 的门控线性单元（Swish-Gated Linear Unit）。
 
 ```mermaid
 graph LR

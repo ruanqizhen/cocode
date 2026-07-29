@@ -135,7 +135,7 @@ flowchart TD
 
 ### 自动化代码生成 Master Prompt
 
-在实际开发中，我们可以利用以下结构化的高级提示词（Prompt），驱动大模型一次性生成上述 Windows 系统命令助手的完整生产级单文件源码。这篇提示词比较长，因为包含了细节说明。我们把这篇提示词单独放到了[附录](ai_agent_prompt)中，方便查看。
+在实际开发中，我们可以利用以下结构化的高级提示词（Prompt），驱动大模型一次性生成上述 Windows 系统命令助手的完整生产级单文件源码。这篇提示词比较长，因为包含了细节说明。我们把这篇提示词单独放到了[附录](./ai_agent_prompt.md)中，方便查看。
 
 不要觉得这么长的提示词不好写，其实它也是 AI 帮我们生成的。我们可以把最初的模糊需求提给 AI，让它来生成详细的提示词。然后我们在 AI 生成的提示词的基础上，根据需要进行修改和优化。这个过程可以反反复复进行，直到我们对 AI 生成的提示词感到满意。
 
@@ -154,14 +154,18 @@ flowchart TD
 2. 双击打开安装包，在安装界面底部**务必勾选 "Add python.exe to PATH"**（将 Python 添加到系统环境变量），然后点击 "Install Now" 完成安装。
 
 #### 2. 准备代码文件
-把 AI 生成的代码拷贝到文本文件中，另存为 `win_agent.py`。我们在附录中也存放了一份 AI 生成的代码：[AI Agent 完整源码](ai_agent_code)，同样可以复制，并在你的电脑上新建一个名为 `win_agent.py` 的文本文件，将代码粘贴进去保存。
+把 AI 生成的代码拷贝到文本文件中，另存为 `win_agent.py`。我们在附录中也存放了一份 AI 生成的代码：[AI Agent 完整源码](./ai_agent_code.md)，同样可以复制，并在你的电脑上新建一个名为 `win_agent.py` 的文本文件，将代码粘贴进去保存。
 
 #### 3. 安装依赖库
 打开命令行工具（如 PowerShell 或命令提示符 CMD），运行以下命令安装脚本所需的第三方库：
 ```bash
-pip install openai psutil win10toast
+pip install openai psutil
+# 可选：Windows 通知支持（win10toast 已停止维护，Python 3.10+ 不兼容，推荐以下替代）
+pip install win11toast
+# 或
+pip install plyer
 ```
-*(注：`win10toast` 用于 Windows 系统通知。如果在安装中遇到网络或兼容性问题，该依赖并非绝对必需，不安装也不影响 Agent 核心功能运行。)*
+*(注：`win11toast` / `plyer` 用于 Windows 系统通知气球。如果安装遇到网络或兼容性问题，该依赖并非必需，不安装也不影响 Agent 核心功能运行。旧版 `win10toast` 已于 2020 年后停止维护，在新版 Python 上会报错，请勿使用。)*
 
 #### 4. 配置 API Key 并运行
 由于该 Agent 基于大模型运行，你需要准备一个 DeepSeek API Key。

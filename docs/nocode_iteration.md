@@ -90,7 +90,7 @@ flowchart TD
 #### 0. 初始化项目
 ```text
 创建一个 3D 低多边形飞行射击游戏，单文件 HTML。
-使用 Three.js，并通过 importmap CDN 引入。
+使用 Three.js，并通过 importmap CDN 引入（需先引入 es-module-shims 兼容层：<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>，再使用 <script type="importmap"> 引入 three）。
 玩家飞机位于屏幕中央偏下，可左右上下移动，并自动向前飞行。
 相机跟随在飞机后上方。
 加入星空背景与地面网格。
@@ -218,6 +218,8 @@ Three.js 使用 CDN importmap 引入。
 
 下面是我的 AI 生成的结果：（[结果演示](https://artifacts.meta.ai/share/a/1e9a1aac-d6d4-43bf-99b2-dd7c00fef3d6?utm_source=meta_ai_web_share_copy_link&utm_medium=share&utm_campaign=ecto_share)）
 
+> **⚠️ 注意：** 上述为 Meta AI 临时分享链接，通常 30–90 天后失效或需登录才能访问，不适合作为永久演示。建议将最终 HTML 归档到你自己的 GitHub Pages（如 `https://你的用户名.github.io/项目名/`）并提供持久链接，或附上二维码、截图备份。
+
 
 ## 修改错误
 
@@ -254,9 +256,11 @@ graph LR
 
 ### 善用 “Tailwind CSS” 美化界面
 
-AI 默认生成出来的网页，如果不加任何限制，通常是非常粗糙的经典蓝白底色（俗称“直男审美”）。如果在提示词最后加上一句：“请使用 Tailwind CSS 来美化整个界面，采用精致优雅的暗黑模式（Dark Mode），并在按钮上加上平滑的悬浮缩放动画（Hover Scale）。”那么页面的质感就会瞬间提升一个档次。
+AI 默认生成出来的网页，如果不加任何限制，通常是非常粗糙的经典蓝白底色（俗称“直男审美”）。如果在提示词最后加上一句：“请使用 Tailwind CSS v4（通过 `<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>` 引入，或指定 v3 使用 `https://cdn.tailwindcss.com`）来美化整个界面，采用精致优雅的暗黑模式（Dark Mode），并在按钮上加上平滑的悬浮缩放动画（Hover Scale）。”那么页面的质感就会瞬间提升一个档次。
 
 Tailwind CSS 是一个现代化的界面排版工具，AI 对其极其熟悉。只要有了这句约束，AI 吐出来的网页质感就会瞬间跃迁，直接呈现出科技感拉满的“大厂产品级”观感。
+
+> **注意：** Tailwind v3 CDN 为 `https://cdn.tailwindcss.com`，v4 推荐 `https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4`，旧 CDN 在 v4 可能失效。若模型仍输出旧引入方式，需手动替换。
 
 
 ### 不要一开始就触碰数据库与服务器

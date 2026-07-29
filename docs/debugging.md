@@ -131,8 +131,9 @@ AI 给出的正确防范方案（原子扣减与排他锁）：
 export async function createOrder(userId: string, totalPrice: number) {
   return await prisma.$transaction(async (tx) => {
     // 1. SELECT FOR UPDATE 强行锁住当前钱包行
+    // 注意：Prisma 的 Decimal 类型需转为 Number 再比较
     const wallet = await tx.$queryRaw<any[]>`SELECT * FROM "Wallet" WHERE "userId" = ${userId} FOR UPDATE`;
-    if (!wallet[0] || wallet[0].balance < totalPrice) throw new Error("余额不足");
+    if (!wallet[0] || Number(wallet[0].balance) < totalPrice) throw new Error("余额不足");
 
     const newOrder = await tx.order.create({ /* ... */ });
 
@@ -165,24 +166,42 @@ app.use((req, res, next) => {
 ```
 
 赛博小黄鸭诊断推演：
-AI 迅速识别出这是“典型的事件监听器闭包逃逸与静态数组引用残留引起的内存泄漏”，并给出了利用 V8 引擎垃圾回收机制的高级解法。
+AI 迅速识别出这是“典型的事件监听器闭包逃逸与静态数组引用残留引起的内存泄漏”，并给出了修复思路。
 
-AI 给出的优雅方案（WeakMap 弱引用）：
+**注意：WeakMap 的适用边界**  
+若需求仅是“附着元数据且无需遍历/统计”，可用 WeakMap，其键为弱引用，req 销毁时元数据自动被 GC：
 
 ```typescript
 import { Request, Response, NextFunction } from 'express';
 
-// ✅ 使用 WeakMap 关联请求对象
-// 当 req 对象生命周期结束被销毁时，WeakMap 中的元数据会自动被垃圾回收机制 (GC) 释放
+// ✅ 使用 WeakMap 关联请求对象（适用于无需遍历/计数的附着元数据）
 const requestMetadata = new WeakMap<Request, { timestamp: number }>();
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   requestMetadata.set(req, { timestamp: Date.now() });
-
   res.on('finish', () => {
-    // 此时无需手动 delete，杜绝了人为遗漏导致的内存泄漏
+    // 无需手动 delete
   });
   next();
 });
+
+```
+
+但若原需求是“监控待处理请求列表/数量”，WeakMap **不可迭代、无法获取长度**，不能替代数组的统计功能，正确修复应为在 `finish` / `close` 事件中显式移除：
+
+```typescript
+const pendingRequests: { req: Request; timestamp: number }[] = [];
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const entry = { req, timestamp: Date.now() };
+  pendingRequests.push(entry);
+  const cleanup = () => {
+    const idx = pendingRequests.indexOf(entry);
+    if (idx !== -1) pendingRequests.splice(idx, 1);
+  };
+  res.on('finish', cleanup);
+  res.on('close', cleanup);
+  next();
+});
+```
 
 ```

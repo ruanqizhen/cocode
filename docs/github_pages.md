@@ -160,7 +160,7 @@ flowchart TD
 1. 登录 GitHub 后，点击页面右上角的 **`+`** 号图标，选择 **New repository**（新建仓库）。
 2. **Repository name (仓库名称)**：**这里有一个非常关键的“隐藏彩蛋”！** 请务必精准输入：`你的用户名.github.io`（例如你的 GitHub 用户名是 `tom`，那么这里就填写 `tom.github.io`）。
 3. **Description (描述)**：可以简单写一句介绍（选填），例如“我的 AI 定制个人主页与社交导航”。
-4. **Public/Private**：**必须勾选 Public (公开)**！免费账户只有将仓库设置为 Public，GitHub 才会允许我们开启 GitHub Pages 网站发布服务。如果设为 Private，别人将无法访问你的网页。
+4. **Public/Private**：建议选择 **Public（公开）**。历史版本中 Free 账户需 Public 才能启用 Pages，但自 2023 年起 Free 账户也可从 Private 仓库发布 Pages（页面本身仍是公开可访问的）。对于个人主页，Public 更易管理、且利于展示。若需隐私，可选 Private，但注意：无论仓库是 Public 还是 Private，最终生成的 Pages 网站都是**公开互联网可访问**的，并非私有站点。
 5. **Initialize this repository with**：勾选 **Add a README file**（添加自述文件）。这一步非常重要，它能帮我们自动初始化仓库环境。
 6. 滑动到页面最下方，点击绿色的 **Create repository**（创建仓库）按钮。
 
@@ -198,9 +198,11 @@ flowchart TD
 
 1. 在仓库顶部的一排功能标签中，点击最右侧的 ⚙️ **Settings**（设置）。
 2. 在左侧的导航栏中向下滚动，找到 **Code and automation** 栏目下的 🌐 **Pages** 选项，点击进入。
-3. 在 **Build and deployment** 部分，找到 **Source** 选项，默认应为 **Deploy from a branch**。
-4. 在下方的 **Branch** (分支) 下拉菜单中，**检查是否已默认选择好了 `main`**（某些老旧账户可能是 `master`）以及旁边的 `/ (root)`。由于我们在前几步创建仓库时勾选了添加自述文件，GitHub 通常会自动为你配置好这里。如果它依然显示为 `None`，请手动点击修改为 **`main`**。
+3. 在 **Build and deployment** 部分，找到 **Source** 选项。2024 年后 GitHub 的默认选项可能是 **GitHub Actions**（使用 Workflow 部署），若你想使用传统的分支部署，请手动切换 Source 为 **Deploy from a branch**。
+4. 在下方的 **Branch** (分支) 下拉菜单中，**检查是否已选择 `main`**（某些老旧账户可能是 `master`）以及旁边的 `/ (root)`。由于我们在前几步创建仓库时勾选了添加自述文件，通常会自动配置好这里。如果它显示为 `None`，请手动修改为 **`main`**。
 5. 点击右侧的 **Save** (保存) 按钮。
+
+> **💡 新版说明：** 若 Source 为 GitHub Actions，GitHub 会通过 `.github/workflows/pages.yml` 或选择模板自动部署，功能更强且支持自定义构建，效果与分支模式等价。可按向导选择静态站点模板。
 
 
 ## 第六步：获得你的专属网站链接
@@ -246,4 +248,6 @@ flowchart TD
 作为参考，我的个人主页也是使用类似的 AI 提示词生成，并在后续不断微调完成的。
 
 * **主页预览**： [https://qizhen.xyz/](https://qizhen.xyz/)
-* **开源源码**： [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen)
+* **开源源码**： [https://github.com/ruanqizhen/ruanqizhen.github.io](https://github.com/ruanqizhen/ruanqizhen.github.io)（用户站点仓库，符合 `username.github.io` 命名规范）
+
+> **澄清：** `ruanqizhen/ruanqizhen` 是 GitHub Profile 特殊仓库（用于展示个人主页 README 的介绍页），而真正的 Pages 用户站点仓库名为 `ruanqizhen.github.io`。若使用自定义域名（如 `qizhen.xyz`），需在 Pages 设置中配置 Custom domain 并添加 CNAME 文件或 DNS 解析。

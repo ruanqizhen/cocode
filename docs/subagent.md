@@ -80,10 +80,12 @@ graph TD
 
 | 内置子 Agent 名称 | 底层默认调用模型 | 核心功能权限 | 自动触发的技术场景 |
 |  |  |  |  |
-| Explore | Haiku / Flash | 绝对只读（仅开放 Grep、Glob、Read 权限） | 当你询问“查查项目中哪里还在调用老版 Docusaurus 接口”等快速全库语义搜索时。 |
+| Explore | Haiku | 绝对只读（仅开放 Grep、Glob、Read 权限） | 当你询问“查查项目中哪里还在调用老版 Docusaurus 接口”等快速全库语义搜索时。 |
 | Plan | 继承主模型智力 | 绝对只读（专注于语法树 AST 与架构依赖分析） | 当你配合上一章学到的 SPET 方法论，引导工具进入“Plan Mode”制定技术图纸时。 |
 | General-purpose | Sonnet | 读写全开（允许 Write 文件与运行 Bash 终端测试） | 当面对需要跨文件大面积改写代码、并伴随自愈排错的综合攻坚任务时。 |
 | Claude Code Guide | 轻量级专门模型 | 零本地权限（仅具备官方技术文档知识库） | 当你直接在终端向工具询问关于它自身的配置、MCP 协议怎么接等工具链使用疑问时。 |
+
+> **说明：** Claude Code 的模型分层为 Haiku / Sonnet / Opus，Flash 为 Gemini 系列模型名称，其他工具（如 Cursor / Antigravity）可能选用 Flash 等同档位模型，此处以 Claude 体系表述为准。
 
 当你在使用终端 AI 工具时，如果看到控制台不断闪烁出 `[Dispatching Subagent...]`（正在分派子代理）的提示时，请不要惊慌，这正是工具的神经系统正在为你做高纯度的上下文隔离优化。
 

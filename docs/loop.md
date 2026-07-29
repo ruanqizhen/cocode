@@ -32,9 +32,11 @@
 2025 年，开发者 Geoffrey Huntley 仅用一行 Bash 脚本，就开发了一个完整的编程语言项目，耗费了 297 美元 API 费：
 
 ```bash
-while :; do cat PROMPT.md | claude; done
+while :; do cat PROMPT.md | claude -p; done
 
 ```
+
+> **说明：** `claude` 默认进入交互式 TUI，若需从 stdin / 管道读取提示词，需加 `-p`（print / 非交互模式），否则会卡在交互界面。
 
 这个看似简陋得离谱的“Ralph Loop”，实则极其精妙：
 
@@ -60,8 +62,8 @@ Harness（基座工程）解决的是“单次做对”，而 Loop 解决的是�
 
 要设计一个不会无限空耗 Token 的健壮 Loop，需要巧妙组合以下架构模块：
 
-1. Automations（自动化/调度）：循环的心跳。通过 `/loop` 命令、Cron 定时任务、Webhook 等方式设定启动节奏。例如 Claude Code 产品化的命令：`/loop 5m babysit all my PRs`（每 5 分钟检查一次 PR 并自动修复）。
-2. Worktrees（工作树）：解决多 Agent 并行冲突。让 Agent 在隔离的 Git 分支目录中执行，共享历史却互不干扰。
+1. Automations（自动化/调度）：循环的心跳。通过 Cron 定时任务、Webhook 或自定义 Skill 实现的定时检查等方式设定启动节奏。例如“每 5 分钟检查一次 PR 并自动修复”（可通过 Cron 任务或 `/tasks` + 自动化脚本实现，`/loop` 并非 Claude Code 内置产品化命令）。
+2. Worktrees（工作树）：解决多 Agent 并行冲突。让 Agent 在隔离的 Git 分支目录中执行，共享历史却互不干扰（Claude Code 中通过 EnterWorktree 工具或 `git worktree` 实现隔离，而非 `--worktree` CLI flag）。
 3. Skills（技能）：固化领域知识与边界护栏。
 4. Connectors / MCP（连接器）：连接外部世界的触角，接入 Issue 看板、API 或 Slack。
 5. Sub-agents（子智能体）：实现角色分离。让一个 Agent 负责写代码（Maker），另一个独立 Agent 负责挑刺（Checker），形成质量控制机制。
@@ -98,30 +100,36 @@ touch wiki/_changelog.md raw/_registry.md log/loop-run.log CLAUDE.md
 
 ### 3. 配置双 Agent 校验（角色分离）
 
-利用 Claude Code 多会话能力，编写 `scripts/compile-loop.sh` 杜绝“自审自改”：
+利用 Claude Code 多会话与 Worktree 隔离能力，编写 `scripts/compile-loop.sh` 杜绝“自审自改”：
 
 ```bash
 #!/bin/bash
-# 1. Maker 执行内容编译
-claude "@compile.md" --worktree=worktree/maker
+# 1. Maker 执行内容编译（通过 EnterWorktree 或 git worktree 隔离）
+# 先创建隔离工作区：git worktree add worktree/maker -b maker-work && cd worktree/maker
+claude -p "根据 .claude/skills/compile/SKILL.md 编译知识库内容"
 
-# 2. 独立 Verifier 执行强力校验
-claude "按照 CLAUDE.md 校验 Wiki 词条关联与内容完整性，输出问题清单" --worktree=worktree/verifier
+# 2. 独立 Verifier 执行强力校验（另一隔离工作区）
+# git worktree add worktree/verifier -b verifier-work && cd worktree/verifier
+claude -p "按照 CLAUDE.md 校验 Wiki 词条关联与内容完整性，输出问题清单"
 
 ```
+
+> **修正说明：** 原示例中的 `claude "@compile.md" --worktree=...` 并非真实 CLI 语法，`--worktree` flag 不存在，`@` 引用 Skill 的写法也非官方。正确方式是通过 `git worktree` 隔离目录 + `claude -p "提示"` 或交互式 `/skills` 调用。
 
 ### 4. 搭建自动化调度（Automation）
 
 配置 Linux/Mac 的 Crontab，实现每日早晨 6:03 自动触发全流程：
 
 ```bash
-# 终端手动测试命令：
-claude "/loop run triage then compile then briefing --worktree=worktree"
+# 终端手动测试命令（进入项目目录后，执行完整流水）
+cd /home/YOU/knowledge-base && claude -p "执行 triage -> compile -> briefing 流水线"
 
-# Crontab 自动调度：
-3 6 * * * cd /绝对路径/knowledge-base && claude "/loop run triage then compile then briefing --worktree=worktree" >> log/cron-run.log 2>&1
+# Crontab 自动调度（示例路径需替换为真实绝对路径）
+3 6 * * * cd /home/YOU/knowledge-base && claude -p "执行 triage、compile、briefing 全流程" >> log/cron-run.log 2>&1
 
 ```
+
+> **注意：** `/loop run ...` 并非 Claude Code 内置命令，定时调度可通过系统 Cron + `claude -p` 或自定义 Skill + 自动化脚本实现；`/绝对路径/` 为中文占位符，请替换为英文真实路径。
 
 在实际运行中，该系统 2 个月自动过滤 200+ 篇素材，沉淀 50+ 核心概念。而他每天只需花 3 分钟查看 Briefing 报告。
 

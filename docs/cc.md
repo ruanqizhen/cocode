@@ -65,20 +65,22 @@ claude -p "深度分析当前项目的权限校验架构并输出一份 Markdown
 这是让所有老派极客高呼过瘾的能力。它可以无缝嵌套进 Linux 的管道流中，实时过滤、提炼动态上下文：
 
 ```bash
-# 动态监控日志流，一旦发生异常立刻让 AI 捕获反思
-tail -f app.log | claude -p "如果发现未知异常，立刻提炼堆栈信息并给出潜在的修复方案"
+# 分析最近的日志快照（注意：tail -f 永不结束，会导致 -p 模式挂起，需用 tail -n）
+tail -n 200 app.log | claude -p "如果发现未知异常，立刻提炼堆栈信息并给出潜在的修复方案"
 
 # 将历史报错直接喂入，进行全自动根本原因分析（RCA）
 cat crash-error.log | claude -p "分析这些错误的根本原因，查查是不是跟我们的 Redis 连接池溢出有关"
 
 ```
 
+> **⚠️ 注意：** `claude -p` 会读取 stdin 直到 EOF，`tail -f` 永不结束会导致命令挂死。流式监控请用 `tail -n` 截断或配合脚本定时采样。
+
 ### 独家底层黑科技机制
 
 1. `CLAUDE.md`（数字入职指南）：这是 Claude Code 上下文工程的灵魂锚点。在项目根目录下维护这个文档，里面写满你项目的古怪规矩、构建命令、绝对禁止触碰的红线。它就像给新来的资深同事准备的“免责声明”，Claude Code 每次启动前都会将其作为首要规则去遵守。
 2. Extended Thinking（扩展思考机制）：当遇到极其诡异的架构死锁时，Claude Code 会触发深层推理链。你能在终端直观地看到它密密麻麻的“心理活动轨迹”，在不增加废话的前提下展示极高纯度的技术自我反思。
-3. Auto-compact（动态音轨剪枝）：当你在一个终端会话里长篇大论，导致上下文窗口达到 95% 的水位极限时，工具层的 Harness 会瞬间苏醒，调用后台小模型对前文的闲聊与过期日志进行核心意图压缩与摘要，将当前活跃的 Token 占用牢牢控制在合理范围内。
-4. 沙箱式安全防线：完全基于 Linux Namespace 与沙盒隔离机制构建，它在本地执行危险命令或读取敏感环境变量时，会自动进行权限围栏隔离，甚至能做到断网阻断，严防 AI 产生破坏性越权。
+3. Auto-compact（上下文压缩）：当你在一个终端会话里长篇大论，导致上下文窗口达到阈值时，工具层的 Harness 会调用 `/compact` 对前文的闲聊与过期日志进行核心意图压缩与摘要，将当前活跃的 Token 占用控制在合理范围内。
+4. 沙箱式安全防线：基于平台原生隔离机制构建（macOS 使用 Seatbelt / sandbox-exec，Linux 使用 Namespace / cgroups，Windows 使用 ACL 权限控制），对危险命令、高敏感文件和环境变量进行权限确认和围栏隔离，支持配置网络访问策略，严防 AI 产生破坏性越权。
 
 ### 使用成本
 
@@ -145,11 +147,11 @@ Antigravity 深度打通了 Google 自家的 Chrome 浏览器内核。当代理�
 
 在上一章的未来趋势中，我们抛出了一个极具颠覆性的行业论断：“模型是流水的老兵，工具层的 Harness 才是铁打的营盘。”
 
-为了向你以物理级的方式证明这个论点，我们要玩一把硬核的。Claude Code 官方虽然名义上锁死了 Anthropic 的自家模型，但好消息是，DeepSeek 官方推出了完美兼容 Anthropic API 格式的特殊请求端点。
+为了向你以物理级的方式证明这个论点，我们要玩一把硬核的。Claude Code 官方虽然名义上绑定了 Anthropic 模型，但社区已验证可通过环境变量将请求路由到兼容层。DeepSeek 官方主推 OpenAI 兼容接口，而 Anthropic 兼容则需通过第三方代理（如 LiteLLM Proxy 或社区转发层）实现，或使用支持 Anthropic 格式透传的代理端点。
 
-这意味着，我们可以通过精妙地篡改系统环境变量，将 Claude Code 那个世界级、懂得如何深度操控终端和 Git 的聪明“身体（Harness）”，硬生生嫁接到价格只有海外大厂几十分之一、拥有极强性价比的 DeepSeek 大脑上！
+这意味着，我们可以通过环境变量，将 Claude Code 那个世界级、懂得如何深度操控终端和 Git 的聪明“身体（Harness）”，嫁接到价格更具优势的 DeepSeek 大脑上！但需注意：这属于非官方用法，兼容性可能随版本变化。
 
-下面为你双手奉上整套生产级配置流水线。
+下面为你奉上整套配置流水线。
 
 ### 前置条件准备
 
@@ -158,61 +160,65 @@ Antigravity 深度打通了 Google 自家的 Chrome 浏览器内核。当代理�
 
 ### 步骤一：全局安装 Claude Code
 
-在你的宿主终端内执行官方安装命令（如果你之前装过，建议更新到最新版以确保兼容性）：
+在你的宿主终端内执行安装命令（官方当前推荐原生脚本为首选，npm 为备选）：
 
 ```bash
+# 官方推荐（首选）
+curl -fsSL https://claude.ai/install.sh | bash
+
+# 或 npm 方式（备选，需 Node.js 18+）
 npm install -g @anthropic-ai/claude-code
 
 ```
 
 ### 步骤二：实施环境变量劫持
 
-我们需要利用环境变量，在 Claude Code 发起网络请求的瞬间，将流量神不知鬼不觉地路由到 DeepSeek 的中转服务器上，并伪装模型名称。
+我们需要利用环境变量，在 Claude Code 发起网络请求的瞬间，将流量路由到兼容层中转服务器上，并指定模型名称。
+
+> **⚠️ 重要声明：** `https://api.deepseek.com/anthropic` 并非 DeepSeek 官方稳定提供的 Anthropic 兼容端点，实际使用时需替换为你自建的 LiteLLM Proxy、Claude-to-OpenAI 转发代理或社区验证可用的兼容层地址。DeepSeek 官方 `https://api.deepseek.com` 主推 OpenAI 格式。下方示例以社区常见的兼容代理写法为示意，**请替换为实际可用的代理地址**，并使用 DeepSeek 官方存在的模型 ID（如 `deepseek-chat`、`deepseek-reasoner`）。
 
 #### 🍏 macOS / Linux 用户（写入 Shell 配置文件）
 
-打开你的 `~/.zshrc` 或 `~/.bashrc` 文件，将以下“换核矩阵”直接粘贴到最底部：
+打开你的 `~/.zshrc` 或 `~/.bashrc` 文件，将以下配置粘贴到最底部（**替换代理地址和模型为真实可用值**）：
 
 ```bash
 # =====================================================================
-# CLAUDE CODE + DEEPSEEK EXTRACTION TUNNEL
+# CLAUDE CODE + DEEPSEEK (via compatible proxy)
+# 注意：ANTHROPIC_BASE_URL 需指向 Anthropic 兼容代理，而非 DeepSeek 官方直接端点
 # =====================================================================
-# 1. 劫持基础网关路由，直连 DeepSeek 的 Anthropic 兼容专用端点
-export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+# 1. 劫持基础网关路由，指向兼容代理（示例地址，请替换为实际代理）
+export ANTHROPIC_BASE_URL=https://your-compatible-proxy.example.com/anthropic
 
-# 2. 注入你的 DeepSeek 密钥，冒充 Anthropic 令牌
+# 2. 注入你的 DeepSeek 密钥（由代理层转发）
 export ANTHROPIC_AUTH_TOKEN="你的_DEEPSEEK_API_KEY_XXXXXXXX"
 
-# 3. 强行实施全模组模型代际伪装（核心伪装层）
-export ANTHROPIC_MODEL=deepseek-v4-pro[1m]
-export ANTHROPIC_DEFAULT_OPUS_MODEL=deepseek-v4-pro[1m]
-export ANTHROPIC_DEFAULT_SONNET_MODEL=deepseek-v4-pro[1m]
+# 3. 模型映射（必须使用 DeepSeek 官方真实模型 ID，不支持 [1m] 后缀语法）
+export ANTHROPIC_MODEL="deepseek-chat"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-chat"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-chat"
 
-# 4. 将轻量子代理（Sub-agent）定向给速度极快的 Flash 模型
-export ANTHROPIC_DEFAULT_HAIKU_MODEL=deepseek-v4-flash
-export CLAUDE_CODE_SUBAGENT_MODEL=deepseek-v4-flash
+# 4. 将轻量子代理定向给性价比高的模型
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-chat"
+export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-chat"
 
-# 5. 开启最高级别的智力思考火力，并放开 API 超时上限限制
-export CLAUDE_CODE_EFFORT_LEVEL=max
+# 5. 放开 API 超时上限限制（如需）
 export API_TIMEOUT_MS=600000
 
 ```
 
-保存文件后，在终端执行 `source ~/.zshrc` 让魔法瞬间生效。
+保存文件后，在终端执行 `source ~/.zshrc` 生效。
 
 #### 🪟 Windows 用户（PowerShell 永久持久化）
 
-如果你是在 Windows 环境下使用 Git Bash 或 PowerShell，可以执行以下脚本来永久写入用户级系统变量：
-
 ```powershell
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "https://api.deepseek.com/anthropic", "User")
+# 注意：请将 BASE_URL 替换为实际可用的 Anthropic 兼容代理地址
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "https://your-compatible-proxy.example.com/anthropic", "User")
 [System.Environment]::SetEnvironmentVariable("ANTHROPIC_AUTH_TOKEN", "你的_DEEPSEEK_API_KEY_XXXXXX", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_OPUS_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_SONNET_MODEL", "deepseek-v4-pro[1m]", "User")
-[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_HAIKU_MODEL", "deepseek-v4-flash", "User")
-[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_SUBAGENT_MODEL", "deepseek-v4-flash", "User")
-[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_EFFORT_LEVEL", "max", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_OPUS_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_SONNET_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("ANTHROPIC_DEFAULT_HAIKU_MODEL", "deepseek-chat", "User")
+[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_SUBAGENT_MODEL", "deepseek-chat", "User")
 
 ```
 
@@ -227,17 +233,20 @@ claude
 
 ```
 
-此时，Claude Code 依然会像往常一样拉起它炫酷的控制台字符动画，初始化它的本地沙箱文件监控器。但从这一秒起，你在终端里下达的所有复杂多步代码改写任务，其背后真正提供算力支撑的，已经是性价比极高的 DeepSeek 大脑了！
+此时，Claude Code 依然会像往常一样拉起控制台字符动画，初始化本地沙箱文件监控器。但从这一秒起，你在终端里下达的所有复杂多步代码改写任务，其背后真正提供算力支撑的，已经是性价比极高的 DeepSeek 大脑了！
 
 
 ## 换核运行的红线、痛点与代价反思
 
-这种黑客式的“偷天换日”虽然能帮你简单粗暴地将开发 Token 账单直接打掉 90% 以上（直接降级 10-30 倍成本），但也必须客观面对跨厂商兼容时产生的物理硬伤。在实践中，你需要特别注意并防范以下“地雷”：
+这种“偷天换日”虽然能帮你将开发 Token 账单显著降低，但也必须客观面对跨厂商兼容时产生的物理硬伤。在实践中，你需要特别注意并防范以下“地雷”：
 
-1. 缺失原生的 Extended Thinking（扩展思考）功能：Claude Code 底层是针对 Claude 原生特有的 `thinking` 字段进行极度严苛的解析流设计的。DeepSeek 即使使用了 Anthropic 兼容端点，其中间的思考推理链条也可能会被压缩或忽略，在面对超级复杂的系统长推理时，可能会发生偶发性的语义失联或“降智”。
-2. 提示词缓存（Prompt Caching）的失效开销：Claude Code 极度依赖 Anthropic 官方的 `cache_control` 特性，以此来实现超长会话中对代码库全量常驻时的极速首字输出（TTFT）。换用 DeepSeek 的兼容接口后，如果该端点对缓存的管理不够严丝合缝，你可能会发现长对话中每一次按回车的等待时间开始逐渐拉长。
-3. 回归原生的逃生通道：如果你在大规模高压重构时，发现 DeepSeek 的模型因为某些小众框架的闭源常识出现反复死循环，不要惊慌。只需要在终端中利落地执行：`unset ANTHROPIC_BASE_URL`，清除掉这几条劫持变量，Claude Code 就会瞬间退回到它的真身，重新连回 Anthropic 的官方高速服务器。
+1. 缺失原生的 Extended Thinking（扩展思考）功能：Claude Code 底层是针对 Claude 原生特有的 `thinking` 字段进行解析设计的。DeepSeek 即使通过兼容层接入，其思考推理链条也可能会被压缩或忽略，在面对超级复杂的系统长推理时，可能会发生偶发性的语义失联或“降智”。
+2. 提示词缓存（Prompt Caching）的失效开销：Claude Code 极度依赖 Anthropic 官方的 `cache_control` 特性，以此来实现超长会话中对代码库全量常驻时的极速首字输出（TTFT）。换用第三方兼容接口后，如果该端点对缓存的管理不够完善，你可能会发现长对话中每一次按回车的等待时间开始拉长。
+3. 回归原生的逃生通道：如果你在大规模高压重构时，发现 DeepSeek 的模型因为某些小众框架的闭源常识出现反复死循环，不要惊慌。
+   * macOS/Linux（临时）：`unset ANTHROPIC_BASE_URL`（仅当前 Shell 生效，需同时从 `~/.zshrc` 删除持久化配置）。
+   * macOS/Linux（永久）：从 `~/.zshrc` / `~/.bashrc` 中删除上述 `export` 行，执行 `source ~/.zshrc`。
+   * Windows：执行 `[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", $null, "User")` 删除用户级变量，并从系统环境变量设置面板中移除其余相关变量，重启终端即可。Claude Code 会瞬间退回到官方服务器。
 
-DeepSeek 虽然能力不如 Claude 原生模型，但价格便宜啊！这是笔者在家使用的备用 AI 编程工具。当 Google Antigravity 超出套餐限量时，立刻使用 Claude Code + DeepSeek 顶上。
+DeepSeek 虽然在极端复杂任务上能力不及 Claude 原生模型，但价格更具优势，是笔者在家使用的备用 AI 编程工具。当主力工具超出套餐限量时，使用 Claude Code + DeepSeek 顶上。
 
 

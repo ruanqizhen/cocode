@@ -5,11 +5,11 @@
 ```python
 """
 win_agent.py — Windows AI 系统命令助手
-依赖: pip install openai psutil win10toast（win10toast 为可选）
+依赖: pip install openai psutil （可选通知：pip install win11toast 或 plyer，win10toast 已停止维护，Python 3.10+ 不兼容）
 环境变量:
     DEEPSEEK_API_KEY  （必需）
     DEEPSEEK_BASE_URL （可选，默认 https://api.deepseek.com）
-    DEEPSEEK_MODEL    （可选，默认 deepseek-v4-flash）
+    DEEPSEEK_MODEL    （可选，默认 deepseek-chat）
 """
 
 import os, sys, json, shutil, subprocess, threading, tempfile, time
@@ -60,7 +60,7 @@ if not API_KEY:
     sys.exit(1)
 
 BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
+MODEL    = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 
 try:
     client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
@@ -76,7 +76,9 @@ def get_system_stats() -> dict:
     try:
         cpu = psutil.cpu_percent(interval=1)
         mem = psutil.virtual_memory()
-        disk = psutil.disk_usage('C:\\')
+        # 动态获取系统盘符，避免硬编码 C 盘在非 C 盘系统上失败
+        system_drive = str(Path.home().anchor) or 'C:\\'
+        disk = psutil.disk_usage(system_drive)
         return {
             "cpu_percent": cpu,
             "memory": {
@@ -248,9 +250,13 @@ def set_reminder(minutes: int, message: str) -> str:
         def callback():
             print(f"\n{COLOR_RED}{COLOR_BOLD}[⏰ REMINDER] 定时提醒触发: {message}{COLOR_RESET}\a")
             try:
-                from win10toast import ToastNotifier
-                toaster = ToastNotifier()
-                toaster.show_toast("Windows AI 自动化助手", message, duration=10, threaded=True)
+                # 优先尝试 win11toast（支持 Win10/11），回落到 plyer
+                try:
+                    from win11toast import toast as win_toast
+                    win_toast("Windows AI 自动化助手", message)
+                except ImportError:
+                    from plyer import notification
+                    notification.notify(title="Windows AI 自动化助手", message=message, timeout=10)
             except Exception:
                 pass
 

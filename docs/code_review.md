@@ -53,7 +53,7 @@ AI 非常擅长用看似严谨的逻辑“解释”为什么它的代码是安�
 
 AI 审查器如果不知道你的业务规则，就会产生大量无用的“噪音”建议。
 
-注入上下文：在代码库根目录维护 `AGENTS.md` 或 `.cursorrules` 文件，明确列出团队的架构约定（例如：“在审查 API 路由时，必须检查是否调用了 `requireAuth` 中间件”）。这样 AI 就能根据你的特定规则进行精准审查。
+注入上下文：在代码库根目录维护 `CLAUDE.md`、`AGENTS.md` 或 `.cursor/rules/*.mdc` 文件（旧版 `.cursorrules` 已标记为 Legacy），明确列出团队的架构约定（例如：“在审查 API 路由时，必须检查是否调用了 `requireAuth` 中间件”）。这样 AI 就能根据你的特定规则进行精准审查。
 
 限制 PR 规模：AI 和人类一样，面对一个包含 50 个文件、2000 行修改的巨大 Pull Request（PR）时，也会陷入“认知过载”。强制规定 PR 的修改体积（例如不超过 400 行代码），能让 AI 给出更深入、准确的逻辑推演，而不是泛泛的语法建议。
 
@@ -81,21 +81,21 @@ jobs:
           fetch-depth: 0
 
       - name: Run AI Reviewer
-        uses: coderabbitai/ai-pr-reviewer@latest
+        # 注意：coderabbitai/ai-pr-reviewer 参数以官方文档为准，旧版 system_message 参数已变更
+        # 建议固定版本而非 @latest，并参考官方最新输入参数
+        uses: coderabbitai/ai-pr-reviewer@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          debug: false
-
-          system_message: |
+          language: zh-CN
+          # 额外审查指令（如支持）
+          extra_instructions: |
             你是一名极致苛刻的资深系统架构审查专家。
             请分析 Pull Request 的 Git Diff，重点审查：
-
             1. 是否存在硬编码 API Key / Secret
             2. 是否存在 N+1 查询或缺失事务
             3. 是否存在未捕获异常或隐式类型问题
-
             请给出 GitHub 评论级反馈
 ```
 
