@@ -177,7 +177,7 @@ graph TD
     Test -- "成功运行且符合预期" --> Commit["4. 运行 git add . 和 git commit<br>手动存档快照"]
     Commit --> Start
     
-    Test -- "跑偏/报错且 AI 越修越乱" --> Rollback["5. 紧急降落：运行 Git Rollback<br>一键回退到干净状态"]
+    Test -- "跑偏/报错且 AI 越修越乱" --> Rollback["5. 紧急降落：运行 Git Reset / Restore<br>一键回退到干净状态"]
     Rollback --> Refine["6. 复盘并精简修改你的 Prompt"]
     Refine --> Code
 

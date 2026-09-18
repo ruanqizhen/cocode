@@ -80,7 +80,7 @@ Execute the following payload sequentially. **Do not** batch these prompts into 
 #### Phase 0: System Initialization
 ```text
 Architect a 3D Low-Poly Space Shooter within a single-file HTML payload.
-- Inject the Three.js dependency via an ESM importmap CDN, with es-module-shims compatibility layer first: <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script> then <script type="importmap"> import three.
+- Inject the Three.js dependency via an ESM importmap CDN, with the es-module-shims compatibility layer first: <script src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script> (do NOT add async, or the shim may load after the importmap is parsed and fail), then <script type="importmap"> to import three.
 - Instantiate the Player Mesh at the bottom-center of the viewport. The Mesh automatically translates positively on the Z-axis.
 - The Camera Rig must follow the Player on a delayed interpolation curve (Chase Cam).
 - Inject a deep-space Skybox and a neon wireframe ground-plane.
@@ -164,7 +164,7 @@ Architect a 3D Low-Poly Space Shooter within a single-file HTML payload.
 - Consolidate all JS, CSS, and GLSL code into the single HTML payload.
 - Minify the payload where possible. The target bundle size is < 300KB.
 - Ensure the application executes identically when deployed to a static CDN bucket (e.g., Cloudflare Pages).
-- Generate a 100-word SEO metadata block in English for deployment embedding.
+- Generate a Chinese intro blurb of under 100 characters for blog embedding.
 ```
 
 When the AI finalizes the engine, execute it. You will witness complex 3D geometry banking and rolling under your input, rendering real-time post-processing bloom and particle physics. 

@@ -120,7 +120,7 @@ Utilize the `pnpm` package manager to bootstrap a standard Docusaurus v3 documen
 Absolute Requirements:
 - Repository Name: `vanish`
 - Enforce strict TypeScript compilation globally.
-- Set the default locale to English. Set the `title` variable to "The Dissipating End".
+- Set the default locale to Chinese. Set the homepage `title` variable to "消散的终点" ("The Dissipating End").
 - Ruthlessly purge all default boilerplate documentation files. Leave only a pristine, empty `/docs` directory.
 - Upon completion, output the exact CLI commands for local development preview and production static builds.
 ```
@@ -147,7 +147,7 @@ When you command the AI to author Chapter 9, **never** just say, *"Write the nex
 * **In Claude Code:** Utilize its autonomous file-system exploration: `claude "Execute the payload for Chapter 9. Query the knowledge/ directory to ingest the core laws and pointer registries. Upon completion, autonomously mutate mysteries.md to update the pointer resolution status."`
 * **In Google Antigravity:** Pin the entire `knowledge/` directory into the workspace context to establish a persistent LTM cache, then execute continuous rolling generation in the inline dialog.
 
-*(Note: A complete reference architecture for this AI-generated Knowledge Base is available on GitHub: https://github.com/ruanqizhen/vanish_eng )*
+*(Note: A complete reference architecture for this AI-generated Knowledge Base is available on GitHub: https://github.com/ruanqizhen/vanish )*
 
 :::tip The Architect's Paradigm
 Many developers assume LLMs are incapable of handling massive, long-lifecycle projects. The failure is rarely the model's compute limit; the failure is the human's inability to manage project-level state. Just as a massive codebase requires rigorous interface contracts and type definitions, driving an AI to synthesize a massive digital asset requires an iron-clad, machine-readable Knowledge Base.

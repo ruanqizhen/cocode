@@ -90,7 +90,7 @@ flowchart TD
 #### 0. 初始化项目
 ```text
 创建一个 3D 低多边形飞行射击游戏，单文件 HTML。
-使用 Three.js，并通过 importmap CDN 引入（需先引入 es-module-shims 兼容层：<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>，再使用 <script type="importmap"> 引入 three）。
+使用 Three.js，并通过 importmap CDN 引入（需先引入 es-module-shims 兼容层：<script src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>，注意不要加 async，否则 importmap 垫片可能在 importmap 解析之后才加载导致失效；再使用 <script type="importmap"> 引入 three）。
 玩家飞机位于屏幕中央偏下，可左右上下移动，并自动向前飞行。
 相机跟随在飞机后上方。
 加入星空背景与地面网格。

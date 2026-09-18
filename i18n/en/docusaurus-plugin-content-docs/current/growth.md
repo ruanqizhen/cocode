@@ -23,7 +23,7 @@ Without a profound, underlying bedrock of hardcore engineering knowledge, an ord
 ### Skill Inflation
 The democratization of AI allows literally anyone to generate a script that runs. Many junior developers mistake this for a flattening of the skill curve. This is a fatal illusion.
 
-Historically, a novice might score a 70 on a project, while a master scores a 90 (a 90:70 output gap). Today, AI allows the novice to instantly jump to an 80. But the master wields that exact same AI to jump to a 99—and utilizes the saved time to execute *ten* 99-point projects simultaneously. The output gap instantly morphs into a crushing 990:80.
+Historically, an ordinary person couldn't even reach a 70, while a master could score a 90 (a 90:0 output gap). Today, AI lifts the ordinary person straight to a 70. But the master wields that exact same AI to jump to a 95—and utilizes the saved time to execute *ten* 95-point projects in one breath. The output gap instantly morphs into a crushing 950:70.
 
 When the execution cost of *"building a thing"* drops to zero, the strategic judgment of *"what to build, why to build it, and exactly how robust it needs to be"* becomes the only scarce commodity left in the market. That judgment is forged exclusively through reading elite source code, triggering catastrophic production outages, and rolling in the mud of legacy systems for years. You can never use a slick 50-word Prompt to instantly download the technical taste another engineer spent a decade bleeding for.
 

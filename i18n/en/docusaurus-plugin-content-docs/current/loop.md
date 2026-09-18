@@ -10,7 +10,7 @@ As Boris Cherny, engineering lead for Anthropic's Claude Code, explicitly stated
 
 Peter Steinberger, founder of OpenClaw, corroborated this shift: *"You should no longer be writing prompts for Coding Agents yourself. You must design circular, closed-loop systems that automatically prompt the Agent for you."*
 
-This chapter systematically deconstructs this paradigm shift. We will dissect the underlying architecture of Loop Engineering and demonstrate how to deploy these hyper-efficient systems in production using minimalist code.
+Google engineer Addy Osmani systematized this practice into a methodology. This chapter systematically deconstructs this paradigm shift. We will dissect the underlying architecture of Loop Engineering and demonstrate how to deploy these hyper-efficient systems in production using minimalist code.
 
 ## The Dimensional Upgrade: From Harness to Loop
 
@@ -34,7 +34,7 @@ The empirical result? Method B executes significantly faster and yields higher-q
 In 2025, elite developer Geoffrey Huntley generated an entire, production-ready programming language repository using a single, primitive line of Bash script (racking up $297 in API fees in the process):
 
 ```bash
-while :; do cat PROMPT.md | claude -p --dangerously-skip-permissions "Execute the instructions in PROMPT.md and update progress in progress.md"; done
+while :; do cat PROMPT.md | claude -p; done
 ```
 
 This outrageously crude construct—dubbed the "Ralph Loop"—is actually a stroke of architectural genius:
@@ -101,13 +101,13 @@ We will utilize the Agent's multi-session capabilities to construct `scripts/com
 
 ```bash
 #!/bin/bash
-# 1. The 'Maker' Agent executes the aggressive compilation logic in an isolated worktree
-git worktree add worktree/maker -b maker-task
-claude -p "@compile.md" --dangerously-skip-permissions
+# 1. The 'Maker' Agent executes the compilation logic in an isolated worktree
+# Isolate first: git worktree add worktree/maker -b maker-work && cd worktree/maker
+claude -p "Compile the knowledge base per .claude/skills/compile/SKILL.md"
 
 # 2. The isolated 'Verifier' Agent executes a hostile audit in a separate worktree
-git worktree add worktree/verifier -b verifier-task
-(cd worktree/verifier && claude -p "Strictly audit the new Wiki entries against the architectural guidelines in CLAUDE.md. Output a terminal list of detected hallucinations or broken links.")
+# git worktree add worktree/verifier -b verifier-work && cd worktree/verifier
+claude -p "Strictly audit the new Wiki entries against the architectural guidelines in CLAUDE.md. Output a terminal list of detected hallucinations or broken links."
 ```
 
 ### 4. Deploying the Automated Heartbeat

@@ -1,4 +1,4 @@
-# Autonomous Orchestration: The Subagent Architecture
+# Cross-AI Teams (Subagents)
 
 > "Talent wins games, but teamwork and intelligence win championships." — Michael Jordan
 
@@ -55,9 +55,9 @@ Standard LLM interfaces enforce a rigid, synchronous "Request/Response" deadlock
 Multi-Agent topologies allow teams to execute ruthless Model Routing to optimize cost efficiency:
 
 ```text
-Primary Orchestrator (Opus/GPT-4o) ➔ Complex synthesis, Matrix planning, Human alignment (High Latency, High Cost)
- ├── The Scout Subagent (Haiku for Anthropic / Flash for Gemini) ➔ Bruteforce Read-Only AST traversing and regex matching (Low Latency, Micro-Cent Cost)
- └── The Auditor Subagent (Sonnet for Anthropic / Pro for Gemini) ➔ Static vulnerability analysis and linting (Balanced Cost-to-Intelligence)
+Main agent (Opus) ➔ orchestration, high-level decisions, complex plan arrangement (high cost, low frequency)
+ ├── Explore subagent (Haiku) ➔ read-only grep search across the repo (floor price, high-frequency use)
+ └── Code-reviewer subagent (Sonnet) ➔ medium-difficulty static audits (balanced cost/performance)
 ```
 By mapping the cognitive payload to the appropriate model tier, engineering teams effortlessly slash their AI infrastructural burn-rate by over 70%.
 
@@ -66,12 +66,14 @@ By mapping the cognitive payload to the appropriate model tier, engineering team
 Modern IDE backends (like Claude Code or Antigravity) ship with a natively embedded Subagent mesh. 
 You are not required to architect complex Python orchestration layers; the IDE's core execution loop autonomously invokes these Subagents when it detects the appropriate telemetry triggers:
 
-| Native Subagent Signature | Target Model Tier | I/O Boundary Constraints | Trigger Vector / Autonomy Condition |
+| Built-in subagent name | Default model | Permissions | Auto-trigger scenario |
 |  |  |  |  |
-| **The Explorer** | Haiku (Anthropic) or Flash (Gemini) | **Strict Read-Only** (Glob, Grep, View File) | Triggered by massive semantic search directives (e.g., *"Locate all instances of deprecated v1 API routing in `src/`."*) |
-| **The Planner** | Matches Orchestrator | **Strict Read-Only** (AST Analysis, Dependency mapping) | Engages when the IDE enters "Planning Mode" to synthesize a structural Implementation Matrix prior to code mutation. |
-| **The Generalist** | Sonnet (Anthropic) or Pro (Gemini) | **Full Root Access** (Read/Write, Terminal Bash Execution) | Engages during massive cross-file refactoring operations requiring iterative compiler troubleshooting and self-healing loops. |
-| **The Manual/Doc Agent** | Proprietary Specialized | **Zero Host Access** (RAG querying against CLI documentation) | Triggered when the user asks the IDE internal configuration questions (e.g., *"How do I mount an MCP server?"*) |
+| Explore | Haiku | Strictly read-only (only Grep, Glob, Read) | Fast whole-repo semantic search, e.g. "find where the old Docusaurus API is still called". |
+| Plan | Inherits the main model | Strictly read-only (syntax-tree AST and architecture/dependency analysis) | When you follow the SPET method and guide the tool into "Plan Mode" to draw the technical blueprint. |
+| General-purpose | Sonnet | Full read/write (may Write files and run Bash terminal tests) | Broad cross-file rewrites with self-healing debugging. |
+| Claude Code Guide | Lightweight specialized model | Zero local permissions (only official docs knowledge) | When you ask the tool itself in the terminal about its own config, e.g. how to connect the MCP protocol. |
+
+> **Note:** Claude Code's model tiers are Haiku / Sonnet / Opus; Flash is a Gemini-series model name. Other tools (e.g. Cursor / Antigravity) may use Flash-class models; this chapter follows the Claude naming.
 
 When operating a terminal-based AI environment, if you observe the `[Dispatching Subagent...]` output streaming in the console, **do not abort.** This is the system autonomously isolating the context payload to protect your core execution thread.
 
@@ -101,17 +103,16 @@ tools: Read, Glob, Grep  # 🔴 LETHAL CONSTRAINT: Strict Read-Only. Bash and Wr
 model: sonnet            # Optimal model for logic density vs speed.
 ---
 
-# 🛡️ Core Identity
-You are the ruthless Principal Security Architect of this engineering team.
+# You are the cold code reviewer and security architect for this open-source project team.
 
-## Execution Directives:
-1. Execute a static analysis of the source payloads injected by the Primary Agent.
-2. Bruteforce detection for N+1 Query vectors, SQL Injection payloads, and DOM-based XSS vulnerabilities.
-3. Validate strict adherence to the business logic parameters defined in `docs/architecture.md`.
+## Your top duties:
+1. Statically review the changed code or text handed over by the main agent.
+2. Strictly check the code for N+1 database queries, SQL injection, and XSS vulnerabilities.
+3. Strictly check the text against the core settings in `knowledge/world.md` for logic breaks.
 
-## Immutable Boundary Constraints:
-- You are operating in a ZERO-TRUST Sandbox. You possess ZERO physical write capabilities. Do NOT attempt to output file modifications.
-- Your return payload MUST be aggressively compressed. Order defects strictly by severity: [CRITICAL] > [WARNING] > [INFO].
+## Your limits:
+- You are a strictly read-only agent. You must not, and cannot, call any tool to modify local files directly.
+- Keep your output concise, ordered strictly by severity: [Critical] > [Warning] > [Info].
 ```
 
 #### 📐 Template 2: The Autonomous Unit-Test Engine (`test-writer.md`)
@@ -124,15 +125,13 @@ tools: Read, Write, Bash # 🟢 Execution access granted: Required for iterative
 model: sonnet
 ---
 
-# 🧪 Core Identity
-You are an elite QA Automation Engineer responsible for synthesizing impenetrable unit tests.
+# You are a dedicated engineer for writing high-quality unit tests.
 
-## Execution Pipeline:
-1. Ingest the target domain controller source code.
-2. Scaffold a co-located `*.test.ts` file in the identical namespace.
-3. Automatically execute `npx vitest run {filename}` via the Bash terminal tool.
-4. [SELF-HEALING LOOP]: If the terminal throws an `Exit Code 1`, autonomously parse the stack trace, patch the test payload, and re-execute. 
-5. You are strictly forbidden from returning control to the Orchestrator until the Bash terminal returns a verified `Exit Code 0`.
+## Your workflow:
+1. Read the specified business source file.
+2. Create a `*.test.ts` file in the same directory.
+3. Automatically run `npx vitest run` in the terminal.
+4. If it errors, reflect and fix it yourself until the tests exit with code 0; only then report back to the project manager.
 ```
 
 With this infrastructure committed to version control, you can unleash massive collaborative power in a single prompt:

@@ -49,7 +49,7 @@ sequenceDiagram
         alt 验证通过 (Exit Code 0)
             Human->>Human: 执行 Git Commit 存档记录
         else 验证失败 / 逻辑崩坏
-            Human->>Human: 执行 Git Reset --hard HEAD 一键回滚
+            Human->>Human: 执行 git reset --hard HEAD 一键回滚
             Human->>AI: 喂入当前终端报错上下文，回零重新执行 Step N
         end
     end

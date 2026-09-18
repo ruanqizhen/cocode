@@ -1,4 +1,4 @@
-# Testing in the Age of AI
+# Testing
 
 > "Trust, but verify." — Russian Proverb
 
@@ -38,7 +38,7 @@ The historical nightmare of UI testing is its "Flakiness"—tweaking a single CS
 
 Do not exclusively test the "Happy Path." Guarding against malicious, systemic entropy is a non-negotiable imperative. In daily execution, you must unleash highly aggressive "Chaos Prompts" to force the AI to assault your own system:
 
-> *"You are a ruthless Black-Hat Security Architect and Chaos Engineer. Parse my `@authController.ts` payload and synthesize 5 catastrophic exception test cases utilizing Vitest. Your objective is to breach the system. Focus vectors: Inject an illegal 50MB JSON payload to trigger Node.js memory exhaustion, and inject advanced SQL payloads into the CAPTCHA perimeter to validate bypass vulnerabilities."*
+> *"You are a cold white-hat hacker and chaos test engineer. Read my `@authController.ts` code and write 5 extreme edge-case tests with Vitest. Focus on: sending a 10MB illegal oversized JSON to try to blow up Node.js memory, and injecting SQL into the captcha input to test validation-bypass vulnerabilities."*
 
 ## Beyond Code Generation: Dimensionality Reduction in Test Management
 

@@ -68,7 +68,7 @@ Tools are the exclusive "hands and feet" the AI uses to manipulate the physical 
 * **The Dominance of High-Precision Semantic Tools:** Elite modern Harnesses (like Cursor's backend or Claude Code) provide highly cohesive, surgical semantic tools:
   * `Read`: Strictly limits the AI to reading specific line ranges, surgically preventing context window overflow.
   * `Edit`: Enforces strict string-matching for block replacements, completely eliminating the risk of destructive file overwrites.
-  * `Grep`: Utilizes an underlying AST (Abstract Syntax Tree) parser (e.g., Tree-sitter) to instantly locate class/variable definitions, preventing the AI from blindly grepping through the entire repository.
+  * `Grep` / `Glob` / `Agent`: Utilize ripgrep, AST parsing, and subagent exploration to instantly locate class/variable definitions, preventing the AI from blindly roaming through the entire repository.
 
 ### Pillar 2: Sandbox & Control Engineering
 
@@ -90,7 +90,7 @@ An LLM's Context Window is incredibly expensive digital real estate that is high
 
 1. **Automated Verification:** The millisecond the code lands, the Harness autonomously triggers the terminal to execute the compiler or the TDD unit test suite.
 2. **Closed-Loop Self-Healing:** If the tests throw a fatal error (Exit Code 1), the Harness instantly intercepts the stack trace, sanitizes the logs to extract high-purity error vectors, feeds it back to the LLM, and aggressively forces a retry.
-3. **Physical Rollback (The Git Guillotine):** This is the ultimate defense mechanism of the Harness. If the LLM remains trapped in an error loop after multiple retries, the Harness decisively executes a low-level version control reset (e.g., `git reset --hard HEAD`). This instantly reverts the physical repository back to a pristine state, strictly preventing hallucinated "garbage code" from polluting the next strategic iteration.
+3. **Physical Rollback (The Git Guillotine):** This is the ultimate defense mechanism of the Harness. If the LLM remains trapped in an error loop after multiple retries, the Harness decisively executes a low-level version control reset (e.g., `git reset --hard HEAD~1` or `git reset --hard <clean-checkpoint>`, combined with `git clean -fd` to remove untracked files). This instantly reverts the physical repository back to a pristine state, strictly preventing hallucinated "garbage code" from polluting the next strategic iteration.
 
 ## 4. The Steering Loop: Manipulating the Framework
 

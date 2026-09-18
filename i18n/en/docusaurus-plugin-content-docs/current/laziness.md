@@ -64,7 +64,7 @@ Many developers instinctively apply human social lubricants when prompting AI: *
 
 However, according to an informal community comparison test (no peer-reviewed paper found): when tackling identical technical problems, the code correctness of terse, direct, even mildly aggressive prompts was slightly higher than extremely polite versions.
 
-> **Academic Rigor Note:** The often-cited “Penn State research showing 4% higher correctness” is difficult to verify in public paper repositories and is likely a mis-citation of community anecdotes. Treat it as informal observation, not academic citation. The core takeaway is that excessive politeness adds token noise; concise and direct is usually more effective.
+> **Academic Rigor Note:** The often-cited “Penn State research” is difficult to verify in public paper repositories and is likely a mis-citation of community anecdotes. Treat it as informal observation, not academic citation. The core takeaway is that excessive politeness adds token noise; concise and direct is usually more effective.
 
 An LLM's Attention Mechanism does not care about your manners. Pleasantries are mathematical noise that dilute the core semantic vectors. Ruthless, authoritarian instructions force the neural network to concentrate 100% of its computational weight exclusively on resolving the technical constraints, rather than wasting tokens generating a polite, sycophantic response.
 

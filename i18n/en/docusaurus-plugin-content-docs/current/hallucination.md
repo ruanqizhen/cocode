@@ -102,17 +102,17 @@ Phantom APIs are no longer just a source of engineering frustration; in the cybe
 Because AI agents now autonomously crawl the web and ingest each other's data, a lethal "Machine Network Effect" has emerged:
 
 ```text
-1. AI Assistant ➔ Hallucinates a non-existent open-source package: `huggingface-cli-utils`
+1. AI Assistant ➔ Hallucinates a non-existent open-source package: `huggingface-cli`
  └── 2. Autonomous Agent ➔ Realizes the package doesn't exist, so it autonomously registers the name on NPM and uploads an empty shell package.
       └── 3. Global AI Models ➔ Scrape the internet, detect the package's existence, and begin aggressively recommending it to millions of human developers.
-           └── 4. The Result ➔ Within 72 hours, a fictional package containing zero actual logic achieves 30,000+ organic downloads.
+           └── 4. The Result ➔ Within days, a fictional package containing zero actual logic achieves 30,000+ downloads.
 ```
 
 If a malicious hacker preemptively registers this hallucinated package name, the attack chain is devastating:
 
 ```mermaid
 flowchart LR
-    A["Hacker deploys bots to monitor highly-probable, unregistered package names frequently hallucinated by LLMs"] --> B["Hacker preemptively registers the phantom package on PyPI/NPM and injects an encrypted backdoor"]
+    A["Hacker crawlers monitor unregistered package names frequently hallucinated by LLMs (e.g. request-helper-utils)"] --> B["Hacker preemptively registers the phantom package on PyPI/NPM and injects an encrypted backdoor"]
     B --> C["Unsuspecting enterprise developer blindly trusts the AI's recommendation and executes `npm install`"]
     C --> D["Malicious extortion/eavesdropping payload executes in the production environment. Hijack complete."]
 ```

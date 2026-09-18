@@ -1,4 +1,4 @@
-# The Architectural Constitution
+# The Project Constitution
 
 > "Learn the rules like a pro, so you can break them like an artist." — Pablo Picasso
 
@@ -38,12 +38,12 @@ Constitutional files do not exist in a vacuum. They are architected as a Cascadi
 - Defines absolute developer preferences (e.g., *"Always utilize `pnpm` instead of `npm`. Never speak in passive voice."*)
 
 ### 2. The Repository Core Stratum (The Constitution)
-*(Path: `./CLAUDE.md` or `./.agents/AGENTS.md`)*
+*(Path: `./CLAUDE.md` or `./.claude/CLAUDE.md`)*
 - Commited to the Git repository. Shared across the entire engineering team.
 - Defines the macro tech stack, the directory architecture, and the PR review standards.
 
 ### 3. The Sub-Domain Stratum
-*(Path: `src/microservices/auth/CLAUDE.md`)*
+*(Path: `src/module/CLAUDE.md` — only takes effect when that directory is visited)*
 - Activates exclusively when the Agent touches files within this specific directory tree.
 - Executes extreme isolation (e.g., *"This microservice strictly uses Rust and gRPC; ignore the global TypeScript rules."*)
 
@@ -111,19 +111,22 @@ When a repository scales, a monolithic `AGENTS.md` becomes a bottleneck. You mus
 
 ### The `@import` Directive
 ```md
-@docs/architecture/git-workflow.md
+@docs/git.md
 ```
-*Function:* Dynamically injects the contents of the target file into the context window only when required.
+*Function:* Concatenates the referenced content into context (does not save tokens).
 
 ### Path-Based Activation
-Official Cursor rules use frontmatter to control activation scope. Instead of a fictional `paths:` field, use the supported `globs:` key in `.cursor/rules/` or `.claude/rules/*.md`:
+Put the file at `.claude/rules/api.md`; it auto-loads when an edited file matches the path. Use the supported `globs:` key (not `paths:`):
 
 ```markdown
 ---
 description: API route validation rules
 globs: ["src/api/**/*.ts"]
 ---
-- All REST APIs MUST wrap outputs in `ApiResponse<T>`.
+
+# API rules
+- DB access only in the repository layer
+- All APIs must pass the auth middleware
 ```
 
 ### The `AGENTS.md` Universal Entrypoint

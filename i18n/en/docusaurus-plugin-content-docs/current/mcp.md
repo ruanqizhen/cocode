@@ -21,7 +21,7 @@ It is the absolute realization of *"Write Once, Connect Everywhere"* for AI Agen
 MCP is built upon an aggressively lightweight, decoupled Client-Server architecture:
 
 * **MCP Hosts:** The AI applications initiating the session (e.g., Cursor, Claude Desktop).
-* **MCP Clients:** The internal router modules inside the Host that establish the TCP/Stdio connection and transmit the payload.
+* **MCP Clients:** The internal router modules inside the Host that establish the Stdio/SSE connection and transmit the payload.
 * **MCP Servers:** The lightweight, standalone daemons that securely interface with specific physical data sources (e.g., an `sqlite-mcp-server` or a `github-mcp-server`).
 
 Under the hood, the MCP specification exposes three foundational primitives to the LLM:
@@ -36,7 +36,7 @@ As AI engineering matures, many developers critically confuse MCP with **Agent S
 
 | Architectural Vector | Model Context Protocol (MCP) | Agent Skills |
 | --- | --- | --- |
-| **The Essence** | A standardized TCP/Stdio pipe connecting the LLM to external hardware/APIs. | A Markdown payload teaching the LLM the *business logic* of how to execute tasks. |
+| **The Essence** | A standardized Stdio/SSE pipe connecting the LLM to external hardware/APIs. | A Markdown payload teaching the LLM the *business logic* of how to execute tasks. |
 | **The Problem Solved** | Exposes **Capabilities** (*What physical actions are possible?*). | Exposes **Procedural Knowledge** (*What is the correct way to execute?*). |
 | **The Analogy** | The physical socket and network pipes. | The complex recipe and training manual. |
 | **Context Overhead** | Heavy. Tool JSON schemas occupy massive context space; returns can be bloated. | Ultra-lightweight. Dynamically injected on-demand; enforces surgical, precise execution. |

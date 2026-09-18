@@ -55,7 +55,7 @@ Web 环境下的数字资产是“活”的。面对大模型超凡的生成速�
 你是金牌网文主编兼文字质检官，专精于长篇故事节奏、逻辑自洽和爽感密度检查。
 
 # Task
-请对以下刚生成的初稿章节进行深度审计，必须从五个核心维度输出漏洞报告：
+请对以下刚生成的初稿章节进行深度审计，必须从四个核心维度输出漏洞报告：
 
 1. 设定测试：法则前后是否一致？是否出现了背离已公开世界观（如 knowledge/world.md）的严重 Bug？
 2. 动机测试：主角的对话与行动是否符合人设？是否有为了强行推进剧情而导致的严重 OOC（角色崩坏）？
@@ -73,7 +73,7 @@ Web 环境下的数字资产是“活”的。面对大模型超凡的生成速�
 
 1. 生成设计提示词（Midjourney/DALL-E 3 / GPT Image）：
 我们对 AI 说：*“基于《消散的终点》这种都市外卖员、克苏鲁、规则入侵的风格，为我生成一段用于 AI 绘图工具的英文黄金提示词。”*
-> AI 产出：*“An urban cyberpunk cyberpunk street, a Chinese delivery rider standing under giant glowing eldritch neon signs, rule-怪谈 horror atmosphere, hyper-detailed, neon green and deep black twilight, 8k resolution, book cover composition --ar 3:4”*
+> AI 产出：*“An urban cyberpunk street, a Chinese delivery rider standing under giant glowing eldritch neon signs, anomalous-rule horror atmosphere, hyper-detailed, neon green and deep black twilight, 8k resolution, book cover composition --ar 3:4”*
 
 
 2. 静态资产合入：
@@ -141,7 +141,7 @@ export const CollapsiblePreface = () => {
 
 ### 🛠️ 实战演练：用 Vitest 编写与验证字数统计工具
 
-在我们的 Markdown 编辑器/电子书项目中，底部数据统计栏有一个核心的核心算法：精准计算文本中的汉字数与字符数，必须剔除空格、标点及 Markdown 语法符号。
+在我们的 Markdown 编辑器/电子书项目中，底部数据统计栏有一个核心算法：精准计算文本中的汉字数与字符数，必须剔除空格、标点及 Markdown 语法符号。
 
 #### 第一步：人类定义规格说明 (Spec)
 

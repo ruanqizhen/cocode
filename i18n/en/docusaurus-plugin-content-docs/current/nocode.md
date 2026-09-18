@@ -48,7 +48,7 @@ Because the AI Agent now handles the grueling translation from logic to syntax, 
 
 ## Deploying Your First Application
 
-Virtually all frontier AI platforms natively support zero-shot web application generation. You can execute these workflows on ChatGPT, Claude, Gemini, Meta AI, or DeepSeek. While the underlying intelligence models vary, for the scope of single-file web applications, any frontier model is vastly overqualified.
+Virtually all frontier AI platforms natively support zero-shot web application generation. You can execute these workflows on ChatGPT, Claude, Gemini, Meta AI, Kimi, or DeepSeek. While the underlying intelligence models vary, for the scope of single-file web applications, any frontier model is vastly overqualified.
 
 *(Note: The examples in this chapter were originally validated on [Meta AI](https://meta.ai/) and Claude 3.5 Sonnet, utilizing their built-in interactive Canvas features for instant visual feedback. As of July 2026, major platforms have introduced rate limits and daily quotas, and Canvas/Artifacts features typically require login — please check the official quota pages. Prepare backup tools like Claude, ChatGPT, Gemini, and save critical code locally.)*
 
@@ -154,6 +154,18 @@ Architect an infinite side-scrolling Parkour game with a Retro Pixel aesthetic.
 Generate as a single, runnable HTML file and mount it to the Canvas.
 ```
 
+### The Retro Text Adventure
+
+```text
+Architect a Three Kingdoms-themed text adventure game.
+- The player acts as a strategist.
+- Each scene offers 2-3 choices.
+- Different choices lead to different endings.
+- Support save/load.
+- The UI uses a classical Chinese aesthetic.
+Generate as a single, runnable HTML file and mount it to the Canvas.
+```
+
 ### The Cyberpunk "Electronic Wooden Fish" (Zen Engine)
 
 This project forces the AI to interface with the advanced **Web Audio API**, synthesizing waveforms programmatically without loading external `.mp3` assets.
@@ -183,6 +195,18 @@ Architect a retro Falling Sand physics sandbox game.
   - Fire (spreads upward, aggressively deletes Sand and Water pixels on contact).
 - Bind the drawing mechanism to Mouse Drag and Touch events. Include a brush-size slider.
 - Inject a "Nuke Canvas" (Clear) button.
+Generate as a single, runnable HTML file and mount it to the Canvas.
+```
+
+### The Desktop Virtual Pet
+
+```text
+Architect a polished web-based virtual pet (Tamagotchi-style).
+- Render a cute animated pet in the center (pure CSS or SVG, with breathing and blinking animations).
+- Track three status bars: Satiety, Mood, and Cleanliness, decaying slowly over time.
+- Provide three buttons: Feed (+Satiety), Play (+Mood), Bathe (+Cleanliness).
+- When a status drops too low, the pet changes expression (sick or sad).
+- After enough interactions, the pet glows and "evolves" into a more advanced, better-looking form.
 Generate as a single, runnable HTML file and mount it to the Canvas.
 ```
 

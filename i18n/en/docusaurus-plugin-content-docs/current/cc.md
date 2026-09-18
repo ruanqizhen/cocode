@@ -82,7 +82,7 @@ cat crash-error.log | claude -p "Analyze the root cause of these crashes; verify
 
 ### Usage Costs
 
-Claude Code operates on a commercial subscription model, offering tiers at $20, $100, and $200 per month. The $200 package is generally sufficient to cover the daily, intensive workloads of a professional developer. However, for extreme edge cases—like forcing the agent into massive, multi-round iterative debugging loops—even this tier can be exhausted. In short: Claude Code is spectacularly capable, but undeniably expensive.
+Claude Code operates on a commercial subscription model with several tiers at different price points (exact prices change often—check the official site). The top tier is generally sufficient for a professional developer's regular-strength daily workloads. However, for extreme edge cases—like forcing the agent into massive, multi-round iterative debugging loops—even this tier can be exhausted. In short: Claude Code is spectacularly capable, but undeniably expensive.
 
 ## Google Antigravity
 
@@ -228,7 +228,7 @@ Claude Code will boot up, displaying its slick ASCII animation and initializing 
 
 ## Reflections on the Red Lines, Pain Points, and Costs of Core Swapping
 
-While this hacker-style "bait-and-switch" elegantly slashes your API token bill by upwards of 90% (a 10x to 30x cost reduction), you must soberly acknowledge the friction introduced by cross-vendor spoofing. In high-stakes engineering, watch out for these specific landmines:
+While this hacker-style "bait-and-switch" can significantly lower your API token bill, you must soberly acknowledge the friction introduced by cross-vendor spoofing. In high-stakes engineering, watch out for these specific landmines:
 
 1. **Loss of Native Extended Thinking**: Claude Code is intricately tuned to parse the exact formatting of Claude's native `<thinking>` blocks. Even using the compatible endpoint, DeepSeek's internal reasoning chains may be truncated or improperly parsed by the harness. During exceptionally complex, multi-stage architectural reasoning, you may notice occasional semantic drift or "intelligence degradation."
 2. **Prompt Caching Overhead**: Claude Code heavily exploits Anthropic's native `cache_control` headers to achieve lightning-fast Time to First Token (TTFT) during massive, codebase-wide sessions. When spoofing the DeepSeek endpoint, if the relay's cache management isn't perfectly seamless, the latency after you press 'Enter' will stretch noticeably as the session history bloats.
@@ -237,4 +237,4 @@ While this hacker-style "bait-and-switch" elegantly slashes your API token bill 
    * macOS/Linux (permanent): Delete the `export` lines added above from `~/.zshrc` / `~/.bashrc` and run `source ~/.zshrc`.
    * Windows: Execute `[System.Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", $null, "User")` to delete the user-level variable, and remove the other related variables from the System Environment Variables settings panel, then restart your terminal. Claude Code will instantly revert to its true form, seamlessly reconnecting to Anthropic's premium, high-speed servers.
 
-DeepSeek's raw intelligence might occasionally trail Anthropic's flagship models, but it is undeniably, spectacularly cheap. This is the exact configuration the author utilizes at home. Whenever the Google Antigravity Pro tier limits are exhausted, this Claude Code + DeepSeek chimera is immediately deployed as the ultimate, cost-effective substitute.
+DeepSeek's raw intelligence might occasionally trail Anthropic's flagship models, but it is undeniably, spectacularly cheap. This is the exact configuration the author uses at home as a backup. When the main tool hits its plan limits, this Claude Code + DeepSeek combo steps in.

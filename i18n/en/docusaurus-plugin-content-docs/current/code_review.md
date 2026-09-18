@@ -48,7 +48,7 @@ Once we understand how to defend against AI-generated landmines, we can flip the
 
 If an AI reviewer doesn't understand your proprietary business rules, it will flood your PR with useless, noisy suggestions.
 
-**Inject Context:** Maintain an `AGENTS.md` or `.cursorrules` file at the root of your repository to explicitly define your team's architectural conventions (e.g., *"When reviewing API routes, you must explicitly verify that the `requireAuth` middleware is injected"*). This forces the AI to conduct surgical reviews based on your specific engineering standards.
+**Inject Context:** Maintain a `CLAUDE.md`, `AGENTS.md`, or `.cursor/rules/*.mdc` file (the older `.cursorrules` is marked Legacy) at the root of your repository to explicitly define your team's architectural conventions (e.g., *"When reviewing API routes, you must explicitly verify that the `requireAuth` middleware is injected"*). This forces the AI to conduct surgical reviews based on your specific engineering standards.
 
 **Constrain PR Scope:** Just like a human, an AI faced with a monolithic Pull Request containing 50 files and 2,000 lines of diff will succumb to "cognitive overload." Enforcing strict limits on PR size (e.g., capping diffs at 400 lines) allows the AI to execute deep, accurate logical deductions rather than spitting out generic syntax linting.
 
@@ -76,16 +76,22 @@ jobs:
           fetch-depth: 0
 
       - name: Run AI Reviewer
-        uses: coderabbitai/openai-pr-reviewer@v1
+        # Note: pin to a fixed version rather than @latest, and check the official docs
+        # for the latest input parameters
+        uses: coderabbitai/ai-pr-reviewer@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          debug: false
-          openai_light_model: gpt-4o-mini
-          openai_heavy_model: gpt-4o
-          # To customize review instructions, configure `.github/coderabbitai.yaml`
-          # `system_message` is not a valid input — use repository config file instead
+          language: zh-CN
+          # Extra review instructions (if supported)
+          extra_instructions: |
+            You are an extremely strict senior system architecture reviewer.
+            Analyze the Pull Request Git Diff, focusing on:
+            1. Hardcoded API Keys / Secrets
+            2. N+1 queries or missing transactions
+            3. Uncaught exceptions or implicit typing issues
+            Please give GitHub comment-level feedback
 ```
 
 ### The Local Audit System Prompt

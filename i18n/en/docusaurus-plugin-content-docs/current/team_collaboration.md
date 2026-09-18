@@ -1,4 +1,4 @@
-# Team Collaboration in the AI Era
+# Team Collaboration
 
 > "Coming together is a beginning, staying together is progress, and working together is success." — Henry Ford
 
@@ -25,7 +25,7 @@ In legacy models, the execution topology was hyper-specialized: Frontend enginee
 
 Today, a single engineer commanding a swarm of autonomous AI Agents can execute a full-stack feature end-to-end in a single afternoon. Consequently, the core value proposition of an engineer is no longer: *"Can I type this syntax?"* It is now: **"Do I possess the holistic business context to mathematically verify that the AI's execution aligns with our system architecture?"**
 
-The direct consequence: Organizations can shrink their headcount footprint while vastly increasing individual surface area. A 3-person "Agentic Squad" can outmaneuver a legacy 15-person functional team, compressing the feedback loop to the absolute physical limit.
+The result: teams can get smaller while each person's responsibility grows. A 2–3 person full-stack squad plus AI can run much faster than a legacy 8-person functional team, with a tightly compressed feedback loop.
 
 ### The Evolution of the Engineer: "The Intent Architect"
 
@@ -41,9 +41,9 @@ AI introduces a massive variable of chaos: every developer utilizes different Pr
 ### The Core Schema of the Team Constitution
 
 - **Unified Toolchains & Shadow AI Eradication:** You cannot stop developers from using AI. You must provide compliant, enterprise-grade AI tooling (e.g., Cursor Enterprise, GitHub Copilot). You must enforce a lethal zero-tolerance policy against injecting proprietary `.env` secrets into un-audited cloud models.
-- **Explicit Code Ownership (The Human Fallback):** Every module in the repository MUST have a designated Human Owner. The AI may generate 99% of the syntax, but a human must execute the final Git Merge, assuming absolute legal and architectural liability for that code. The AI can only be unleashed when a human is accountable for the blast radius.
-- **Telemetry Tagging:** Inject lightweight telemetry headers (e.g., `// AI-GENERATED: Claude 3.5 Sonnet`, `// REVIEWED-BY: John Doe`) above complex, AI-synthesized logic blocks. This provides critical context for the next engineer who encounters a bizarre logic branch.
-- **The Review Defense Obligation:** The PR Author is legally obligated to explain the architectural intent behind *every single line* of AI-generated code to the Reviewer. If the Author responds with "I don't know, the AI wrote it," the PR is instantly rejected.
+- **Explicit Code Ownership (human fallback):** every core module must have a real human Owner. The AI may write 90% of the code, but a human must press Merge and take full responsibility for that 90%. Only then can the team let the AI run.
+- **Making AI code visible:** add a short comment marker above complex AI-generated logic (e.g. `// AI-GENERATED: Claude Sonnet`, `// REVIEWED-BY: Zhang San`). No heavy docs needed — just let the next person know what they are looking at.
+- **The duty to defend a review:** the PR author must be able to answer any Reviewer question about the design intent of any AI-written line. If they cannot explain "why it is written this way", the PR is rejected.
 
 ## Crystallizing the Project Knowledge Graph
 

@@ -61,7 +61,7 @@
 [贴入异常发生前后 10 秒的系统原始 Log，包括数据库查询日志]
 
 ## 4. 目标任务
-请基于上述因果链，推演可能的代码执行路径，排查竞态条件、内存溢出或死锁隐患，并指出我的推理逻辑中可能存在的漏洞。
+请基于上述因果链，推演可能的代码执行路径，排查竞态条件、内存泄漏或死锁隐患，并指出我的推理逻辑中可能存在的漏洞。
 
 ```
 
@@ -106,7 +106,7 @@ AI 给了一段代码，报错了；你把报错发给它，它加了个 `try-ca
 原始代码隐患：
 
 ```typescript
-// 经典的“先读后写”脏读漏洞
+// 经典的“先读后写”脏读漏洞（为突出竞态，Decimal 比较已简化，严谨写法见下文）
 export async function createOrder(userId: string, totalPrice: number) {
   const wallet = await prisma.wallet.findUnique({ where: { userId } });
   if (!wallet || wallet.balance < totalPrice) throw new Error("余额不足");
@@ -123,7 +123,7 @@ export async function createOrder(userId: string, totalPrice: number) {
 ```
 
 赛博小黄鸭诊断推演：
-AI 瞬间指出了物理过程：两个并发请求（Req A 和 Req B）同时读取了 `100` 的余额。Req A 扣减后写入 `20`，Req B 由于拿着旧数据，再次扣减并覆写 `20`。用户买了两件商品，数据库却只扣了一次钱。
+AI 瞬间指出了物理过程：两个并发请求（Req A 和 Req B）同时读取了 `100` 的余额。Req A 扣减后写入 `80`，Req B 由于拿着旧数据，再次扣减并覆写 `80`。用户买了两件商品，数据库却只扣了一次钱。
 
 AI 给出的正确防范方案（原子扣减与排他锁）：
 
@@ -204,4 +204,3 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 ```
 
-```

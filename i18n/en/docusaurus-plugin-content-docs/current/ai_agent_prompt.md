@@ -1,6 +1,6 @@
 # Engineering Prompts for AI Agents
 
-To instantiate the Autonomous Agent engineered in the previous section, inject the following payload into your target LLM. It will synthesize a mathematically secure, production-ready Python Agent.
+Copy and paste the prompt below to an AI, and it will generate a Python AI Agent.
 
 ````md
 # Architectural Role
@@ -11,7 +11,7 @@ You are an elite Principal Python Architect specializing in Windows System Autom
  
 # Terminal Objective
  
-Engineer a **fully executable**, single-file Python daemon named `win_agent.py`.
+Write a **fully executable**, single-file Python script named `win_agent.py`.
  
 This script acts as a translation layer between natural language user intents and auditable, secure Windows OS API calls utilizing the **Function Calling** capabilities of the DeepSeek API (OpenAI SDK compatible format).
  
@@ -43,7 +43,7 @@ User Intent Injection
 └─────────────────────────────────────────────────────┘
 ```
  
-**Persistent Session:** The primary daemon runs within a `while True` interactive loop. Each discrete user input acts as the initialization of a fresh dialogue trajectory; typing `exit` or `quit` safely unmounts the daemon. The `messages` array for each query must be independently scoped and flushed between queries to prevent catastrophic Token inflation.
+**Multi-turn sessions:** The main program runs a `while True` interactive loop. Each user input starts a new round of dialogue; typing `exit` or `quit` exits safely. The `messages` array for each query must be independently scoped and flushed between queries to prevent catastrophic Token inflation.
  
 ---
  
@@ -112,7 +112,7 @@ Implement the following **6 atomic functional tools**. You must synthesize a pre
 **Implementation Directives:**
 - Leverage `psutil.cpu_percent(interval=1)` for the 1-second moving average CPU load.
 - Leverage `psutil.virtual_memory()` for RAM metrics.
-- Leverage `psutil.disk_usage('C:\\')` for boot-drive storage capacity.
+- Resolve the system drive dynamically (e.g., `str(Path.home().anchor)`, falling back to `'C:\\'`), then call `psutil.disk_usage()` for storage capacity. Do not hardcode `C:\\`, which fails on non-C-drive systems.
 **Expected Schema** (JSON string):
 ```json
 {
@@ -298,7 +298,7 @@ Initialize the script with this exact docstring:
  
 ```python
 """
-win_agent.py — Windows AI Depth Defense Agent Architecture
+win_agent.py — Windows AI System Command Assistant
 Dependencies: pip install openai psutil (optional notification: pip install win11toast or plyer, win10toast discontinued)
 Environment Variables:
     DEEPSEEK_API_KEY  (Required)

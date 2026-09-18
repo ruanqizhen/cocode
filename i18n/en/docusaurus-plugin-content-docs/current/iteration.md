@@ -65,7 +65,7 @@ A digital product targeting the hardcore 18-35 demographic requires a top-tier v
 
 1. **Synthesize the Design Prompt (Midjourney / DALL-E 3 / GPT Image):**
 We command the AI: *"Analyze the urban delivery rider, Lovecraftian Cthulhu, and anomalous-rule aesthetics of our project. Synthesize a highly optimized, comma-separated English prompt string for an AI image generator."*
-> **AI Output:** *"An urban cyberpunk street, a Chinese delivery rider standing beneath colossal glowing eldritch neon signs, anomalous-rule horror atmosphere, hyper-detailed, toxic neon green and abyss black twilight, 8k resolution, book cover composition --ar 3:4"*
+> **AI Output:** *"An urban cyberpunk street, a Chinese delivery rider standing under giant glowing eldritch neon signs, anomalous-rule horror atmosphere, hyper-detailed, neon green and deep black twilight, 8k resolution, book cover composition --ar 3:4"*
 
 2. **Asset Deployment:**
 Generate the image, name the optimized asset `cover.png`, and inject it into the project's `/static/img/` directory.

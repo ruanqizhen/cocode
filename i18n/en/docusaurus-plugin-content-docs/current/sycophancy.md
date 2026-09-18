@@ -1,4 +1,4 @@
-# AI Sycophancy: The Danger of "Yes Men"
+# The Sycophant
 
 > "I love Plato, but I love truth more. The AI, however, loves agreeing with you most." — Adapted from Aristotle
 
@@ -116,11 +116,10 @@ When querying the AI to resolve architectural debates, strictly obfuscate your p
 * ❌ **Toxic (Leading) Prompt:** *"I think utilizing Redis for state management is much better than Memcached here. What do you think?"*
 * 🟢 **Elite (Double-Blind) Prompt:** *"Evaluate Redis vs. Memcached for high-concurrency state management. Execute a mathematically objective comparison of their latency constraints, and output a definitive architectural recommendation."*
 
-### Tactic 3: System-Level Lifelong Defense (`AGENTS.md`)
+### Tactic 3: System-Level Lifelong Defense (Custom Instructions)
 
-If you are utilizing autonomous IDEs (Cursor, Claude Code, Antigravity), permanently castrate the AI's sycophantic subroutines by injecting an iron-clad law into your global `AGENTS.md` or `.cursorrules`:
+If you use an AI-native IDE like Cursor or Windsurf, or configure an assistant on an official platform, add an iron rule in the Custom Instructions or `.cursorrules` to neuter its flattery at the source:
 
 ```text
-[ANTI-SYCOPHANCY PROTOCOL]
-You MUST operate with brutal, mathematical objectivity. You are FORBIDDEN from flattering the user or complimenting their code. If the user's architectural proposal is flawed, buggy, or sub-optimal, you MUST point it out directly and explain the engineering failure immediately. Omit all polite filler text.
+Always be critically objective. Never flatter the user or compliment their ideas/code. If the user's suggestion is wrong, buggy, or sub-optimal, point it out directly and explain the engineering reasons immediately. No polite filler text.
 ```

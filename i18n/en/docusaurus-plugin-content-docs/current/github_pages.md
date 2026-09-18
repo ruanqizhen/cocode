@@ -101,7 +101,7 @@ The core container must be a responsive CSS Grid system (max-width: 1100px) with
 
 ## Step 2: Extracting Your HTML File
 
-Whether you are utilizing ChatGPT Canvas, Claude Artifacts, or Gemini, once the AI generates the webpage, you must extract that raw code into a physical file on your local machine.
+Whether you are utilizing ChatGPT Canvas, Claude Artifacts, Gemini, Meta AI, or any other AI tool, once the AI generates the webpage, you must extract that raw code into a physical file on your local machine.
 
 * **Using Claude Artifacts or ChatGPT Canvas:** Look for a dedicated "Download" icon (usually a downward arrow or file icon) near the preview panel. Click it, and the browser will instantly save the HTML file to your drive.
 * **Using a Standard Chat Interface:** Click the **Copy code** button in the top right corner of the AI's code block. Open a basic text editor (like Notepad or TextEdit), paste the code, and save the file to your Desktop.
@@ -186,7 +186,7 @@ This is the final configuration step. We are commanding GitHub's CI/CD pipeline 
 
 1. In your repository, click the ⚙️ **Settings** tab located on the far right of the top navigation bar.
 2. In the left-hand sidebar, scroll down to the **Code and automation** section and click on 🌐 **Pages**.
-3. Under the **Build and deployment** header, look at the **Source** dropdown. In the new UI (late 2023+), the default is **GitHub Actions**, which uses a workflow file (e.g., `pages.yml`) to build and deploy. For the simplest zero-config setup, switch Source to **Deploy from a branch** if it is not already selected.
+3. Under the **Build and deployment** header, look at the **Source** dropdown. In the new UI (2024+), the default is **GitHub Actions**, which uses a workflow file (e.g., `pages.yml`) to build and deploy. For the simplest zero-config setup, switch Source to **Deploy from a branch** if it is not already selected.
    - **Option A — Deploy from a branch (beginner, recommended here):** Select Branch **`main`** (or `master` on older accounts) and folder `/ (root)`, then click **Save**. Because you checked "Add a README" during creation, GitHub usually pre-configures this. If the dropdown says `None`, manually select `main`.
    - **Option B — GitHub Actions (current default):** Keep Source as GitHub Actions and add a Pages workflow. GitHub will suggest a `Static HTML` workflow that uploads your `index.html` as an artifact and deploys it. This is more powerful but requires a workflow file.
 4. Click the **Save** button (when using Deploy from a branch).
@@ -228,4 +228,6 @@ While deploying code is highly rewarding, you must remain vigilant against these
 For reference, the author's personal portfolio was architected using this exact AI-driven methodology and iteratively refined over time:
 
 * **Live Production URL:** [https://qizhen.xyz/](https://qizhen.xyz/)
-* **Raw Repository Source Code:** [https://github.com/ruanqizhen/ruanqizhen](https://github.com/ruanqizhen/ruanqizhen) — Note: this is GitHub's special **Profile README** repository (a repo whose name equals your username, used to display a README on your profile page). It is a different concept from a Pages user site. For a clean user site URL like `https://<username>.github.io/`, you should still create a repository named exactly `<username>.github.io` as described in Step 3 above.
+* **Open-Source Code:** [https://github.com/ruanqizhen/ruanqizhen.github.io](https://github.com/ruanqizhen/ruanqizhen.github.io) (a user-site repository following the `username.github.io` naming convention)
+
+> **Clarification:** `ruanqizhen/ruanqizhen` is GitHub's special Profile repository (used to render the README intro on your profile page), while the actual Pages user-site repository is named `ruanqizhen.github.io`. If you use a custom domain (e.g., `qizhen.xyz`), configure the Custom domain in the Pages settings and add a CNAME file or DNS record.

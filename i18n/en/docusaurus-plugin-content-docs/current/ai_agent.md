@@ -45,7 +45,7 @@ flowchart TB
     style Tools fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 ```
 
-1. **Goal:** The user's top-level objective (e.g., "Move all files older than 30 days in the Downloads folder to the Recycle Bin").
+1. **Goal:** The user's top-level objective (e.g., "Move all files older than 30 days in the Downloads folder to the system temp directory for quarantine").
 2. **Planning:** Upon receiving the goal, the brain initiates a **thinking loop**. It breaks down the overarching task into actionable subtasks and leverages a self-reflection mechanism to dynamically adjust its strategy on the fly.
 3. **Memory:**
    - **Short-term Memory:** Maintains the context window and intermediate variables of the current session.
@@ -112,7 +112,7 @@ When developing operating system-level Agents, security defense must be your abs
 - ❌ *Incorrect Example:* Creating an all-purpose `run_terminal_command(cmd: str)` tool that allows the AI to directly generate and execute arbitrary PowerShell commands. This opens the door to catastrophic **Prompt Injection attacks**. If a malicious input evaluates to `&& del /f /s /q C:\Windows`, the system will be obliterated.
 - *Correct Example:* Strictly limit the AI's permissions. Developers should write highly cohesive, low-permission local Python functions (like `kill_process`). The AI is only authorized to pass parameters to these functions and should *never* touch the underlying Shell execution environment.
 
-2. **Circuit Breaker Mechanism:** Agents run in loops. If a prompt is ambiguous, the model might fall into an infinite loop of "call tool -> fail -> call again." A hard limit like `MAX_LOOPS = 5` must be hard-coded into the logic to prevent runaway token consumption.
+2. **Circuit Breaker Mechanism:** Agents run in loops. If a prompt is ambiguous, the model might fall into an infinite loop of "call tool -> fail -> call again." A hard limit like `MAX_LOOPS = 10` must be hard-coded into the logic to prevent runaway token consumption.
 3. **Introduce a "Human-in-the-Loop":** For high-risk operations—such as deleting files or terminating critical processes—the tool function must forcefully pause and wait for a manual `[Y/N]` confirmation inputted via the console.
 4. **Logging and Observability:** The large model's inner `Thought` processes and `Tool Calls` for every single step must be explicitly logged. In non-deterministic programming, this is your only reliable debugging method.
 
@@ -122,7 +122,7 @@ A standard system-level Agent typically utilizes atomic tools with strictly defi
 
 - `get_system_stats()`: Retrieves real-time CPU and memory usage using the `psutil` module.
 - `open_app(app_name)`: Safely launches a process via `subprocess.Popen` using a strict whitelist (e.g., only allowing `notepad`, `calc`).
-- `list_desktop_pdfs()`: Dynamically locates the current user's desktop path, scans for `.pdf` files, and formats the metadata for output.
+- `list_directory_files(path, extension)`: Dynamically resolves the real path of a whitelisted directory, scans it, and formats file metadata for output (with optional extension filtering).
 - `clean_downloads_folder(days)`: Scans the downloads directory for files older than a specified number of days, and mandates a safe confirmation before moving or deleting them via `shutil`.
 - `kill_process(process_name)`: Locates and terminates a specified application using `psutil` based on a blacklist (expressly forbidding the termination of core system processes like `explorer.exe` or `svchost.exe`).
 - `set_reminder(minutes, message)`: Uses `threading.Timer` to spawn an asynchronous background thread, triggering a system-level reminder when the time expires without blocking the main application thread.

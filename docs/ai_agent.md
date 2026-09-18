@@ -45,7 +45,7 @@ flowchart TB
     style Tools fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 ```
 
-1. **目标（Goal）：** 用户的顶层输入（例如：“帮我把下载文件夹中超过 30 天的文件移到回收站”）。
+1. **目标（Goal）：** 用户的顶层输入（例如：“帮我把下载文件夹中超过 30 天的文件移到系统临时目录隔离存放”）。
 2. **规划（Planning）：** 大脑在拿到目标后，会启动**思考循环（Loop）**。它将大任务拆解为多步的子任务，并利用反思机制（Self-reflection）在运行中动态修正路线。
 3. **记忆（Memory）：**
    - **短期记忆：** 维持当前会话的上下文（Context Window）和中间变量。
@@ -115,7 +115,7 @@ flowchart TD
 - *正确示范：* 严格限制 AI 权限。由开发者编写高内聚、低权限的本地 Python 函数（如 `kill_process`），AI 只有参数的投递权，接触不到底层的 Shell 执行权限。
 
 
-2. **熔断机制（Circuit Breaker）：** Agent 运行在循环中，如果 Prompt 产生歧义，模型可能会陷入“调用工具 -> 失败 -> 再调用”的死循环。必须在代码层面硬编码 `MAX_LOOPS = 5`，防止 Token 遭遇意外暴刷。
+2. **熔断机制（Circuit Breaker）：** Agent 运行在循环中，如果 Prompt 产生歧义，模型可能会陷入“调用工具 -> 失败 -> 再调用”的死循环。必须在代码层面硬编码 `MAX_LOOPS = 10`，防止 Token 遭遇意外暴刷。
 3. **引入“人机协同（Human-in-the-loop）”：**
 针对删除文件、终止进程等高危操作，在工具函数内部必须强制挂起，等待控制台输入 `[Y/N]` 确认。
 4. **日志与可观测性（Observability）：**
@@ -127,7 +127,7 @@ flowchart TD
 
 - `get_system_stats()`：基于 `psutil` 模块获取 CPU 与内存实时占用率。
 - `open_app(app_name)`：基于白名单限制（如仅允许 `notepad`、`calc`），通过 `subprocess.Popen` 安全拉起进程。
-- `list_desktop_pdfs()`：动态获取当前系统用户桌面路径，扫描并格式化输出所有 `.pdf` 文件的元数据。
+- `list_directory_files(path, extension)`：动态获取受限白名单目录的真实路径，扫描并格式化输出文件的元数据（可按扩展名过滤）。
 - `clean_downloads_folder(days)`：扫描下载目录，筛选超出指定天数的文件，触发安全确认后通过 `shutil` 移动或清理。
 - `kill_process(process_name)`：基于黑名单限制（禁止终止 `explorer.exe`、`svchost.exe` 等核心系统进程），通过 `psutil` 遍历并终止指定应用。
 - `set_reminder(minutes, message)`：为避免阻塞主线程，利用 `threading.Timer` 启动异步后台线程，到点后在系统层触发提醒。
@@ -142,7 +142,7 @@ flowchart TD
 
 ### 生成结果
 
-最后我们把优化后的提示词给 AI，让它生成最终的完整源码。这里我们让 AI 生成一个 Python 单文件，包含了上述所有功能。我们也不需要掌握 Python 就可以运行。不过如果对 Python 有兴趣，可以参考这本[《Python 秘籍》](https://py.qizhen.xyz/)。
+最后我们把优化后的提示词给 AI，让它生成最终的完整源码。这里我们让 AI 生成一个 Python 单文件，包含了上述所有功能。我们也不需要掌握 Python 就可以运行。不过如果对 Python 有兴趣，可以参考另一本[《Python 秘籍》](https://py.qizhen.xyz/)。
 
 
 ### 如何安装与运行 Python 脚本

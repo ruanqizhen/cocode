@@ -1,58 +1,56 @@
-# Intent Architecture: The SPET Loop
+# Making a Plan
 
 > "Give me six hours to chop down a tree, and I will spend the first four sharpening the axe." — Abraham Lincoln
 
-Establishing Context boundaries (via `PRODUCT.md` and `ARCHITECTURE.md`) merely builds the stage. The true execution—how to deconstruct macro-features, how to orchestrate the AI Agent's workflow, how to enforce quality control, and how to execute merges—is the actual performance.
+Architecture and context engineering solve the "stage" problem — making the environment where the AI works clear enough. But day-to-day development is the performance on that stage: how tasks are broken down, how work flows forward, how quality is guarded, and how code gets merged.
 
-This chapter transitions into the **Execution Topology**: The deterministic engineering pipeline that allows an AI to operate as a Principal Developer, and the systems required to make this workflow mathematically sustainable.
+From this chapter on, we enter the **daily rhythm and development workflow** part: a workflow that lets AI operate efficiently as the primary developer, plus the engineering mechanisms that keep it sustainable.
 
-In the AI era, there is a brutal, asymmetrical truth: **The capability of the underlying LLMs is scaling exponentially, but most engineering teams are only realizing linear gains.** 
-This is not a failure of the models; it is a failure of the workflow. The majority of developers still treat AI as a glorified autocomplete engine. They fail to orchestrate pipelines where the AI functions as an autonomous collaborator—capable of ingesting macro-tasks, self-validating its execution, and carrying momentum across complex, multi-session deployments.
+In 2026, AI development has an asymmetrical truth: **tool capabilities are improving exponentially, but most teams still benefit from them only linearly.** The reason is not that the tools are bad, but that workflows have not kept up. People still use AI as "faster autocomplete" instead of designing workflows where it can take on whole tasks, verify its own results, and keep making progress across sessions.
 
-The workflow detailed in this chapter is the apex methodology converged upon by elite AI engineering teams. It is not dependent on a specific IDE, though it utilizes the capabilities of Claude Code and modern Agents as its primary reference.
+The workflow described here is what teams that truly use AI as their primary developer converged on through trial and error in 2025–2026. It does not depend on one specific tool, though it uses Claude Code's features as its main reference point.
 
-To deploy this workflow, the first lethal bottleneck to eliminate is "Vending Machine Prompting."
-When confronting a complex, enterprise-grade repository, amateur developers will lazily hurl a vague, generalized mandate (e.g., *"Build me a real-time WebSocket chat app like Slack"*) into the prompt, expecting the AI to instantly spit out flawless, compiled production code.
+And the first thing such an efficient, sustainable workflow must solve is planning and task breakdown. Yet when facing a complex, non-trivial project, many developers still quietly fall into a "vending-machine trap": throwing an extremely vague, ambiguous request (e.g. "help me write a chat app like WeChat") at the tool as a prompt, and expecting it to spit out flawless industrial-grade code the next second.
 
-This "Blind-Box" development paradigm is mathematically doomed to fail. Within the span of a single sentence, you are forcing the LLM to simultaneously compute multidimensional matrices: Business Logic, System Architecture, Database Schema, and low-level Syntax generation. Its neural attention mechanism instantly diffuses, resulting in fractured logic and catastrophic codebase pollution.
+That blind "blind-box development" is bound to fail. You are asking the AI to handle "business-logic understanding", "architecture design", "data-model choice", and "concrete coding" all within the span of one sentence. Once its attention is diluted and polluted, all it can give back is broken, incoherent code.
 
-How does the Agent know which specific files to target? How does it know the exact test suite to invoke?
+How do you know which file to feed with `@Files` in the current flow? How does the model know when to call the terminal to run tests?
 
-The answer: You must bind the AI to a rigid, deterministic **Strategic Topology** *before* it writes a single character of code. This chapter breaks down the absolute core of modern AI engineering: **The SPET Protocol (Spec -> Plan -> Execute -> Test).** This is the precise threshold that separates standard developers from "Intent Architects."
+The answer: before the AI writes even one line of code, you must constrain its path with a clear strategic map. This chapter introduces the core methodology of modern AI programming — the SPET methodology (Spec – Plan – Execute – Test). It is the watershed between ordinary coders and "AI architects", and the link that connects the "context infrastructure" from earlier chapters to real production.
 
 ---
 
-## The SPET Execution Loop
+## The SPET Loop
 
-SPET is a rigorous software engineering paradigm designed exclusively for high-frequency Human-AI Pair Programming. It forces the developer to violently decouple the software lifecycle into four isolated, linear phases. It establishes hard "Checkpoint Gates" where the Human Architect must review and approve the trajectory:
+SPET is a software engineering pattern proven in high-frequency human-AI pairing. It forcibly decouples the whole build into four linearly ordered phases, with human-architect review gates at the key points, keeping "planning and execution strictly separated":
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Human as Intent Architect
-    participant AI as AI Agent
+    actor Human as Human Architect
+    participant AI as AI Assistant (Agent)
     
-    Note over Human, AI: Phase S: Specification (The Payload)
-    Human->>AI: Inject structured Context infrastructure (PRODUCT.md / ARCHITECTURE.md)
+    Note over Human, AI: Phase S: Specification
+    Human->>AI: Feed in the structured infra from earlier chapters (PRODUCT.md / ARCHITECTURE.md)
     
-    Note over Human, AI: Phase P: Planning (The Topology)
-    AI->>Human: Synthesize a multi-phase, highly granular Implementation Blueprint
-    Note over Human: CHECKPOINT: Architect reviews dependency graphs, boundary coupling, and scope.
-    Human-->>AI: Approve Topology OR Inject Refactoring Directives
+    Note over Human, AI: Phase P: Planning
+    AI->>Human: Generate a multi-phase, fine-grained step-by-step plan (Plan)
+    Note over Human: Human gate: verify architecture, routing, and dependency bloat
+    Human-->>AI: Approve (Approved) or request changes
     
-    Note over Human, AI: Phase E: Execution (Isolated Micro-Stepping)
-    loop Continuous Micro-Iteration
-        Human->>AI: Directive: "Execute Phase 1, Step 1. Mutate ONLY target files. Isolate context."
-        AI->>Human: Output highly cohesive Git Diff payloads
-        Note over Human: CHECKPOINT: Line-by-line Security & Logic Audit
+    Note over Human, AI: Phase E: Execution (isolated rolling execution)
+    loop Rolling iteration (micro-stepping loop)
+        Human->>AI: Directive: "Execute Step N. Only touch the specified files. Keep context tight."
+        AI->>Human: Submit a cohesive code change (Git Diff)
+        Note over Human: Human gate: review code logic and security line by line
         
-        Note over Human, AI: Phase T: Testing (Runtime Verification)
-        Human->>Human: Compile locally. Execute Unit Tests & Linter matrices.
-        alt Exit Code 0 (Success)
-            Human->>Human: Execute `git commit` to serialize the state.
-        else Fatal Exception / Logic Collapse
-            Human->>Human: Execute `git reset --hard HEAD` (Absolute Rollback)
-            Human->>AI: Inject the raw `stderr` dump. Re-execute Step 1 from a clean state.
+        Note over Human, AI: Phase T: Testing (runtime verification)
+        Human->>Human: Compile locally, run unit tests and lint checks
+        alt Verified (Exit Code 0)
+            Human->>Human: Run Git Commit to save the state
+        else Verification failed / logic broken
+            Human->>Human: Run Git Reset --hard HEAD to roll back in one step
+            Human->>AI: Feed in the current terminal error and re-execute Step N from zero
         end
     end
 ```
@@ -272,8 +270,9 @@ Architect a high-performance web editor supporting real-time Markdown rendering 
 
 We now command the AI to generate the technical matrix. **Code generation is strictly disabled.**
 
-* In Claude Code interactive session: use the slash command `/plan` — e.g., `/plan Ingest the provided Specification. You are restricted to planning mode, code mutation is forbidden. Synthesize a 12-node implementation matrix adhering to the defined architecture.`
-* Or non-interactive mode: `claude -p "Ingest the provided Specification. You are restricted to planning mode, code mutation is forbidden. Synthesize a 12-node implementation matrix adhering to the defined architecture."` — task files are stored under `.claude/tasks/` directory.
+* In Cursor: switch to `Architect` mode in Composer, feed in the Spec above and give the order.
+* In Claude Code: type in the terminal: `claude "Read the spec carefully. You are in Plan mode now; mutating any business code is forbidden. Design a 12-step implementation plan for me."`
+* In Google Antigravity: pin the Spec file in the global Pin area and wake the planner.
 
 The Agent computes the constraints and outputs a highly rigorous topology:
 
@@ -287,7 +286,7 @@ The Agent computes the constraints and outputs a highly rigorous topology:
 
 - [ ] Wave B: Markdown Compilation Engine
   - [ ] Node 4: Provision `marked` and `dompurify`. Construct the AST compilation and XSS-sanitization pipeline (`src/utils/markdownParser.ts`).
-  - [ ] Node 5: Implement bi-directional scroll synchronization between the Input Pane and the Render Pane.
+  - [ ] Node 5: Implement scroll sync between panes (one-way only: scrolling the left text box drives the right preview; do not listen both ways, to avoid infinite-loop jitter).
   - [ ] Node 6: Scaffold the Telemetry HUD `src/components/StatsBar.tsx`. Implement RegEx algorithms for accurate word-counting.
 
 - [ ] Wave C: Persistence & Auto-Save
@@ -302,7 +301,7 @@ The Agent computes the constraints and outputs a highly rigorous topology:
 ```
 
 > 🚦 **The Architect Checkpoint (Gatekeeping)**
-> The human Architect audits the matrix and detects a critical race-condition threat: *"Node 5 is architecturally flawed. If bi-directional scroll-sync utilizes complex two-way event listeners, it will trigger an infinite event-loop deadlock. Mutate the plan: Enforce ONE-WAY binding ONLY. Scrolling the Input Pane drives the Render Pane; the inverse is disabled."*
+> The human Architect audits the matrix and spots a design flaw: *"Good. But for Node 5, if two-way scroll sync uses complex two-way DOM listeners, it can easily jitter in a dead loop. Mark it clearly in that step: use one-way binding only — scrolling the left text box drives the right preview, to avoid listener conflicts."*
 > The Agent acknowledges the architectural flaw, patches Node 5, and the Architect signs off. **(APPROVED!)**
 
 ### 🚀 Phase 3: E (Execution) - Isolated Micro-Stepping
@@ -333,13 +332,13 @@ Enforce the "Zero-State Reboot" doctrine:
 Because the AI is unburdened by a polluted chat history, and explicitly warned of the exact concurrency vector, it instantly recognizes the missing `.close()` transaction block. It outputs a flawless, deadlock-free implementation.
 You compile, test the application, and receive `Exit Code 0`. Mission accomplished.
 
-## The Architect's Checkpoint Matrix
+## Checkpoint List for the Human Referee at Each Phase
 
-Human-AI Pair Programming is not "autopilot." As the Principal Architect, you must rigorously defend the integrity of your codebase at these four critical gates:
+Pair programming with AI is not "letting it run wild". As the commander and referee, you must guard the following checklist at the four gates:
 
-| Execution Phase | The Architect's Audit Matrix | The "Hard Stop" Kill Criteria |
+| Phase | Review focus (Checklist) | Red lines for rejection |
 | --- | --- | --- |
-| **S (Specification)** | Is the objective perfectly deterministic? Is the tech stack explicitly defined? Are security protocols documented? | If the prompt contains vague emotion (e.g., "Build an app that feels like X"), **HALT** and restructure. |
-| **P (Planning)** | Are file mutations isolated? Are cross-domain dependencies minimized? Is the testing signal automated? | If an atomic Node mandates modifying 8 files across the frontend and backend simultaneously, **REJECT** and force decomposition. |
-| **E (Execution)** | Does the `git diff` precisely match the current Node's scope? Did the AI hallucinate unauthorized features? | If the Agent sneaks in "helpful" but unauthorized code outside the scope of the current Node, execute an immediate `git checkout` or revert. |
-| **T (Testing)** | Does the compiler return zero errors? Are linters silent? Do the unit tests cover the new logic branches? | Pushing code to the `main` branch that contains a single active Linter warning or failed test assertion is **LETHAL.** Do not proceed. |
+| S (Specification) | Is the requirement fully structured? Is the tech choice free of redundancy? Are the security baselines stated? | Vague prose like "write an app like X" — refuse to start. |
+| P (Planning) | Does each step touch as few files as possible? Are steps loosely coupled? Is the verification method sound? | A step that modifies many modules across layers at once — force it to be rewritten and split. |
+| E (Execution) | Does the `git diff` stay within the current step's scope? Did the AI invent extra features? | The AI built something outside the current step (even if it looks nice) — roll back or delete it. |
+| T (Testing) | Zero compile errors? Zero linter warnings? Are the core branches covered by test assertions? | Merging anything with an error or static warning into the next step is forbidden. |

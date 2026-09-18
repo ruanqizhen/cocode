@@ -87,7 +87,7 @@ In today's AI API landscape, major model vendors have stratified into distinct t
 For complex programming logic, vast system refactoring, and Agentic workflows, **Anthropic (Claude)** and **OpenAI** undisputed champions, occupying the highest tier of global performance.
 
 * **The Performance King: Anthropic (Claude)**
-  Anthropic is widely regarded by developers as the absolute best vendor for code generation, structural refactoring, and bug fixing. Its flagship models (particularly the Claude 3.5 Sonnet series) serve as the default backend for nearly all premium AI programming tools. While its **overall pricing leans premium**, its exceptional adherence to complex instructions combined with aggressive prompt caching discounts (which can reduce input costs by up to 90%) makes it highly cost-effective when manipulating massive codebases.
+  Anthropic is widely regarded by developers as the absolute best vendor for code generation, structural refactoring, and bug fixing. Its flagship models (the Claude Sonnet/Opus series) serve as the default backend for nearly all premium AI programming tools. While its **overall pricing leans premium**, its exceptional adherence to complex instructions combined with aggressive prompt caching discounts (which can substantially reduce input costs) makes it highly cost-effective when manipulating massive codebases.
   
 * **The All-Around Grandmaster: OpenAI**
   As the industry pioneer, OpenAI boasts the most comprehensive model lineup (spanning from the ultra-lightweight GPT-4o-mini to the elite reasoning o1/o3 series). In general production workloads, their advanced reasoning models excel at unraveling highly complex algorithmic problems through extensive, hidden "Chain of Thought" self-correction. OpenAI's pricing sits firmly in the **industry's mid-to-high bracket**.
@@ -136,7 +136,7 @@ from openai import OpenAI
 client = OpenAI()
 
 response = client.chat.completions.create(
-    model="gpt-4o-mini", # updated to modern model
+    model="gpt-4o-mini",
     temperature=0.0,
     messages=[
         {"role": "system", "content": "You are a senior algorithmic engineering coach."},
@@ -158,7 +158,7 @@ const openai = new OpenAI();
 
 // Note: top-level await requires "type": "module" in package.json or .mjs extension, or wrap in (async () => { ... })()
 const response = await openai.chat.completions.create({
-  model: "gpt-4o-mini", // updated to modern model
+  model: "gpt-4o-mini",
   temperature: 0.0,
   messages: [
     { role: "system", content: "You are a senior algorithmic engineering coach." },
@@ -280,4 +280,4 @@ During the writing of this book, DeepSeek's pricing heavily undercut the competi
 1. **Calculate the "Cost per Task," Not Just the Unit Price**: The cheapest model isn't necessarily the most cost-effective solution. If a highly affordable model hallucinates and requires three separate requests to generate correct code, while a premium model generates flawless code on the first attempt, the premium model is actually the optimal choice for both time and capital.
 2. **Aggressively Leverage Prompt Caching**: If your AI scripts rely on massive system prompts or frequently ingest the entire codebase context, ensure your request prefixes remain static. This triggers prompt caching discounts across major vendors, potentially eliminating the vast majority of your input billing costs.
 3. **Implement a Multi-Model Orchestration Strategy**: In a production environment, avoid vendor lock-in. Utilize elite reasoning models (like Claude 3.5 Sonnet or OpenAI o1/o3) for top-level architectural design and complex task delegation. Then, route the execution of localized tasks—like writing boilerplate code, parsing logs, or generating unit tests—to blazing-fast, economical models (like GPT-4o-mini or Gemini Flash).
-4. **Utilize Batch APIs for Asynchronous Workloads**: If you are architecting tools for background code review, massive log analysis, or full-repository documentation generation where sub-second latency is irrelevant, leverage the vendor's Batch APIs. This simple architectural shift can immediately slash your operational costs by 50%.
+4. **Utilize Batch APIs for Asynchronous Workloads**: If you are architecting tools for background code review, massive log analysis, or full-repository documentation generation where sub-second latency is irrelevant, leverage the vendor's Batch APIs. This simple architectural shift can substantially lower your operational costs.

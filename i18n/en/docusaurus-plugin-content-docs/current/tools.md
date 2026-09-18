@@ -1,4 +1,4 @@
-# AI Engineering Toolchain
+# AI Programming Tools
 
 > "A workman is only as good as his tools." — English Proverb
 
@@ -14,7 +14,7 @@ As AI programming enters its industrial phase, tools have mutated from elementar
 
 ### What is a Foundation Model?
 
-AI Models (e.g., Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, DeepSeek-Coder) are raw "Intelligence Engines" trained by hyper-scalers. They operate as pure cognitive layers: you input text, they output text. The model itself cannot natively read your local filesystem, execute Bash commands, or mutate your Git tree. It is merely a hyper-intelligent "Thinker in a Void."
+AI models (e.g. Claude, GPT, Gemini, DeepSeek) are large language models trained by AI vendors. They are pure "intelligence engines": you give text in, they return text out. A model by itself cannot read your local files, run build commands, or modify your project code. It is just a highly intelligent "thinker".
 
 ### What is an AI Toolchain?
 
@@ -70,16 +70,16 @@ AI Toolchains did not achieve Agentic capabilities overnight. They evolved throu
 
 Mapping the standard Agent components to our daily IDE toolchains:
 
-| Theoretical Agent Component | Physical IDE Implementation |
-| :--- | :--- |
-| **LLM (The Brain)** | The routing to frontier APIs: Claude 3.5 Sonnet, GPT-4o, DeepSeek-R1. |
-| **Tools/Actuators (Kinetic I/O)** | Filesystem read/write APIs, Bash execution privileges, AST/Regex scrapers, Linter integrations. |
-| **Short-Term Memory** | The active chat session context window, dynamically pruned via RAG. |
-| **Long-Term Memory** | Global Configuration Files (`.cursor/rules/` (`.cursorrules` is legacy), `CLAUDE.md`, `ARCHITECTURE.md`). |
-| **Planning Engine** | The IDE's "Plan Mode" (Forcing the AI to output a Markdown architectural blueprint prior to mutating physical files). |
-| **Perception Engine** | Full-repository vector embeddings, Dependency Graph traversal. |
-| **Evaluation Engine** | CI/CD integrations, automated Test Runners (Jest/Pytest), Compiler stdout streams. |
-| **The Feedback Loop** | Autonomous self-healing triggered by non-zero Exit Codes: `Test fails ➔ Ingest trace ➔ Reflect ➔ Patch ➔ Recompile`. |
+| Generic Agent component | Implementation in AI coding tools |
+| --- | --- |
+| **LLM (brain)** | Frontier models such as Claude 4 Sonnet / Opus 4, OpenAI o3 / o4-mini, DeepSeek-V3 / R1, Gemini 2.5 Pro |
+| **Tools / Tool Use (hands and feet)** | File read/write APIs, terminal command runners, codebase semantic search, built-in browser, linter static checks |
+| **Short-term memory** | Live chat history, the currently trimmed and stitched context window |
+| **Long-term memory (Knowledge)** | Project global configs (e.g. `.cursor/rules/*.mdc`, `.cursorrules` legacy, `AGENTS.md`, `CLAUDE.md`), internal architecture docs |
+| **Planning** | The tool's built-in "Plan Mode" (generate a multi-step technical plan before touching code) |
+| **Perception** | Whole-repo vector indexing, dependency-tree parsing, AST analysis |
+| **Evaluation** | Automated test frameworks (e.g. Jest, Pytest), compiler error interception |
+| **Feedback loop** | Self-correction on execution errors: `test fails ➔ collect logs ➔ reflect ➔ regenerate code ➔ recompile` |
 
 ### The Automation Spectrum
 
@@ -156,21 +156,21 @@ The ecosystem has exploded far beyond the "IDE Plugin." The architecture of mode
 ### 1. AI-Native IDEs
 Integrated Development Environments engineered from the kernel up around the LLM. The AI is not a plugin; it is the fundamental orchestration engine.
 
-* **Artifacts:** Cursor (The market leader in global adoption, featuring devastating Agent modes), Windsurf (Elite continuous-context awareness), Antigravity (Google's native concurrent Agent IDE).
+* **Artifacts:** Cursor (the most-discussed leading product, strong Agent mode and whole-project rewrites), Windsurf (very smooth continuous context awareness), Kiro (spec-driven development for regulated industries), Antigravity (Google's native concurrent-agent IDE).
 * **Strategic Advantage:** Flawless workflow continuity. Inline execution, full-repo AST indexing, automated Bash test loops, and seamless Git Diff rendering operate synchronously.
 * **Strategic Disadvantage:** Requires migrating off legacy editors (though most are hard-forked from VS Code). Full-repo embedding generation can throttle local CPU/RAM on massive Monorepos.
 
 ### 2. Legacy IDE Plugins
 Extensions injected into legacy environments (IntelliJ, Visual Studio, Xcode).
 
-* **Artifacts:** GitHub Copilot (The Enterprise compliance juggernaut), Cline (Open-source, hyper-configurable Agent plugin), JetBrains AI.
+* **Artifacts:** GitHub Copilot (the giant in enterprise compliance), Cline (fully open-source, highly configurable Agent plugin), Continue (open-source, supports local/private model deployment), JetBrains AI Assistant (with native IntelliJ refactoring).
 * **Strategic Advantage:** Zero migration cost. Preserves 10 years of muscle memory and custom keybindings. Elite enterprise SLA, audit logging, and IP indemnification.
 * **Strategic Disadvantage:** Constrained by the host IDE's legacy extension API limits. They cannot natively highjack the entire UI frame or execute deep, autonomous, multi-file destructive mutations with the same fluidity as Native IDEs.
 
 ### 3. Terminal Agents (CLI / Headless)
 Operate natively within the Bash/Zsh terminal. They possess raw Linux execution privileges to parse files, run tests, and execute arbitrary binaries.
 
-* **Artifacts:** Claude Code (The apex predator for terminal reasoning and isolated sandboxing), Aider (The hardcore open-source CLI toolkit).
+* **Artifacts:** Claude Code (strong at terminal reasoning, large-project investigation, and sandboxed isolation), Aider (a mature, popular open-source CLI supporting auto Git commits and multiple models), Gemini CLI.
 * **Strategic Advantage:** Maximum kinetic autonomy and destructive capability. Natively interfaces with Git and CI/CD pipelines. They excel at deep architectural refactoring and brute-forcing compiler errors via local execution loops.
 * **Strategic Disadvantage:** Steep learning curve. Lacks GUI-based visual diffing; requires absolute mastery of terminal workflows.
 
@@ -184,14 +184,14 @@ Asynchronous "Digital Principal Engineers" operating invisibly within the deploy
 ### 5. Fully Hosted Cloud Agents
 Deploying high-privilege Agents in remote, isolated Docker containers (VPS) to execute massive, long-running tasks.
 
-* **Artifacts:** Devin (The autonomous pioneer), Claude Code Web, Cursor Cloud.
+* **Artifacts:** Devin (the earliest full-autonomy AI engineer prototype), Claude Code Web, Cursor Cloud Agents.
 * **Strategic Advantage:** Absolute abstraction. Inject an Issue URL (e.g., *"Patch Issue #404 and execute coverage"*), and the Agent operates asynchronously for 3 hours, delivering a final PR. The human developer works on separate tasks in parallel.
 * **Strategic Disadvantage:** Zero real-time observability. If the Agent hallucinates and enters an infinite execution loop, it burns massive compute costs (Token burn-rate) with zero output.
 
 ### 6. Vibe-Coding Frameworks (Rapid App Generators)
 Next-generation orchestrators designed to instantly compile and deploy full-stack applications from natural language prompts.
 
-* **Artifacts:** Bolt, v0 (Vercel's elite Next.js generator), Lovable.
+* **Artifacts:** Bolt (full-stack in-browser runtime), Lovable (strong front-end UI aesthetics), v0 (Vercel's Next.js interface generator), Replit Agent.
 * **Strategic Advantage:** Zero syntax required. Capable of scaffolding an MVP, database, and cloud deployment in under 5 minutes.
 * **Strategic Disadvantage:** The output is often a monolithic "Black Box." Extremely hostile to enterprise-grade refactoring, custom CI/CD, or complex security auditing. Unsuitable as foundational architecture for production enterprise systems.
 
@@ -203,13 +203,13 @@ How do you optimize this arsenal? Elite engineering organizations deploy a multi
 
 ### The Economic Capability Gradient
 
-* **Tier 1: Maximum Reasoning & Complexity (High Cost / High Latency)**
-  * Anthropic Claude Series (3.5 Sonnet / Opus) ➔ Apex programming logic and syntactic fidelity.
-  * OpenAI (o1 / o3) ➔ Apex algorithmic deduction and massive context reasoning.
-* **Tier 2: Velocity & Context Volume (Medium Cost)**
-  * Google Gemini Series (1.5 Pro) ➔ Unmatched 2M+ Token Context window for full-repo ingestion.
-* **Tier 3: The Economic Floor (Hyper-Low Cost)**
-  * DeepSeek Series (DeepSeek-V3 / R1) ➔ Delivers Tier-1 engineering capabilities at a fraction of a cent per million tokens. The absolute king of brute-force economic scaling.
+* **Top reasoning / performance tier (high cost / fixed monthly fee)**
+  * Anthropic Claude series (Claude 4 Sonnet / Opus 4 / 4.1) ➔ strongest coding logic and advanced reasoning
+  * OpenAI reasoning series (o3 / o4-mini) ➔ top algorithm and long-thinking ability
+* **Balanced mid tier (medium cost)**
+  * Google Gemini series (2.5 Pro / 2.5 Flash) ➔ huge context window and generous free quota
+* **Price floor (very low cost)**
+  * DeepSeek series (V3 / R1) ➔ near-top-tier coding performance at a floor price
 
 ### The Combined-Arms Engineering Strategy
 

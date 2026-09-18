@@ -110,7 +110,7 @@ MODEL    = os.environ.get("DEEPSEEK_MODEL",   "deepseek-chat")
 **实现要点**：
 - 使用 `psutil.cpu_percent(interval=1)` 获取 1 秒均值 CPU 使用率
 - 使用 `psutil.virtual_memory()` 获取内存信息
-- 使用 `psutil.disk_usage('C:\\')` 获取 C 盘磁盘信息
+- 动态获取系统盘符（如 `str(Path.home().anchor)`，回落为 `'C:\\'`），再调用 `psutil.disk_usage()` 获取磁盘信息，避免硬编码 `C:\\` 在非 C 盘系统上失败
 **返回格式**（JSON 字符串，下同）：
 ```json
 {

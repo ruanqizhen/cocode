@@ -59,7 +59,7 @@ In reality, this dependency does not exist anywhere on the internet. The AI inve
 
 - **"According to the new feature `useServerAction` in React 18.3..."**
 
-It spoke with such tight, airtight logic—until you checked the official React docs and realized this "new feature" was entirely fabricated in the depths of its latent space.
+It spoke with such tight, airtight logic—until you checked the official React docs and realized this "new feature" was entirely made up.
 
 ## The "Delete the Database and Run" Series
 
@@ -101,7 +101,7 @@ User: "...I just wanted to change the temporary `x` to a readable `count`."
 
 AI (Round 3): **"I strongly suggest introducing global variables here to significantly simplify our system implementation."**
 
-- AI (Morning): **"I strongly recommend using TypeScript across the board to ensure strong type safety at runtime."**
+- AI (Morning): **"I strongly recommend using TypeScript across the board to ensure strong type safety at compile time."**
 
 AI (Afternoon): **"To make the code look cleaner, I took the liberty of rewriting all complex types to `any`."**
 
