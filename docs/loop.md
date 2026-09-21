@@ -4,16 +4,16 @@
 
 在 AI 辅助编程领域，技术的范式转换往往比想象中来得更快。2023 年，我们在讨论如何写出完美的提示词（Prompt Engineering）；2024 年，重点转向了为模型提供精准上下文（Context Engineering）；到了 2025 年，Harness Engineering（为 Agent 构建可靠工作环境的工程）开始火爆。
 
-而在近期，一个更具颠覆性的概念在硅谷和开发者社区引发了广泛讨论：Loop Engineering（环路工程）。
+而在近期，一个更具颠覆性的概念在开发者社区引发了广泛讨论：Loop Engineering（环路工程）。
 
-正如 Anthropic Claude Code 负责人 Boris Cherny 所言：“我不再手动给 Claude 写提示词了。我跑了一堆 Loop 去提示它，让它自己判断接下来要做什么。我的工作变成了写 Loop。” OpenClaw 创始人 Peter Steinberger 也印证了这一点：“你不应该再亲自给 Coding Agent 写提示词了。你应当设计那些能够替你去提示 Agent 的循环系统。”
+正如 Anthropic Claude Code 负责人 Boris Cherny 所言：“我不再手动给 Claude 写提示词了。我跑了一堆 Loop 去提示它，让它自己判断接下来要做什么。我的工作变成了写 Loop。” OpenClaw 创始人 Peter Steinberger 也印证了这一点：“你不应该再亲自给 Coding Agent 写提示词了。你应当设计那些能够替你去提示 Agent 的循环系统。”随后，Google 软件工程师 Addy Osmani 将这一实践方法论体系化。
 
-随后，Google 软件工程师 Addy Osmani 将这一实践方法论体系化。本章将深度拆解 Loop Engineering 的核心理念、底层架构，以及如何用极简的代码在真实业务中落地。
+本章将深度拆解 Loop Engineering 的核心理念、底层架构，以及如何用极简的代码在真实业务中落地。
 
 
 ## 从 Harness 到 Loop 的升维
 
-在传统的“提示词时代”，人机协作通常是开环（Open-Loop）的：你输入 Prompt，AI 吐出代码，对话结束。如果报错，你需要手动复制报错信息，重新提问。这种“人机乒乓球”模式的摩擦极大，人类成为了系统效能的瓶颈。
+在传统的“提示词时代”，人机协作通常是开环（Open-Loop）的：你输入 Prompt，AI 吐出代码，对话结束。如果报错，你需要手动复制报错信息，重新提问。在这种来来回回的询问、确认中，人类往往是系统效能的瓶颈。
 
 到了 Agent 时代，为什么我们开始抛弃像 LangGraph 这样的固定工作流框架，转向看似简单的 Loop？这不是哲学问题，是工程问题。
 
