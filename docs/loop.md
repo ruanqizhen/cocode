@@ -72,15 +72,15 @@ Harness（基座工程）解决的是“单次做对”，而 Loop 解决的是�
 
 ## 核心架构
 
-要设计一个不会无限空耗 Token 的健壮 Loop，需要巧妙组合以下架构模块：
+如果要让 AI Agent 进入“自动循环干活”状态，又不至于失控、重复劳动、把 Token 烧光，那么需要把 AI Agent 分成几个模块。把这个 Loop 想象成一个小团队在值班，每个架构模块负责解决一个具体的失控风险。
+ 
 
-1. Automations（自动化/调度）：循环的心跳。通过 Cron 定时任务、Webhook 或自定义 Skill 实现的定时检查等方式设定启动节奏。例如“每 5 分钟检查一次 PR 并自动修复”（可通过 Cron 任务或 `/tasks` + 自动化脚本实现，`/loop` 并非 Claude Code 内置产品化命令）。
-2. Worktrees（工作树）：解决多 Agent 并行冲突。让 Agent 在隔离的 Git 分支目录中执行，共享历史却互不干扰（Claude Code 中通过 EnterWorktree 工具或 `git worktree` 实现隔离，而非 `--worktree` CLI flag）。
-3. Skills（技能）：固化领域知识与边界护栏。
-4. Connectors / MCP（连接器）：连接外部世界的触角，接入 Issue 看板、API 或 Slack。
-5. Sub-agents（子智能体）：实现角色分离。让一个 Agent 负责写代码（Maker），另一个独立 Agent 负责挑刺（Checker），形成质量控制机制。
-6. 支撑——Memory（记忆层/状态层）：Loop 的“脊椎”。单次会话之外的持久化层（如 Markdown 变更日志），记录“已完成什么，还剩什么”，防止跨会话时循环迷失。
-
+1. Automations（自动化/调度）：循环的心跳。决定“什么时候干活”。没有心跳，Loop 要么一直空转浪费 Token，要么没人叫醒它。常见做法是利用定时任务，例如“每 5 分钟检查一次”；或者利用 Webhook 事件触发（有新 PR 才跑）；或者自定义 Skill 做定时检查。`/loop` 不是 Claude Code 的内置命令，想做循环得自己用 Cron、`/tasks` 或脚本去搭。
+2. Worktrees（工作树）：解决多 Agent 并行冲突。多个 Agent 同时改代码，最容易互相覆盖、冲突。Git worktree 让每个 Agent 在独立的目录和分支里工作，共享同一份提交历史，但文件系统互不干扰。在 Claude Code 里这是通过 EnterWorktree 工具或 git worktree 命令实现的。
+3. Skills（技能）：固化领域知识与边界护栏。把“这个项目该怎么做、不该做什么”固化下来。比如代码规范、测试流程、禁止直接 push main 分支。Skill 让每次循环启动的 Agent 不用重新学习，直接加载同一套行为约束，减少犯错和返工。
+4. Connectors / MCP（连接器）：连接外部世界的触角。Loop 不能只活在终端里。它需要读到外部世界的状态：GitHub Issue、Jira 看板、Slack 消息、CI 结果。MCP 就是统一的接入协议，让 Agent 能查询和操作这些外部系统，形成“感知-行动”闭环。
+5. Sub-agents（子智能体）：实现角色分离。一个 Agent 既写代码又自己审查，很容易自我认同、放过 bug。拆成 Maker（负责写）和 Checker（负责挑刺）两个角色，Checker 独立评审，不通过就打回。这是一种轻量质量门禁，也是防止 Loop 自我欺骗的关键。
+6. Memory（记忆层/状态层）：Loop 的“脊椎”。单次会话结束后，Agent 会失忆。如果没有持久化状态，下一次循环醒来会重复做已经做完的事，这就是“无限空耗 Token”的主要来源。保存记忆的方法通常很朴素：用 Markdown 文件（如 PROGRESS.md、CHANGELOG.md、TODO.md）记录“做完了什么、还剩什么、当前卡在哪里”。每次循环先读记忆，再决定要不要干活、干哪一步。
 
 
 ## 用 Claude Code 复刻“知识编译 Loop”
