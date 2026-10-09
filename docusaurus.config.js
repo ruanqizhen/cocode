@@ -103,6 +103,25 @@ const config = {
         { name: 'og:title', content: '《重构程序员》 - 你的 AI 时代编程修行宝典' },
         { name: 'og:description', content: '大模型时代下的硬核编程修行指南，教你如何用严谨的领域建模与优雅的架构设计框定 AI，真正实现“人机同频”的工程共振。' },
       ],
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: '更多',
+            items: [
+              {
+                label: '返回主页',
+                href: 'https://qizhen.xyz',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/ruanqizhen',
+              },
+            ],
+          },
+        ],
+        copyright: 'Copyright © 2026 阮奇桢',
+      },
     }
   ),
   plugins: [
