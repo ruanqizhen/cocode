@@ -75,7 +75,7 @@ const sidebars = {
     {
       type: 'category',
       label: '附录',
-      collapsed: true,
+      collapsed: false,
       items: [
         'markdown',
         'ai_agent_prompt',
