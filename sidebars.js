@@ -20,6 +20,7 @@ const sidebars = {
         'github_pages',
         'mindset',
         'prompt',
+        'muse',
       ],
     },
     {
