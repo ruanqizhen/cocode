@@ -1,4 +1,4 @@
-# To My Future Self in the AI Era
+# To My Future Self in the AI Era | The Refactored Programmer
 
 > "Stay hungry, stay foolish." — Stewart Brand
 
