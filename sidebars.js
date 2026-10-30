@@ -57,6 +57,7 @@ const sidebars = {
         'cost_control',
         'harness',
         'loop',
+        'anachron',
       ],
     },
     {
