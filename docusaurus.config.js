@@ -11,6 +11,12 @@ const config = {
   tagline: '在沸腾的算力中，守住编码的初心。从大模型心法、提示词工程到 Agent 自动化与项目级重构的硬核人机协作指南。',
   url: 'https://cocode.qizhen.xyz',
   baseUrl: '/',
+  // Match how the host serves pages: Cloudflare serves a built foo.html
+  // file at /foo with no redirect, so canonical/sitemap URLs must also
+  // have no trailing slash. (trailingSlash: true would match the host
+  // too, but it breaks this repo's relative Markdown links, which assume
+  // file-style page URLs, and fails the build on broken links.)
+  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -53,6 +59,10 @@ const config = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
+          // /search is a thin client-side utility page, not content.
+          // (With trailingSlash: false the route paths have no trailing
+          // slash, so the patterns must not include one.)
+          ignorePatterns: ['/search', '/en/search'],
         },
         gtag: {
           trackingID: 'G-9EFRGQK2N0',
